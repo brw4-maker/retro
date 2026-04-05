@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ku" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RETRO ERBIL — Classic Gaming Collection</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Courier Prime',monospace;background:#0d0d0d;color:#e8e0c8;min-height:100vh}
+.scanlines{position:fixed;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.08) 2px,rgba(0,0,0,0.08) 4px);pointer-events:none;z-index:1000}
+.hero{padding:3rem 2rem 2rem;text-align:center;border-bottom:2px solid #3a3a2a;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,180,0,0.06) 0%,transparent 70%)}
+.logo{font-family:'Press Start 2P',monospace;font-size:clamp(14px,3vw,22px);color:#f5c842;letter-spacing:2px;line-height:1.6;text-shadow:3px 3px 0px #8a6f00;margin-bottom:0.8rem}
+.tagline{font-family:'VT323',monospace;font-size:clamp(18px,3vw,24px);color:#a09878;letter-spacing:3px}
+.blink{animation:blink 1.2s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+nav{display:flex;justify-content:center;border-bottom:1px solid #2a2a1a;background:#0a0a0a;flex-wrap:wrap}
+.nav-btn{font-family:'VT323',monospace;font-size:18px;letter-spacing:1px;padding:12px 24px;background:none;border:none;border-right:1px solid #2a2a1a;color:#706858;cursor:pointer;transition:all 0.15s}
+.nav-btn:last-child{border-right:none}
+.nav-btn:hover,.nav-btn.active{color:#f5c842;background:#151510}
+.main{padding:2rem;max-width:1100px;margin:0 auto}
+.section{display:none}
+.section.active{display:block}
+.section-title{font-family:'Press Start 2P',monospace;font-size:clamp(10px,2vw,13px);color:#f5c842;margin-bottom:2rem;padding-bottom:0.5rem;border-bottom:1px solid #2a2a1a;letter-spacing:1px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.card{background:#111108;border:1px solid #2a2a1a;border-radius:4px;overflow:hidden;cursor:pointer;transition:border-color 0.2s,transform 0.15s}
+.card:hover{border-color:#f5c842;transform:translateY(-2px)}
+.card-img{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:64px;border-bottom:1px solid #2a2a1a;overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:cover}
+.card-body{padding:14px}
+.card-name{font-family:'Press Start 2P',monospace;font-size:9px;color:#f5c842;margin-bottom:6px;line-height:1.6}
+.card-year{font-family:'VT323',monospace;font-size:16px;color:#706858;margin-bottom:8px}
+.card-desc{font-size:12px;color:#908870;line-height:1.5}
+.badge{display:inline-block;font-family:'VT323',monospace;font-size:13px;padding:2px 8px;margin-top:8px;border-radius:2px;background:#1e1e10;border:1px solid #3a3a1a;color:#c8b870}
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.88);display:none;align-items:center;justify-content:center;z-index:500;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:#0f0f0a;border:1px solid #f5c842;max-width:540px;width:100%;max-height:85vh;overflow-y:auto;border-radius:4px;padding:2rem;position:relative}
+.modal-close{position:absolute;top:12px;right:16px;font-family:'Press Start 2P',monospace;font-size:10px;background:none;border:none;color:#706858;cursor:pointer}
+.modal-close:hover{color:#f5c842}
+.modal-img{width:100%;max-height:220px;object-fit:cover;border-radius:4px;margin-bottom:1rem}
+.modal-icon{font-size:72px;text-align:center;margin-bottom:1rem}
+.modal-title{font-family:'Press Start 2P',monospace;font-size:11px;color:#f5c842;margin-bottom:0.5rem;line-height:1.6}
+.modal-year{font-family:'VT323',monospace;font-size:20px;color:#706858;margin-bottom:1rem}
+.modal-desc{font-size:14px;color:#a09878;line-height:1.7;margin-bottom:1.5rem}
+.modal-label{font-family:'VT323',monospace;font-size:18px;color:#f5c842;margin-bottom:8px}
+.chip{display:inline-block;font-family:'VT323',monospace;font-size:14px;padding:3px 10px;margin:3px;background:#191908;border:1px solid #3a3a1a;color:#c8b870;border-radius:2px}
+.about-box{background:#111108;border:1px solid #2a2a1a;border-radius:4px;padding:2rem;max-width:640px}
+.about-title{font-family:'VT323',monospace;font-size:22px;color:#f5c842;display:block;margin-bottom:1rem}
+.about-text{font-size:15px;color:#a09878;line-height:1.8}
+.wa-btn{display:inline-flex;align-items:center;gap:10px;margin-top:1.5rem;padding:12px 20px;background:#0d2a12;border:1px solid #25d366;border-radius:4px;color:#25d366;font-family:'VT323',monospace;font-size:20px;letter-spacing:1px;text-decoration:none;transition:background 0.2s}
+.wa-btn:hover{background:#112e17}
+.pixel-art{font-family:'VT323',monospace;font-size:13px;color:#3a3a2a;line-height:1.3;margin:1.5rem 0 0;text-align:center}
+footer{text-align:center;padding:1.5rem;border-top:1px solid #2a2a1a;font-family:'VT323',monospace;font-size:15px;color:#3a3a2a;margin-top:3rem}
+/* ADMIN BUTTON */
+.admin-btn{position:fixed;bottom:20px;right:20px;z-index:900;font-family:'Press Start 2P',monospace;font-size:9px;padding:10px 14px;background:#111108;border:1px solid #2a2a1a;color:#3a3a2a;cursor:pointer;border-radius:4px;transition:all 0.2s}
+.admin-btn:hover{border-color:#f5c842;color:#f5c842}
+/* ADMIN OVERLAY */
+.admin-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.96);display:none;z-index:800;overflow-y:auto}
+.admin-overlay.open{display:block}
+.admin-panel{max-width:820px;margin:0 auto;padding:2rem}
+.admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;border-bottom:1px solid #2a2a1a;padding-bottom:1rem}
+.admin-title{font-family:'Press Start 2P',monospace;font-size:12px;color:#f5c842}
+.a-close{font-family:'VT323',monospace;font-size:20px;background:none;border:1px solid #3a3a1a;color:#706858;padding:6px 14px;cursor:pointer;border-radius:4px}
+.a-close:hover{color:#f5c842;border-color:#f5c842}
+.a-tabs{display:flex;margin-bottom:2rem;border:1px solid #2a2a1a;border-radius:4px;overflow:hidden}
+.a-tab{flex:1;font-family:'VT323',monospace;font-size:18px;padding:10px;background:none;border:none;color:#706858;cursor:pointer;transition:all 0.15s}
+.a-tab.active{background:#1a1a0a;color:#f5c842}
+.a-item{background:#111108;border:1px solid #2a2a1a;border-radius:4px;padding:14px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.a-item-icon{font-size:28px;flex-shrink:0}
+.a-item-info{flex:1}
+.a-item-name{font-family:'Press Start 2P',monospace;font-size:8px;color:#f5c842;margin-bottom:4px}
+.a-item-year{font-family:'VT323',monospace;font-size:14px;color:#706858}
+.a-btns{display:flex;gap:6px}
+.b-edit{font-family:'VT323',monospace;font-size:14px;padding:4px 12px;background:none;border:1px solid #3a3a1a;color:#c8b870;cursor:pointer;border-radius:2px}
+.b-edit:hover{border-color:#f5c842;color:#f5c842}
+.b-del{font-family:'VT323',monospace;font-size:14px;padding:4px 12px;background:none;border:1px solid #2a0a0a;color:#8a3a3a;cursor:pointer;border-radius:2px}
+.b-del:hover{border-color:#e24b4a;color:#e24b4a}
+.a-form{background:#111108;border:1px solid #2a2a1a;border-radius:4px;padding:1.5rem;margin-top:1rem}
+.f-title{font-family:'Press Start 2P',monospace;font-size:10px;color:#f5c842;margin-bottom:1.5rem}
+.f-row{margin-bottom:1rem}
+.f-label{font-family:'VT323',monospace;font-size:16px;color:#a09878;display:block;margin-bottom:4px}
+.f-input{width:100%;background:#0a0a08;border:1px solid #2a2a1a;color:#e8e0c8;font-family:'Courier Prime',monospace;font-size:13px;padding:8px 12px;border-radius:4px;outline:none}
+.f-input:focus{border-color:#f5c842}
+.f-textarea{min-height:80px;resize:vertical}
+.f-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.b-save{font-family:'VT323',monospace;font-size:18px;padding:10px 24px;background:#1a1a08;border:1px solid #f5c842;color:#f5c842;cursor:pointer;border-radius:4px}
+.b-save:hover{background:#252510}
+.b-cancel{font-family:'VT323',monospace;font-size:18px;padding:10px 24px;background:none;border:1px solid #3a3a1a;color:#706858;cursor:pointer;border-radius:4px;margin-left:8px}
+.b-cancel:hover{color:#a09878}
+.b-add{font-family:'VT323',monospace;font-size:18px;padding:10px 20px;background:#0a1a0a;border:1px solid #25d366;color:#25d366;cursor:pointer;border-radius:4px;margin-bottom:1.5rem;display:block;width:100%;text-align:center}
+.b-add:hover{background:#0d2a0d}
+.login-box{max-width:360px;margin:5rem auto;background:#111108;border:1px solid #2a2a1a;border-radius:4px;padding:2rem;text-align:center}
+.login-title{font-family:'Press Start 2P',monospace;font-size:11px;color:#f5c842;margin-bottom:1.5rem;line-height:1.6}
+.l-err{font-family:'VT323',monospace;font-size:16px;color:#e24b4a;margin-bottom:1rem;display:none}
+.f-hint{font-family:'VT323',monospace;font-size:13px;color:#706858;margin-top:4px}
+@media(max-width:480px){.nav-btn{padding:10px 14px;font-size:15px}.hero{padding:2rem 1rem 1.5rem}.main{padding:1rem}.f-2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="scanlines"></div>
+<div class="hero">
+  <div class="logo">RETRO ERBIL<br><span style="font-size:0.6em;color:#c8b870">CLASSIC GAMING COLLECTION</span></div>
+  <div class="tagline">INSERT COIN TO CONTINUE <span class="blink">█</span></div>
+</div>
+<nav>
+  <button class="nav-btn active" onclick="showSection('consoles',this)">CONSOLES</button>
+  <button class="nav-btn" onclick="showSection('games',this)">GAMES</button>
+  <button class="nav-btn" onclick="showSection('about',this)">ABOUT</button>
+</nav>
+<div class="main">
+  <div class="section active" id="sec-consoles">
+    <div class="section-title">// CONSOLE COLLECTION</div>
+    <div class="grid" id="consolesGrid"></div>
+  </div>
+  <div class="section" id="sec-games">
+    <div class="section-title">// GAME LIBRARY</div>
+    <div class="grid" id="gamesGrid"></div>
+  </div>
+  <div class="section" id="sec-about">
+    <div class="section-title">// ABOUT THE COLLECTION</div>
+    <div class="about-box">
+      <span class="about-title">RETRO ERBIL — HEWLÊR, KURDISTAN</span>
+      <p class="about-text">ئەم کۆکراوەیە باشترین کۆنسۆل و یاریە کلاسیکەکانی مێژووی گەیمینگ لەخۆ دەگرێت. لە سەردەمی ١٦-بیتی تا سەردەمی ٣٢-بیتی، هەر کۆنسۆلێک چیرۆکێکی تایبەتی خۆی هەیە.<br><br>بۆ زانیاری زیاتر یان کڕین پەیوەندیمان پێوە بکە:</p>
+      <a class="wa-btn" href="https://wa.me/9647506041911" target="_blank">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        0750 604 1911 — WHATSAPP
+      </a>
+      <div class="pixel-art">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░<br>▓▓▓ RETRO ERBIL — GOLDEN AGE OF GAMING ▓▓▓<br>░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░</div>
+    </div>
+  </div>
+</div>
+<footer>© RETRO ERBIL — HEWLÊR, KURDISTAN — PRESS START</footer>
+
+<!-- View Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target.id==='modalOverlay')closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕ CLOSE</button>
+    <img id="mImg" class="modal-img" src="" alt="" style="display:none">
+    <div id="mIcon" class="modal-icon"></div>
+    <div class="modal-title" id="mTitle"></div>
+    <div class="modal-year" id="mYear"></div>
+    <div class="modal-desc" id="mDesc"></div>
+    <div class="modal-label" id="mLabel"></div>
+    <div id="mChips"></div>
+  </div>
+</div>
+
+<!-- Admin Button -->
+<button class="admin-btn" onclick="openAdmin()">⚙ ADMIN</button>
+
+<!-- Admin Overlay -->
+<div class="admin-overlay" id="adminOverlay">
+  <!-- Login -->
+  <div id="loginBox" class="login-box">
+    <div class="login-title">🔐 ADMIN<br>RETRO ERBIL</div>
+    <div class="l-err" id="loginErr">پاسوۆردەکە هەڵەیە!</div>
+    <div class="f-row">
+      <label class="f-label">پاسوۆرد</label>
+      <input class="f-input" type="password" id="pwInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="b-save" style="width:100%;margin-top:0.5rem" onclick="doLogin()">چوونە ژوورەوە →</button>
+    <br>
+    <button class="b-cancel" style="width:100%;margin-top:0.5rem;margin-left:0" onclick="closeAdmin()">گەڕانەوە</button>
+  </div>
+  <!-- Dashboard -->
+  <div id="dashboard" style="display:none">
+    <div class="admin-panel">
+      <div class="admin-header">
+        <div class="admin-title">⚙ پانێلی بەڕێوەبردن</div>
+        <button class="a-close" onclick="closeAdmin()">✕ داخستن</button>
+      </div>
+      <div class="a-tabs">
+        <button class="a-tab active" onclick="switchTab('consoles',this)">🎮 کۆنسۆلەکان</button>
+        <button class="a-tab" onclick="switchTab('games',this)">🕹 یاریەکان</button>
+        <button class="a-tab" onclick="switchTab('pw',this)">🔐 پاسوۆرد</button>
+      </div>
+      <div id="tab-consoles"></div>
+      <div id="tab-games" style="display:none"></div>
+      <div id="tab-pw" style="display:none">
+        <div class="a-form">
+          <div class="f-title">🔐 گۆڕینی پاسوۆرد</div>
+          <div class="f-row"><label class="f-label">پاسوۆردی نوێ</label><input class="f-input" type="password" id="np1" placeholder="پاسوۆردی نوێ"></div>
+          <div class="f-row"><label class="f-label">دووبارە بنووسە</label><input class="f-input" type="password" id="np2" placeholder="دووبارە"></div>
+          <div id="pwMsg" style="font-family:VT323,monospace;font-size:16px;margin:8px 0"></div>
+          <button class="b-save" onclick="changePw()">پاسوۆرد بگۆڕە</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DATA ─────────────────────────────────────────────────────
+const DEF_CONSOLES=[
+  {icon:"🎮",name:"PLAYSTATION 1",year:"1994 — SONY",color:"#1a1a3a",image:"",desc:"The original PlayStation revolutionized gaming with CD-ROM technology, 3D graphics, and an iconic DualShock controller. It sold over 102 million units worldwide.",specs:["32-bit CPU","CD-ROM","33 MHz MIPS"],games:["Final Fantasy VII","Metal Gear Solid","Crash Bandicoot","Tekken 3","Spyro the Dragon","Gran Turismo"]},
+  {icon:"🕹️",name:"PLAYSTATION 2",year:"2000 — SONY",color:"#0a0a2a",image:"",desc:"The best-selling console of all time with over 155 million units sold. The PS2's DVD capability made it a multimedia powerhouse beyond gaming.",specs:["128-bit Emotion Engine","DVD","300 MHz CPU"],games:["Shadow of the Colossus","God of War","GTA: San Andreas","Kingdom Hearts","Devil May Cry","Ico"]},
+  {icon:"🎲",name:"GAMECUBE",year:"2001 — NINTENDO",color:"#1a0a3a",image:"",desc:"Nintendo's compact purple cube — powerful hardware, innovative mini-disc format, and some of the greatest exclusives ever made.",specs:["128-bit Gekko CPU","Mini-DVD","485 MHz"],games:["Zelda: Wind Waker","Metroid Prime","Super Smash Bros. Melee","Pikmin","Resident Evil 4","F-Zero GX"]},
+  {icon:"📻",name:"SEGA SATURN",year:"1994 — SEGA",color:"#2a0a0a",image:"",desc:"Sega's most powerful but tragically overlooked system. Stunning 2D graphics and arcade-perfect ports.",specs:["Dual SH-2 CPU","CD-ROM","28.6 MHz each"],games:["Panzer Dragoon Saga","Sega Rally","NiGHTS into Dreams","Virtua Fighter 2","Guardian Heroes","Burning Rangers"]},
+  {icon:"🦔",name:"SEGA MEGA DRIVE",year:"1988 — SEGA",color:"#0a1a0a",image:"",desc:"Genesis does what Nintendon't. The definitive 16-bit rival to the Super Nintendo.",specs:["16-bit Motorola 68000","Cartridge","7.6 MHz"],games:["Sonic the Hedgehog","Streets of Rage 2","Earthworm Jim","Mortal Kombat II","Vectorman","Gunstar Heroes"]},
+  {icon:"🍄",name:"SUPER NINTENDO",year:"1990 — NINTENDO",color:"#1a0a2a",image:"",desc:"The pinnacle of 16-bit gaming. Mode 7 scaling and rotation effects looked like magic.",specs:["16-bit 65C816","Cartridge","3.58 MHz"],games:["Super Mario World","Zelda: A Link to the Past","Chrono Trigger","Super Metroid","Donkey Kong Country","F-Zero"]},
+];
+const DEF_GAMES=[
+  {icon:"⚔️",name:"FINAL FANTASY VII",year:"1997 — SQUARE",color:"#1a0a3a",image:"",desc:"A landmark JRPG that told the story of Cloud Strife and AVALANCHE against the mega-corporation Shinra. One of the most influential games ever made.",specs:["PlayStation 1","Turn-based RPG","3 Discs"],games:["Cloud Strife","Sephiroth","Aerith Gainsborough","Tifa Lockhart","Barret Wallace"]},
+  {icon:"🐍",name:"METAL GEAR SOLID",year:"1998 — KONAMI",color:"#0a1a0a",image:"",desc:"Hideo Kojima's stealth masterpiece. Solid Snake infiltrates Shadow Moses Island in a tense espionage thriller.",specs:["PlayStation 1","Stealth Action","2 Discs"],games:["Solid Snake","Liquid Snake","Meryl Silverburgh","Gray Fox","Revolver Ocelot"]},
+  {icon:"🌀",name:"SONIC THE HEDGEHOG 2",year:"1992 — SEGA",color:"#0a0a2a",image:"",desc:"The fastest thing alive. Sonic 2 introduced Miles 'Tails' Prower and the iconic Emerald Hill Zone.",specs:["Sega Mega Drive","Platformer","Cartridge"],games:["Sonic","Tails","Dr. Eggman","Chemical Plant Zone","Casino Night Zone"]},
+  {icon:"🕐",name:"CHRONO TRIGGER",year:"1995 — SQUARE",color:"#1a1a0a",image:"",desc:"Widely considered the greatest RPG ever made. Time travel across multiple eras with 13 different endings.",specs:["Super Nintendo","Turn-based RPG","Cartridge"],games:["Crono","Marle","Lucca","Robo","Frog","Magus"]},
+];
+
+function ld(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+
+let CC=ld('re_c',DEF_CONSOLES);
+let GG=ld('re_g',DEF_GAMES);
+let PW=ld('re_pw','retro1234');
+let loggedIn=false;
+let curTab='consoles';
+
+// ── PUBLIC ────────────────────────────────────────────────────
+function renderAll(){
+  renderGrid(CC,'consolesGrid','CLASSIC GAMES:');
+  renderGrid(GG,'gamesGrid','NOTABLE TITLES:');
+}
+
+function renderGrid(items,id,lbl){
+  const g=document.getElementById(id);
+  g.innerHTML='';
+  items.forEach(item=>{
+    const c=document.createElement('div');
+    c.className='card';
+    const imgPart=item.image
+      ?`<div class="card-img"><img src="${item.image}" alt="${item.name}" onerror="this.parentElement.innerHTML='<span style=font-size:64px>${item.icon}</span>'"></div>`
+      :`<div class="card-img" style="background:${item.color}">${item.icon}</div>`;
+    c.innerHTML=`${imgPart}<div class="card-body"><div class="card-name">${item.name}</div><div class="card-year">${item.year}</div><div class="card-desc">${item.desc.substring(0,80)}...</div><div>${item.specs.map(s=>`<span class="badge">${s}</span>`).join('')}</div></div>`;
+    c.onclick=()=>openModal(item,lbl);
+    g.appendChild(c);
+  });
+}
+
+function openModal(item,lbl){
+  const img=document.getElementById('mImg'),ico=document.getElementById('mIcon');
+  if(item.image){img.src=item.image;img.style.display='block';ico.style.display='none';}
+  else{img.style.display='none';ico.style.display='block';ico.textContent=item.icon;}
+  document.getElementById('mTitle').textContent=item.name;
+  document.getElementById('mYear').textContent=item.year;
+  document.getElementById('mDesc').textContent=item.desc;
+  document.getElementById('mLabel').textContent=lbl;
+  document.getElementById('mChips').innerHTML=item.games.map(g=>`<span class="chip">${g}</span>`).join('');
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');}
+
+function showSection(n,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+n).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── ADMIN ─────────────────────────────────────────────────────
+function openAdmin(){
+  document.getElementById('adminOverlay').classList.add('open');
+  if(loggedIn){document.getElementById('loginBox').style.display='none';document.getElementById('dashboard').style.display='block';buildTab(curTab);}
+  else{document.getElementById('loginBox').style.display='block';document.getElementById('dashboard').style.display='none';}
+}
+function closeAdmin(){
+  document.getElementById('adminOverlay').classList.remove('open');
+  document.getElementById('pwInput').value='';
+  document.getElementById('loginErr').style.display='none';
+}
+function doLogin(){
+  if(document.getElementById('pwInput').value===PW){
+    loggedIn=true;
+    document.getElementById('loginBox').style.display='none';
+    document.getElementById('dashboard').style.display='block';
+    document.getElementById('pwInput').value='';
+    buildTab(curTab);
+  } else {
+    document.getElementById('loginErr').style.display='block';
+  }
+}
+function switchTab(tab,btn){
+  curTab=tab;
+  document.querySelectorAll('.a-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  ['consoles','games','pw'].forEach(t=>document.getElementById('tab-'+t).style.display=t===tab?'block':'none');
+  if(tab!=='pw')buildTab(tab);
+}
+function buildTab(tab){
+  const items=tab==='consoles'?CC:GG;
+  const el=document.getElementById('tab-'+tab);
+  let html=`<button class="b-add" onclick="showForm('${tab}',-1)">+ ${tab==='consoles'?'کۆنسۆلێکی نوێ زیاد بکە':'یارییەکی نوێ زیاد بکە'}</button><div id="alist-${tab}">`;
+  items.forEach((item,i)=>{
+    html+=`<div class="a-item"><div class="a-item-icon">${item.icon}</div><div class="a-item-info"><div class="a-item-name">${item.name}</div><div class="a-item-year">${item.year}</div></div><div class="a-btns"><button class="b-edit" onclick="showForm('${tab}',${i})">✏ گۆڕین</button><button class="b-del" onclick="delItem('${tab}',${i})">✕</button></div></div>`;
+  });
+  html+=`</div><div id="aform-${tab}"></div>`;
+  el.innerHTML=html;
+}
+function delItem(tab,i){
+  if(!confirm('دڵنیایت؟'))return;
+  if(tab==='consoles'){CC.splice(i,1);sv('re_c',CC);}
+  else{GG.splice(i,1);sv('re_g',GG);}
+  renderAll();buildTab(tab);
+}
+function showForm(tab,i){
+  const items=tab==='consoles'?CC:GG;
+  const item=i>=0?items[i]:{icon:'🎮',name:'',year:'',color:'#1a1a3a',image:'',desc:'',specs:[],games:[]};
+  const isNew=i<0;
+  document.getElementById('aform-'+tab).innerHTML=`
+  <div class="a-form">
+    <div class="f-title">${isNew?'+ زیادکردن':'✏ گۆڕین'}</div>
+    <div class="f-2">
+      <div class="f-row"><label class="f-label">ئایکۆن (ئیمۆجی)</label><input class="f-input" id="fi" value="${item.icon}"></div>
+      <div class="f-row"><label class="f-label">رەنگ</label><input class="f-input" id="fc" type="color" value="${item.color}" style="height:40px;padding:2px"></div>
+    </div>
+    <div class="f-row"><label class="f-label">ناو</label><input class="f-input" id="fn" value="${item.name}" placeholder="PLAYSTATION 1"></div>
+    <div class="f-row"><label class="f-label">ساڵ و بەرهەمهێنەر</label><input class="f-input" id="fy" value="${item.year}" placeholder="1994 — SONY"></div>
+    <div class="f-row">
+      <label class="f-label">لینکی وێنە</label>
+      <input class="f-input" id="fim" value="${item.image}" placeholder="https://i.imgur.com/abc.jpg">
+      <div class="f-hint">وێنەکەت ئەپلۆد بکە بۆ imgur.com — ئینجا لینکەکەی لێرە بنووسە</div>
+    </div>
+    <div class="f-row"><label class="f-label">وەسف</label><textarea class="f-input f-textarea" id="fd">${item.desc}</textarea></div>
+    <div class="f-row"><label class="f-label">تایبەتمەندیەکان (بە کامایەوە)</label><input class="f-input" id="fs" value="${item.specs.join(', ')}" placeholder="32-bit CPU, CD-ROM"></div>
+    <div class="f-row"><label class="f-label">${tab==='consoles'?'یاریە نامدارەکان':'کەسایەتیەکان'} (بە کامایەوە)</label><input class="f-input" id="fg" value="${item.games.join(', ')}"></div>
+    <div style="margin-top:1rem">
+      <button class="b-save" onclick="saveForm('${tab}',${i})">💾 پاشەکەوت بکە</button>
+      <button class="b-cancel" onclick="document.getElementById('aform-${tab}').innerHTML=''">پاشگەزبوونەوە</button>
+    </div>
+  </div>`;
+  document.getElementById('aform-'+tab).scrollIntoView({behavior:'smooth'});
+}
+function saveForm(tab,i){
+  const newItem={
+    icon:document.getElementById('fi').value.trim()||'🎮',
+    name:document.getElementById('fn').value.trim().toUpperCase(),
+    year:document.getElementById('fy').value.trim(),
+    color:document.getElementById('fc').value,
+    image:document.getElementById('fim').value.trim(),
+    desc:document.getElementById('fd').value.trim(),
+    specs:document.getElementById('fs').value.split(',').map(s=>s.trim()).filter(Boolean),
+    games:document.getElementById('fg').value.split(',').map(s=>s.trim()).filter(Boolean),
+  };
+  if(!newItem.name){alert('ناوەکە بنووسە!');return;}
+  const arr=tab==='consoles'?CC:GG;
+  if(i>=0)arr[i]=newItem; else arr.push(newItem);
+  if(tab==='consoles')sv('re_c',CC); else sv('re_g',GG);
+  renderAll();buildTab(tab);
+}
+function changePw(){
+  const p1=document.getElementById('np1').value,p2=document.getElementById('np2').value,m=document.getElementById('pwMsg');
+  if(!p1){m.style.color='#e24b4a';m.textContent='پاسوۆردی نوێ بنووسە!';return;}
+  if(p1!==p2){m.style.color='#e24b4a';m.textContent='پاسوۆردەکان یەک نین!';return;}
+  PW=p1;sv('re_pw',PW);
+  m.style.color='#25d366';m.textContent='✓ پاسوۆردەکە گۆڕدرا!';
+  document.getElementById('np1').value='';document.getElementById('np2').value='';
+}
+
+renderAll();
+</script>
+</body>
+</html>
