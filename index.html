@@ -1,14 +1,3 @@
- const firebaseConfig = {
-    apiKey: "AIzaSyCmrGwoSQIFrWpVTH4W8aoumJfEyYP3F1E",
-    authDomain: "contactfrom-2ef93.firebaseapp.com",
-    databaseURL: "https://contactfrom-2ef93-default-rtdb.firebaseio.com",
-    projectId: "contactfrom-2ef93",
-    storageBucket: "contactfrom-2ef93.firebasestorage.app",
-    messagingSenderId: "238509815149",
-    appId: "1:238509815149:web:e481ee7eae4e7518d15664",
-    measurementId: "G-5D8GB9HHKP"
-  };
-
 <!DOCTYPE html>
 <html lang="ku" dir="ltr">
 <head>
@@ -368,6 +357,32 @@ function changePw(){
 }
 
 renderAll();
+ <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+  // زانیارییەکانی پڕۆژەکەی تۆ
+  const firebaseConfig = {
+    apiKey: "AIzaSyCmrGwoSQIFrWpVTH4W8aoumJfEyYP3F1E",
+    authDomain: "contactfrom-2ef93.firebaseapp.com",
+    databaseURL: "https://contactfrom-2ef93-default-rtdb.firebaseio.com",
+    projectId: "contactfrom-2ef93",
+    storageBucket: "contactfrom-2ef93.appspot.com",
+    messagingSenderId: "238509815149",
+    appId: "1:238509815149:web:e481ee7eae4e7518d15664",
+    measurementId: "G-5D8GB9HHKP"
+  };
+
+  // دەسپێکردن
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // نموونەیەک بۆ پاشەکەوتکردنی زانیاری (بۆ نموونە گۆڕینی وشەی تێپەڕ)
+  window.updateData = function(newVal) {
+    set(ref(db, 'settings/password'), newVal)
+      .then(() => alert("گۆڕانکارییەکە بۆ هەمووان جێبەجێ کرا!"))
+      .catch((error) => console.error("هەڵەیەک ڕوویدا:", error));
+  };
 </script>
 </body>
 </html>
