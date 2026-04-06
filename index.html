@@ -173,7 +173,13 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid #2a2a1a;font-family
       <div class="a-tabs">
         <button class="a-tab active" onclick="switchTab('consoles',this)">🎮 کۆنسۆلەکان</button>
         <button class="a-tab" onclick="switchTab('games',this)">🕹 یاریەکان</button>
-        <button class="a-tab" onclick="switchTab('pw',this)">🔐 پاسوۆرد</button>
+         <div class="a-form">
+    <input class="f-input" id="fn" value="${item.name}" placeholder="ناو">
+    <input class="f-input" id="fim" value="${item.image}" placeholder="لینکی وێنە">
+    <textarea class="f-input" id="fd" placeholder="وەسف">${item.desc}</textarea>
+    <button class="b-save" onclick="saveForm('${tab}',${i})">Save</button>
+  </div>`;
+       <button class="a-tab" onclick="switchTab('pw',this)">🔐 پاسوۆرد</button>
       </div>
       <div id="tab-consoles"></div>
       <div id="tab-games" style="display:none"></div>
