@@ -120,8 +120,8 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid #2a2a1a;font-family
   <div class="section" id="sec-about">
     <div class="section-title">// ABOUT THE COLLECTION</div>
     <div class="about-box">
-      <span class="about-title">اربیل سوق نشتمان محل سامئ —هەولێر بازاڕی نیشتیمان نهۆمی خوارەوە پێشانگای سامی</span>
-      <p class="about-text">ئەم کۆکراوەیە باشترین کۆنسۆل و یاریە کلاسیکەکانی مێژووی گەیمینگ لەخۆ دەگرێت.  هەر کۆنسۆلێک چیرۆکێکی تایبەتی خۆی هەیە.<br><br>للتصال -بۆ زانیاری زیاتر یان کڕین پەیوەندیمان پێوە بکە:</p>
+      <span class="about-title">RETRO ERBIL — HEWLÊR, KURDISTAN</span>
+      <p class="about-text">ئەم کۆکراوەیە باشترین کۆنسۆل و یاریە کلاسیکەکانی مێژووی گەیمینگ لەخۆ دەگرێت. لە سەردەمی ١٦-بیتی تا سەردەمی ٣٢-بیتی، هەر کۆنسۆلێک چیرۆکێکی تایبەتی خۆی هەیە.<br><br>بۆ زانیاری زیاتر یان کڕین پەیوەندیمان پێوە بکە:</p>
       <a class="wa-btn" href="https://wa.me/9647506041911" target="_blank">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         0750 604 1911 — WHATSAPP
@@ -164,7 +164,7 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid #2a2a1a;font-family
     <button class="b-cancel" style="width:100%;margin-top:0.5rem;margin-left:0" onclick="closeAdmin()">گەڕانەوە</button>
   </div>
   <!-- Dashboard -->
-  <div id="dashboard" style="display:block">
+  <div id="dashboard" style="display:none">
     <div class="admin-panel">
       <div class="admin-header">
         <div class="admin-title">⚙ پانێلی بەڕێوەبردن</div>
@@ -173,7 +173,7 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid #2a2a1a;font-family
       <div class="a-tabs">
         <button class="a-tab active" onclick="switchTab('consoles',this)">🎮 کۆنسۆلەکان</button>
         <button class="a-tab" onclick="switchTab('games',this)">🕹 یاریەکان</button>
-       <button class="a-tab" onclick="switchTab('pw',this)">🔐 پاسوۆرد</button>
+        <button class="a-tab" onclick="switchTab('pw',this)">🔐 پاسوۆرد</button>
       </div>
       <div id="tab-consoles"></div>
       <div id="tab-games" style="display:none"></div>
@@ -183,7 +183,7 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid #2a2a1a;font-family
           <div class="f-row"><label class="f-label">پاسوۆردی نوێ</label><input class="f-input" type="password" id="np1" placeholder="پاسوۆردی نوێ"></div>
           <div class="f-row"><label class="f-label">دووبارە بنووسە</label><input class="f-input" type="password" id="np2" placeholder="دووبارە"></div>
           <div id="pwMsg" style="font-family:VT323,monospace;font-size:16px;margin:8px 0"></div>
-          <button class="b-save" onclick="changePassword()">پاشەکەوتکردن</button>
+          <button class="b-save" onclick="changePw()">پاسوۆرد بگۆڕە</button>
         </div>
       </div>
     </div>
@@ -193,12 +193,12 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid #2a2a1a;font-family
 <script>
 // ── DATA ─────────────────────────────────────────────────────
 const DEF_CONSOLES=[
-  {icon:"🎮",name:"PLAYSTATION 1",year:"1994 — SONY",color:"#1a1a3a",image:"https://i.postimg.cc/zf9G7BTJ/D-Q-NP-2X-913033-MLB95507338342-102025-E.webp",desc:"The original PlayStation revolutionized gaming with CD-ROM technology, 3D graphics, and an iconic DualShock controller. It sold over 102 million units worldwide.",specs:["32-bit CPU","CD-ROM","33 MHz MIPS"],games:["Final Fantasy VII","Metal Gear Solid","Crash Bandicoot","Tekken 3","Spyro the Dragon","Gran Turismo"]},
-  {icon:"🕹️",name:"PLAYSTATION 2",year:"2000 — SONY",color:"#0a0a2a",image:"https://i.postimg.cc/26TYLSjj/1600.webp",desc:"The best-selling console of all time with over 155 million units sold. The PS2's DVD capability made it a multimedia powerhouse beyond gaming.",specs:["128-bit Emotion Engine","DVD","300 MHz CPU"],games:["Shadow of the Colossus","God of War","GTA: San Andreas","Kingdom Hearts","Devil May Cry","Ico"]},
-  {icon:"🎲",name:"GAMECUBE",year:"2001 — NINTENDO",color:"#1a0a3a",image:"https://i.postimg.cc/2yWvGM1c/nintendo-gamecube-system-900x.jpg",desc:"Nintendo's compact purple cube — powerful hardware, innovative mini-disc format, and some of the greatest exclusives ever made.",specs:["128-bit Gekko CPU","Mini-DVD","485 MHz"],games:["Zelda: Wind Waker","Metroid Prime","Super Smash Bros. Melee","Pikmin","Resident Evil 4","F-Zero GX"]},
-  {icon:"📻",name:"SEGA SATURN",year:"1994 — SEGA",color:"#2a0a0a",image:"https://i.postimg.cc/266VcJKd/s-l225.jpg",desc:"Sega's most powerful but tragically overlooked system. Stunning 2D graphics and arcade-perfect ports.",specs:["Dual SH-2 CPU","CD-ROM","28.6 MHz each"],games:["Panzer Dragoon Saga","Sega Rally","NiGHTS into Dreams","Virtua Fighter 2","Guardian Heroes","Burning Rangers"]},
+  {icon:"🎮",name:"PLAYSTATION 1",year:"1994 — SONY",color:"#1a1a3a",image:"",desc:"The original PlayStation revolutionized gaming with CD-ROM technology, 3D graphics, and an iconic DualShock controller. It sold over 102 million units worldwide.",specs:["32-bit CPU","CD-ROM","33 MHz MIPS"],games:["Final Fantasy VII","Metal Gear Solid","Crash Bandicoot","Tekken 3","Spyro the Dragon","Gran Turismo"]},
+  {icon:"🕹️",name:"PLAYSTATION 2",year:"2000 — SONY",color:"#0a0a2a",image:"",desc:"The best-selling console of all time with over 155 million units sold. The PS2's DVD capability made it a multimedia powerhouse beyond gaming.",specs:["128-bit Emotion Engine","DVD","300 MHz CPU"],games:["Shadow of the Colossus","God of War","GTA: San Andreas","Kingdom Hearts","Devil May Cry","Ico"]},
+  {icon:"🎲",name:"GAMECUBE",year:"2001 — NINTENDO",color:"#1a0a3a",image:"",desc:"Nintendo's compact purple cube — powerful hardware, innovative mini-disc format, and some of the greatest exclusives ever made.",specs:["128-bit Gekko CPU","Mini-DVD","485 MHz"],games:["Zelda: Wind Waker","Metroid Prime","Super Smash Bros. Melee","Pikmin","Resident Evil 4","F-Zero GX"]},
+  {icon:"📻",name:"SEGA SATURN",year:"1994 — SEGA",color:"#2a0a0a",image:"",desc:"Sega's most powerful but tragically overlooked system. Stunning 2D graphics and arcade-perfect ports.",specs:["Dual SH-2 CPU","CD-ROM","28.6 MHz each"],games:["Panzer Dragoon Saga","Sega Rally","NiGHTS into Dreams","Virtua Fighter 2","Guardian Heroes","Burning Rangers"]},
   {icon:"🦔",name:"SEGA MEGA DRIVE",year:"1988 — SEGA",color:"#0a1a0a",image:"",desc:"Genesis does what Nintendon't. The definitive 16-bit rival to the Super Nintendo.",specs:["16-bit Motorola 68000","Cartridge","7.6 MHz"],games:["Sonic the Hedgehog","Streets of Rage 2","Earthworm Jim","Mortal Kombat II","Vectorman","Gunstar Heroes"]},
-  {icon:"🍄",name:"SUPER NINTENDO",year:"1990 — NINTENDO",color:"#1a0a2a",image:"https://i.postimg.cc/kXXqx8Lj/1380756.webp",desc:"The pinnacle of 16-bit gaming. Mode 7 scaling and rotation effects looked like magic.",specs:["16-bit 65C816","Cartridge","3.58 MHz"],games:["Super Mario World","Zelda: A Link to the Past","Chrono Trigger","Super Metroid","Donkey Kong Country","F-Zero"]},
+  {icon:"🍄",name:"SUPER NINTENDO",year:"1990 — NINTENDO",color:"#1a0a2a",image:"",desc:"The pinnacle of 16-bit gaming. Mode 7 scaling and rotation effects looked like magic.",specs:["16-bit 65C816","Cartridge","3.58 MHz"],games:["Super Mario World","Zelda: A Link to the Past","Chrono Trigger","Super Metroid","Donkey Kong Country","F-Zero"]},
 ];
 const DEF_GAMES=[
   {icon:"⚔️",name:"FINAL FANTASY VII",year:"1997 — SQUARE",color:"#1a0a3a",image:"",desc:"A landmark JRPG that told the story of Cloud Strife and AVALANCHE against the mega-corporation Shinra. One of the most influential games ever made.",specs:["PlayStation 1","Turn-based RPG","3 Discs"],games:["Cloud Strife","Sephiroth","Aerith Gainsborough","Tifa Lockhart","Barret Wallace"]},
@@ -357,70 +357,6 @@ function changePw(){
 }
 
 renderAll();
- <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-  // زانیارییەکانی پڕۆژەکەی تۆ
-  const firebaseConfig = {
-    apiKey: "AIzaSyCmrGwoSQIFrWpVTH4W8aoumJfEyYP3F1E",
-    authDomain: "contactfrom-2ef93.firebaseapp.com",
-    databaseURL: "https://contactfrom-2ef93-default-rtdb.firebaseio.com",
-    projectId: "contactfrom-2ef93",
-    storageBucket: "contactfrom-2ef93.appspot.com",
-    messagingSenderId: "238509815149",
-    appId: "1:238509815149:web:e481ee7eae4e7518d15664",
-    measurementId: "G-5D8GB9HHKP"
-  };
-
-  // دەسپێکردن
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  // نموونەیەک بۆ پاشەکەوتکردنی زانیاری (بۆ نموونە گۆڕینی وشەی تێپەڕ)
-  window.updateData = function(newVal) {
-    set(ref(db, 'settings/password'), newVal)
-      .then(() => alert("گۆڕانکارییەکە بۆ هەمووان جێبەجێ کرا!"))
-      .catch((error) => console.error("هەڵەیەک ڕوویدا:", error));
-  };
-<script type="module">
-  // هێنانە ناوەوەی کتێبخانەکانی فایەربەیس
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-  // کۆنفیگی تایبەتی خۆت
-  const firebaseConfig = {
-    apiKey: "AIzaSyCmrGwoSQIFrWpVTH4W8aoumJfEyYP3F1E",
-    authDomain: "contactfrom-2ef93.firebaseapp.com",
-    databaseURL: "https://contactfrom-2ef93-default-rtdb.firebaseio.com",
-    projectId: "contactfrom-2ef93",
-    storageBucket: "contactfrom-2ef93.appspot.com",
-    messagingSenderId: "238509815149",
-    appId: "1:238509815149:web:e481ee7eae4e7518d15664"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  // ١. ناردنی زانیاری (کاتێک تێپەڕەوشە دەگۆڕیت)
-  window.changePasswordInFirebase = function() {
-    const newPass = document.getElementById('np1').value; // ئایدی ئینپوتەکە
-    if(newPass) {
-      set(ref(db, 'admin/password'), newPass)
-        .then(() => alert("وشەی تێپەڕ بۆ هەمووان گۆڕدرا!"))
-        .catch((err) => alert("هەڵە: " + err.message));
-    }
-  };
-
-  // ٢. خوێندنەوەی زانیاری (بۆ ئەوەی کەسانی تریش گۆڕانکارییەکە ببینن)
-  const passwordRef = ref(db, 'admin/password');
-  onValue(passwordRef, (snapshot) => {
-    const data = snapshot.val();
-    if (data) {
-      // لێرەدا دەتوانیت زانیارییەکە لە شوێنێکی سایتەکە نیشان بدەیت
-      console.log("Password updated to: ", data);
-    }
-  });
 </script>
 </body>
 </html>
