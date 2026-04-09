@@ -28,10 +28,10 @@ nav{display:flex;justify-content:center;border-bottom:1px solid #2a2a1a;backgrou
 .section{display:none}
 .section.active{display:block}
 .section-title{font-family:'Press Start 2P',monospace;font-size:clamp(10px,2vw,13px);color:#f5c842;margin-bottom:2rem;padding-bottom:0.5rem;border-bottom:1px solid #2a2a1a;letter-spacing:1px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
 .card{background:#111108;border:1px solid #2a2a1a;border-radius:4px;overflow:hidden;cursor:pointer;transition:border-color 0.2s,transform 0.15s}
 .card:hover{border-color:#f5c842;transform:translateY(-2px)}
-.card-img{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:64px;border-bottom:1px solid #2a2a1a;overflow:hidden}
+.card-img{width:100%;height:200px;display:flex;align-items:center;justify-content:center;font-size:80px;border-bottom:1px solid #2a2a1a;overflow:hidden}
 .card-img img{width:100%;height:100%;object-fit:cover}
 .card-body{padding:14px}
 .card-name{font-family:'Press Start 2P',monospace;font-size:9px;color:#f5c842;margin-bottom:6px;line-height:1.6}
@@ -264,7 +264,16 @@ async function initData(){
     const snap = await db.ref('retroerbil').get();
     if(snap.exists()){
       const d = snap.val();
-      const fix = arr => (arr ? Object.values(arr) : []).map(i=>({...i, specs:Array.isArray(i.specs)?i.specs:[], games:Array.isArray(i.games)?i.games:[]}));
+      const fix = (arr) => {
+        if(!arr) return [];
+        return Object.values(arr)
+          .filter(i => i && typeof i === 'object')
+          .map(i=>({
+            ...i,
+            specs: Array.isArray(i.specs) ? i.specs : (i.specs ? Object.values(i.specs) : []),
+            games: Array.isArray(i.games) ? i.games : (i.games ? Object.values(i.games) : [])
+          }));
+      };
       CC = fix(d.consoles).length ? fix(d.consoles) : DEF_CONSOLES;
       GG = fix(d.games).length   ? fix(d.games)    : DEF_GAMES;
       PW = d.password || 'retro1234';
@@ -302,7 +311,7 @@ function renderGrid(items,id,lbl){
     const c=document.createElement('div');
     c.className='card';
     const imgPart=item.image
-      ?`<div class="card-img"><img src="${item.image}" alt="${item.name}" onerror="this.parentElement.innerHTML='<span style=font-size:64px>${item.icon}</span>'"></div>`
+      ?`<div class="card-img"><img src="${item.image}" alt="${item.name}" onerror="this.parentElement.innerHTML='<span style=font-size:80px>${item.icon}</span>'"></div>`
       :`<div class="card-img" style="background:${item.color||'#1a1a1a'}">${item.icon}</div>`;
     const specs=Array.isArray(item.specs)?item.specs:[];
     c.innerHTML=`${imgPart}<div class="card-body"><div class="card-name">${item.name}</div><div class="card-year">${item.year||''}</div><div class="card-desc">${(item.desc||'').substring(0,80)}...</div><div>${specs.map(s=>`<span class="badge">${s}</span>`).join('')}</div></div>`;
@@ -372,8 +381,13 @@ function buildTab(tab){
 }
 function delItem(tab,i){
   if(!confirm('دڵنیایت؟'))return;
-  if(tab==='consoles'){CC.splice(i,1);fbSave('retroerbil/consoles',CC);}
-  else{GG.splice(i,1);fbSave('retroerbil/games',GG);}
+  if(tab==='consoles'){
+    CC.splice(i,1);
+    fbSave('retroerbil/consoles', CC.length ? CC : null);
+  } else {
+    GG.splice(i,1);
+    fbSave('retroerbil/games', GG.length ? GG : null);
+  }
   renderAll();buildTab(tab);
 }
 function showForm(tab,i){
@@ -416,10 +430,13 @@ function saveForm(tab,i){
     games:document.getElementById('fg').value.split(',').map(s=>s.trim()).filter(Boolean),
   };
   if(!newItem.name){alert('ناوەکە بنووسە!');return;}
-  const arr=tab==='consoles'?CC:GG;
-  if(i>=0)arr[i]=newItem; else arr.push(newItem);
-  if(tab==='consoles')fbSave('retroerbil/consoles',CC);
-  else fbSave('retroerbil/games',GG);
+  if(tab==='consoles'){
+    if(i>=0) CC[i]=newItem; else CC.push(newItem);
+    fbSave('retroerbil/consoles', CC);
+  } else {
+    if(i>=0) GG[i]=newItem; else GG.push(newItem);
+    fbSave('retroerbil/games', GG);
+  }
   renderAll();buildTab(tab);
 }
 function changePw(){
