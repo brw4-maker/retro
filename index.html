@@ -201,7 +201,7 @@ const DEF_CONSOLES=[
   {icon:"🍄",name:"SUPER NINTENDO",year:"1990 — NINTENDO",color:"#1a0a2a",image:"",desc:"The pinnacle of 16-bit gaming. Mode 7 scaling and rotation effects looked like magic.",specs:["16-bit 65C816","Cartridge","3.58 MHz"],games:["Super Mario World","Zelda: A Link to the Past","Chrono Trigger","Super Metroid","Donkey Kong Country","F-Zero"]},
 ];
 const DEF_GAMES=[
-  {icon:"⚔️",name:"FINAL FANTASY VII",year:"1997 — SQUARE",color:"#1a0a3a",image:"",desc:"A landmark JRPG that told the story of Cloud Strife and AVALANCHE against the mega-corporation Shinra. One of the most influential games ever made.",specs:["PlayStation 1","Turn-based RPG","3 Discs"],games:["Cloud Strife","Sephiroth","Aerith Gainsborough","Tifa Lockhart","Barret Wallace"]},
+  {icon:"⚔️",name:"FINAL FANTASY VII",year:"1997 — SQUARE",color:"#1a0a3a",image:"https://image2url.com/r2/default/images/1775693469830-d4d30eae-7d03-4a70-b0dc-3ff4a90dbbb1.webp",desc:"A landmark JRPG that told the story of Cloud Strife and AVALANCHE against the mega-corporation Shinra. One of the most influential games ever made.",specs:["PlayStation 1","Turn-based RPG","3 Discs"],games:["Cloud Strife","Sephiroth","Aerith Gainsborough","Tifa Lockhart","Barret Wallace"]},
   {icon:"🐍",name:"METAL GEAR SOLID",year:"1998 — KONAMI",color:"#0a1a0a",image:"https://image2url.com/r2/default/images/1775693043187-c577153f-9c83-4143-aeb8-99d82e809df2.jpg",desc:"Hideo Kojima's stealth masterpiece. Solid Snake infiltrates Shadow Moses Island in a tense espionage thriller.",specs:["PlayStation 1","Stealth Action","2 Discs"],games:["Solid Snake","Liquid Snake","Meryl Silverburgh","Gray Fox","Revolver Ocelot"]},
   {icon:"🌀",name:"SONIC THE HEDGEHOG 2",year:"1992 — SEGA",color:"#0a0a2a",image:"",desc:"The fastest thing alive. Sonic 2 introduced Miles 'Tails' Prower and the iconic Emerald Hill Zone.",specs:["Sega Mega Drive","Platformer","Cartridge"],games:["Sonic","Tails","Dr. Eggman","Chemical Plant Zone","Casino Night Zone"]},
   {icon:"🕐",name:"CHRONO TRIGGER",year:"1995 — SQUARE",color:"#1a1a0a",image:"",desc:"Widely considered the greatest RPG ever made. Time travel across multiple eras with 13 different endings.",specs:["Super Nintendo","Turn-based RPG","Cartridge"],games:["Crono","Marle","Lucca","Robo","Frog","Magus"]},
@@ -357,6 +357,75 @@ function changePw(){
 }
 
 renderAll();
+<div style="margin: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 8px;">
+    <h3>زیادکردنی کاڵای نوێ بۆ داتابەیس</h3>
+    <input type="text" id="itemName" placeholder="ناوی کاڵا (نموونە: GameBoy)" style="padding: 5px; margin-bottom: 10px; width: 100%;"><br>
+    <input type="text" id="itemPrice" placeholder="نرخ (نموونە: 50,000)" style="padding: 5px; margin-bottom: 10px; width: 100%;"><br>
+    <button onclick="saveData()" style="padding: 8px 15px; background: #28a745; color: white; border: none; cursor: pointer;">پاشەکەوتکردن</button>
+</div>
+
+<div style="margin: 20px;">
+    <h3>لیستی کاڵاکان لە داتابەیسەوە:</h3>
+    <ul id="displayData">
+        </ul>
+</div>
+
+<script type="module">
+  // هێنانە ناوەوەی کتێبخانە پێویستەکان
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+  // تێبینی: ئەم زانیارییانەی خوارەوە بگۆڕە بە زانیارییە تایبەتەکانی فایەربەیسەکەی خۆت
+  const firebaseConfig = {
+  apiKey: "AIzaSyCmrGwoSQIFrWpVTH4W8aoumJfEyYP3F1E",
+  authDomain: "contactfrom-2ef93.firebaseapp.com",
+  databaseURL: "https://contactfrom-2ef93-default-rtdb.firebaseio.com",
+  projectId: "contactfrom-2ef93",
+  storageBucket: "contactfrom-2ef93.firebasestorage.app",
+  messagingSenderId: "238509815149",
+  appId: "1:238509815149:web:13891fdeac62a232d15664",
+  measurementId: "G-CEY3YG311B"
+};
+
+  // بەکارخستنی فایەربەیس
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // فانکشنی ناردنی زانیاری بۆ داتابەیس (بە window دەست پێدەکات بۆ ئەوەی دوگمەکە بیبینێت)
+  window.saveData = function() {
+    const name = document.getElementById('itemName').value;
+    const price = document.getElementById('itemPrice').value;
+
+    if(name !== "" && price !== "") {
+      // وشەی 'products' ناوی ئەو فۆڵدەرەیە کە لە داتابەیس دروست دەبێت
+      push(ref(db, 'products'), {
+        productName: name,
+        productPrice: price
+      }).then(() => {
+        alert("بە سەرکەوتوویی خڕایە ناو داتابەیسەوە!");
+        // پاککردنەوەی خانەکان دوای ناردن
+        document.getElementById('itemName').value = "";
+        document.getElementById('itemPrice').value = "";
+      }).catch((error) => {
+        alert("هەڵەیەک ڕوویدا: " + error);
+      });
+    } else {
+      alert("تکایە هەردوو خانەکە پڕ بکەرەوە!");
+    }
+  };
+
+  // فانکشنی وەرگرتن و خوێندنەوەی زانیاری ڕاستەوخۆ (Real-time)
+  const dataRef = ref(db, 'products');
+  onValue(dataRef, (snapshot) => {
+    const displayList = document.getElementById('displayData');
+    displayList.innerHTML = ""; // سەرەتا لیستەکە پاک دەکەینەوە
+
+    snapshot.forEach((childSnapshot) => {
+      const data = childSnapshot.val();
+      // دروستکردنی هێڵێکی نوێ بۆ هەر کاڵایەک و خستنە ناو لیستەکەوە
+      displayList.innerHTML += `<li><b>${data.productName}</b> - نرخ: ${data.productPrice} دینار</li>`;
+    });
+  });
 </script>
 </body>
 </html>
