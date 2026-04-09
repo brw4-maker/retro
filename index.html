@@ -28,10 +28,10 @@ nav{display:flex;justify-content:center;border-bottom:1px solid #2a2a1a;backgrou
 .section{display:none}
 .section.active{display:block}
 .section-title{font-family:'Press Start 2P',monospace;font-size:clamp(10px,2vw,13px);color:#f5c842;margin-bottom:2rem;padding-bottom:0.5rem;border-bottom:1px solid #2a2a1a;letter-spacing:1px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
 .card{background:#111108;border:1px solid #2a2a1a;border-radius:4px;overflow:hidden;cursor:pointer;transition:border-color 0.2s,transform 0.15s}
 .card:hover{border-color:#f5c842;transform:translateY(-2px)}
-.card-img{width:100%;height:200px;display:flex;align-items:center;justify-content:center;font-size:80px;border-bottom:1px solid #2a2a1a;overflow:hidden}
+.card-img{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:64px;border-bottom:1px solid #2a2a1a;overflow:hidden}
 .card-img img{width:100%;height:100%;object-fit:cover}
 .card-body{padding:14px}
 .card-name{font-family:'Press Start 2P',monospace;font-size:9px;color:#f5c842;margin-bottom:6px;line-height:1.6}
@@ -103,6 +103,15 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid #2a2a1a;font-family
 .fb-loading{font-family:'VT323',monospace;font-size:20px;color:#706858;text-align:center;padding:3rem;letter-spacing:2px}
 .fb-status{position:fixed;bottom:60px;right:20px;z-index:901;font-family:'VT323',monospace;font-size:14px;padding:6px 14px;border-radius:4px;display:none;background:#0a1a0a;border:1px solid #25d366;color:#25d366}
 .fb-status.err{background:#1a0a0a;border-color:#e24b4a;color:#e24b4a}
+/* FILTER BAR */
+.filter-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.5rem}
+.f-btn{font-family:'VT323',monospace;font-size:16px;padding:5px 16px;background:none;border:1px solid #2a2a1a;color:#706858;cursor:pointer;border-radius:2px;transition:all 0.15s;letter-spacing:1px}
+.f-btn:hover{border-color:#a09878;color:#a09878}
+.f-btn.active{border-color:#f5c842;color:#f5c842;background:#1a1a08}
+/* BIGGER IMAGES */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.card-img{width:100%;height:200px;display:flex;align-items:center;justify-content:center;font-size:80px;border-bottom:1px solid #2a2a1a;overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:cover}
 @media(max-width:480px){.nav-btn{padding:10px 14px;font-size:15px}.hero{padding:2rem 1rem 1.5rem}.main{padding:1rem}.f-2{grid-template-columns:1fr}}
 </style>
 </head>
@@ -120,10 +129,12 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid #2a2a1a;font-family
 <div class="main">
   <div class="section active" id="sec-consoles">
     <div class="section-title">// CONSOLE COLLECTION</div>
+    <div class="filter-bar" id="consoleFilters"></div>
     <div class="grid" id="consolesGrid"><div class="fb-loading">LOADING… <span class="blink">█</span></div></div>
   </div>
   <div class="section" id="sec-games">
     <div class="section-title">// GAME LIBRARY</div>
+    <div class="filter-bar" id="gameFilters"></div>
     <div class="grid" id="gamesGrid"><div class="fb-loading">LOADING… <span class="blink">█</span></div></div>
   </div>
   <div class="section" id="sec-about">
@@ -266,13 +277,12 @@ async function initData(){
       const d = snap.val();
       const fix = (arr) => {
         if(!arr) return [];
-        return Object.values(arr)
-          .filter(i => i && typeof i === 'object')
-          .map(i=>({
-            ...i,
-            specs: Array.isArray(i.specs) ? i.specs : (i.specs ? Object.values(i.specs) : []),
-            games: Array.isArray(i.games) ? i.games : (i.games ? Object.values(i.games) : [])
-          }));
+        return Object.values(arr).filter(i=>i&&typeof i==='object').map(i=>({
+          ...i,
+          brand: i.brand||'',
+          specs: Array.isArray(i.specs)?i.specs:(i.specs?Object.values(i.specs):[]),
+          games: Array.isArray(i.games)?i.games:(i.games?Object.values(i.games):[])
+        }));
       };
       CC = fix(d.consoles).length ? fix(d.consoles) : DEF_CONSOLES;
       GG = fix(d.games).length   ? fix(d.games)    : DEF_GAMES;
@@ -297,10 +307,36 @@ async function initData(){
   renderAll();
 }
 
+// ── FILTER STATE ─────────────────────────────────────────────
+let activeConsoleFilter = 'ALL';
+let activeGameFilter    = 'ALL';
+
+function getBrand(item){
+  return (item.brand || '').toUpperCase().trim() || 'OTHER';
+}
+
+function buildFilterBar(items, barId, stateKey, gridId, lbl){
+  const bar = document.getElementById(barId);
+  const brands = ['ALL', ...new Set(items.map(i => getBrand(i)).filter(b => b && b !== 'OTHER')), ...items.some(i => getBrand(i)==='OTHER') ? ['OTHER'] : []];
+  bar.innerHTML = brands.map(b =>
+    `<button class="f-btn${(stateKey==='console'?activeConsoleFilter:activeGameFilter)===b?' active':''}" onclick="setFilter('${stateKey}','${b}')">${b}</button>`
+  ).join('');
+}
+
+function setFilter(type, brand){
+  if(type==='console') activeConsoleFilter=brand;
+  else activeGameFilter=brand;
+  renderAll();
+}
+
 // ── PUBLIC ────────────────────────────────────────────────────
 function renderAll(){
-  renderGrid(CC,'consolesGrid','CLASSIC GAMES:');
-  renderGrid(GG,'gamesGrid','NOTABLE TITLES:');
+  buildFilterBar(CC,'consoleFilters','console','consolesGrid','CLASSIC GAMES:');
+  buildFilterBar(GG,'gameFilters','game','gamesGrid','NOTABLE TITLES:');
+  const filteredCC = activeConsoleFilter==='ALL' ? CC : CC.filter(i=>getBrand(i)===activeConsoleFilter);
+  const filteredGG = activeGameFilter==='ALL'    ? GG : GG.filter(i=>getBrand(i)===activeGameFilter);
+  renderGrid(filteredCC,'consolesGrid','CLASSIC GAMES:');
+  renderGrid(filteredGG,'gamesGrid','NOTABLE TITLES:');
 }
 
 function renderGrid(items,id,lbl){
@@ -381,13 +417,8 @@ function buildTab(tab){
 }
 function delItem(tab,i){
   if(!confirm('دڵنیایت؟'))return;
-  if(tab==='consoles'){
-    CC.splice(i,1);
-    fbSave('retroerbil/consoles', CC.length ? CC : null);
-  } else {
-    GG.splice(i,1);
-    fbSave('retroerbil/games', GG.length ? GG : null);
-  }
+  if(tab==='consoles'){CC.splice(i,1);fbSave('retroerbil/consoles',CC.length?CC:null);}
+  else{GG.splice(i,1);fbSave('retroerbil/games',GG.length?GG:null);}
   renderAll();buildTab(tab);
 }
 function showForm(tab,i){
@@ -402,6 +433,7 @@ function showForm(tab,i){
       <div class="f-row"><label class="f-label">رەنگ</label><input class="f-input" id="fc" type="color" value="${item.color}" style="height:40px;padding:2px"></div>
     </div>
     <div class="f-row"><label class="f-label">ناو</label><input class="f-input" id="fn" value="${item.name}" placeholder="PLAYSTATION 1"></div>
+    <div class="f-row"><label class="f-label">بەرهەمهێنەر / Brand</label><input class="f-input" id="fbrand" value="${item.brand||''}" placeholder="PLAYSTATION / NINTENDO / SEGA / ATARI"><div class="f-hint">ئەمە بۆ فیلتەرکردن بەکاردێت</div></div>
     <div class="f-row"><label class="f-label">ساڵ و بەرهەمهێنەر</label><input class="f-input" id="fy" value="${item.year}" placeholder="1994 — SONY"></div>
     <div class="f-row">
       <label class="f-label">لینکی وێنە</label>
@@ -422,6 +454,7 @@ function saveForm(tab,i){
   const newItem={
     icon:document.getElementById('fi').value.trim()||'🎮',
     name:document.getElementById('fn').value.trim().toUpperCase(),
+    brand:document.getElementById('fbrand').value.trim().toUpperCase(),
     year:document.getElementById('fy').value.trim(),
     color:document.getElementById('fc').value,
     image:document.getElementById('fim').value.trim(),
