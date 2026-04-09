@@ -357,74 +357,64 @@ function changePw(){
 }
 
 renderAll();
-<div style="margin: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 8px;">
-    <h3>زیادکردنی کاڵای نوێ بۆ داتابەیس</h3>
-    <input type="text" id="itemName" placeholder="ناوی کاڵا (نموونە: GameBoy)" style="padding: 5px; margin-bottom: 10px; width: 100%;"><br>
-    <input type="text" id="itemPrice" placeholder="نرخ (نموونە: 50,000)" style="padding: 5px; margin-bottom: 10px; width: 100%;"><br>
-    <button onclick="saveData()" style="padding: 8px 15px; background: #28a745; color: white; border: none; cursor: pointer;">پاشەکەوتکردن</button>
-</div>
-
-<div style="margin: 20px;">
-    <h3>لیستی کاڵاکان لە داتابەیسەوە:</h3>
-    <ul id="displayData">
-        </ul>
-</div>
-
 <script type="module">
-  // هێنانە ناوەوەی کتێبخانە پێویستەکان
+  // 1. هێنانە ناوەوەی کتێبخانەکان
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+  import { getDatabase, ref, set, onValue, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-  // تێبینی: ئەم زانیارییانەی خوارەوە بگۆڕە بە زانیارییە تایبەتەکانی فایەربەیسەکەی خۆت
+  // 2. کۆنفیگی تایبەتی پڕۆژەکەی تۆ (وەک لە وێنەی دووەمدا دیارە)
   const firebaseConfig = {
     apiKey: "AIzaSyCmrGwoSQIFrWpVTH4W8aoumJfEyYP3F1E",
     authDomain: "contactfrom-2ef93.firebaseapp.com",
     databaseURL: "https://contactfrom-2ef93-default-rtdb.firebaseio.com",
     projectId: "contactfrom-2ef93",
-    storageBucket: "contactfrom-2ef93.appspot.com",
+    storageBucket: "contactfrom-2ef93.firebaseapp.com",
     messagingSenderId: "238509815149",
     appId: "1:238509815149:web:e481ee7eae4e7518d15664",
     measurementId: "G-5D8GB9HHKP"
   };
 
-  // بەکارخستنی فایەربەیس
+  // 3. دەسپێکردن
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
-  // فانکشنی ناردنی زانیاری بۆ داتابەیس (بە window دەست پێدەکات بۆ ئەوەی دوگمەکە بیبینێت)
-  window.saveData = function() {
-    const name = document.getElementById('itemName').value;
-    const price = document.getElementById('itemPrice').value;
+  // --- فانکشنەکانی ناو HTML ---
 
-    if(name !== "" && price !== "") {
-      // وشەی 'products' ناوی ئەو فۆڵدەرەیە کە لە داتابەیس دروست دەبێت
-      push(ref(db, 'products'), {
-        productName: name,
-        productPrice: price
-      }).then(() => {
-        alert("بە سەرکەوتوویی خڕایە ناو داتابەیسەوە!");
-        // پاککردنەوەی خانەکان دوای ناردن
-        document.getElementById('itemName').value = "";
-        document.getElementById('itemPrice').value = "";
-      }).catch((error) => {
-        alert("هەڵەیەک ڕوویدا: " + error);
-      });
+  // گۆڕینی تابەکان (بۆ ئەوەی دوگمەکان کار بکەن)
+  window.switchTab = function(tabName, element) {
+    document.getElementById('tab-consoles').style.display = 'none';
+    document.getElementById('tab-games').style.display = 'none';
+    document.getElementById('tab-pw').style.display = 'none';
+    document.getElementById('tab-' + tabName).style.display = 'block';
+    
+    const tabs = document.querySelectorAll('.a-tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    element.classList.add('active');
+  };
+
+  // داخستنی پانێڵی ئەدمین
+  window.closeAdmin = function() {
+    document.getElementById('dashboard').style.display = 'none';
+  };
+
+  // گۆڕینی وشەی تێپەڕ و سەیڤکردن لە داتابەیس
+  window.changePw = function() {
+    const newPass = document.getElementById('np1').value;
+    if(newPass) {
+      set(ref(db, 'admin/password'), newPass)
+        .then(() => alert("وشەی تێپەڕ لە داتابەیس سەیڤ کرا!"))
+        .catch((err) => alert("هەڵە: " + err.message));
     } else {
-      alert("تکایە هەردوو خانەکە پڕ بکەرەوە!");
+      alert("تکایە وشە تێپەڕەکە بنووسە");
     }
   };
 
-  // فانکشنی وەرگرتن و خوێندنەوەی زانیاری ڕاستەوخۆ (Real-time)
-  const dataRef = ref(db, 'products');
-  onValue(dataRef, (snapshot) => {
-    const displayList = document.getElementById('displayData');
-    displayList.innerHTML = ""; // سەرەتا لیستەکە پاک دەکەینەوە
-
-    snapshot.forEach((childSnapshot) => {
-      const data = childSnapshot.val();
-      // دروستکردنی هێڵێکی نوێ بۆ هەر کاڵایەک و خستنە ناو لیستەکەوە
-      displayList.innerHTML += `<li><b>${data.productName}</b> - نرخ: ${data.productPrice} دینار</li>`;
-    });
+  // خوێندنەوەی وشەی تێپەڕ لە کاتی گۆڕانکاریدا
+  onValue(ref(db, 'admin/password'), (snapshot) => {
+    const data = snapshot.val();
+    if (data) {
+      console.log("پاسوۆردی نوێ لە داتابەیس: ", data);
+    }
   });
 </script>
 </body>
