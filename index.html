@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RETRO ERBIL — Classic Gaming Collection</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Courier Prime',monospace;background:#0d0d0d;color:#e8e0c8;min-height:100vh}
@@ -94,6 +99,10 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid #2a2a1a;font-family
 .login-title{font-family:'Press Start 2P',monospace;font-size:11px;color:#f5c842;margin-bottom:1.5rem;line-height:1.6}
 .l-err{font-family:'VT323',monospace;font-size:16px;color:#e24b4a;margin-bottom:1rem;display:none}
 .f-hint{font-family:'VT323',monospace;font-size:13px;color:#706858;margin-top:4px}
+/* LOADING */
+.fb-loading{font-family:'VT323',monospace;font-size:20px;color:#706858;text-align:center;padding:3rem;letter-spacing:2px}
+.fb-status{position:fixed;bottom:60px;right:20px;z-index:901;font-family:'VT323',monospace;font-size:14px;padding:6px 14px;border-radius:4px;display:none;background:#0a1a0a;border:1px solid #25d366;color:#25d366}
+.fb-status.err{background:#1a0a0a;border-color:#e24b4a;color:#e24b4a}
 @media(max-width:480px){.nav-btn{padding:10px 14px;font-size:15px}.hero{padding:2rem 1rem 1.5rem}.main{padding:1rem}.f-2{grid-template-columns:1fr}}
 </style>
 </head>
@@ -111,17 +120,17 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid #2a2a1a;font-family
 <div class="main">
   <div class="section active" id="sec-consoles">
     <div class="section-title">// CONSOLE COLLECTION</div>
-    <div class="grid" id="consolesGrid"></div>
+    <div class="grid" id="consolesGrid"><div class="fb-loading">LOADING… <span class="blink">█</span></div></div>
   </div>
   <div class="section" id="sec-games">
     <div class="section-title">// GAME LIBRARY</div>
-    <div class="grid" id="gamesGrid"></div>
+    <div class="grid" id="gamesGrid"><div class="fb-loading">LOADING… <span class="blink">█</span></div></div>
   </div>
   <div class="section" id="sec-about">
     <div class="section-title">// ABOUT THE COLLECTION</div>
     <div class="about-box">
       <span class="about-title">RETRO ERBIL — HEWLÊR, KURDISTAN</span>
-      <p class="about-text">هەولێر - بازاڕی نیشتیمان -نهۆمی خوارەوە - پێشانگای سامی .<br><br>بۆ زانیاری زیاتر یان کڕین پەیوەندیمان پێوە بکە:</p>
+      <p class="about-text">ئەم کۆکراوەیە باشترین کۆنسۆل و یاریە کلاسیکەکانی مێژووی گەیمینگ لەخۆ دەگرێت. لە سەردەمی ١٦-بیتی تا سەردەمی ٣٢-بیتی، هەر کۆنسۆلێک چیرۆکێکی تایبەتی خۆی هەیە.<br><br>بۆ زانیاری زیاتر یان کڕین پەیوەندیمان پێوە بکە:</p>
       <a class="wa-btn" href="https://wa.me/9647506041911" target="_blank">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         0750 604 1911 — WHATSAPP
@@ -149,6 +158,9 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid #2a2a1a;font-family
 <!-- Admin Button -->
 <button class="admin-btn" onclick="openAdmin()">⚙ ADMIN</button>
 
+<!-- Firebase Status Toast -->
+<div class="fb-status" id="fbStatus"></div>
+
 <!-- Admin Overlay -->
 <div class="admin-overlay" id="adminOverlay">
   <!-- Login -->
@@ -175,13 +187,8 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid #2a2a1a;font-family
         <button class="a-tab" onclick="switchTab('games',this)">🕹 یاریەکان</button>
         <button class="a-tab" onclick="switchTab('pw',this)">🔐 پاسوۆرد</button>
       </div>
-      <div id="tab-consoles" style="display:block; padding: 20px; color: #ffcc00; text-align: center; font-family: monospace;">
-    <h2>لیستی کۆنسۆڵەکان بەم زووانە بەردەست دەبێت...</h2>
-</div>
-
-<div id="tab-games" style="display:none; padding: 20px; color: #ffcc00; text-align: center; font-family: monospace;">
-    <h2>لیستی یارییەکان بەم زووانە بەردەست دەبێت...</h2>
-</div>
+      <div id="tab-consoles"></div>
+      <div id="tab-games" style="display:none"></div>
       <div id="tab-pw" style="display:none">
         <div class="a-form">
           <div class="f-title">🔐 گۆڕینی پاسوۆرد</div>
@@ -196,7 +203,21 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid #2a2a1a;font-family
 </div>
 
 <script>
-// ── DATA ─────────────────────────────────────────────────────
+// ── FIREBASE INIT ─────────────────────────────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyCmrGwoSQIFrWpVTH4W8aoumJfEyYP3F1E",
+  authDomain: "contactfrom-2ef93.firebaseapp.com",
+  databaseURL: "https://contactfrom-2ef93-default-rtdb.firebaseio.com",
+  projectId: "contactfrom-2ef93",
+  storageBucket: "contactfrom-2ef93.firebasestorage.app",
+  messagingSenderId: "238509815149",
+  appId: "1:238509815149:web:13891fdeac62a232d15664",
+  measurementId: "G-CEY3YG311B"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// ── DEFAULT DATA ──────────────────────────────────────────────
 const DEF_CONSOLES=[
   {icon:"🎮",name:"PLAYSTATION 1",year:"1994 — SONY",color:"#1a1a3a",image:"",desc:"The original PlayStation revolutionized gaming with CD-ROM technology, 3D graphics, and an iconic DualShock controller. It sold over 102 million units worldwide.",specs:["32-bit CPU","CD-ROM","33 MHz MIPS"],games:["Final Fantasy VII","Metal Gear Solid","Crash Bandicoot","Tekken 3","Spyro the Dragon","Gran Turismo"]},
   {icon:"🕹️",name:"PLAYSTATION 2",year:"2000 — SONY",color:"#0a0a2a",image:"",desc:"The best-selling console of all time with over 155 million units sold. The PS2's DVD capability made it a multimedia powerhouse beyond gaming.",specs:["128-bit Emotion Engine","DVD","300 MHz CPU"],games:["Shadow of the Colossus","God of War","GTA: San Andreas","Kingdom Hearts","Devil May Cry","Ico"]},
@@ -206,20 +227,65 @@ const DEF_CONSOLES=[
   {icon:"🍄",name:"SUPER NINTENDO",year:"1990 — NINTENDO",color:"#1a0a2a",image:"",desc:"The pinnacle of 16-bit gaming. Mode 7 scaling and rotation effects looked like magic.",specs:["16-bit 65C816","Cartridge","3.58 MHz"],games:["Super Mario World","Zelda: A Link to the Past","Chrono Trigger","Super Metroid","Donkey Kong Country","F-Zero"]},
 ];
 const DEF_GAMES=[
-  {icon:"⚔️",name:"FINAL FANTASY VII",year:"1997 — SQUARE",color:"#1a0a3a",image:"https://image2url.com/r2/default/images/1775693469830-d4d30eae-7d03-4a70-b0dc-3ff4a90dbbb1.webp",desc:"A landmark JRPG that told the story of Cloud Strife and AVALANCHE against the mega-corporation Shinra. One of the most influential games ever made.",specs:["PlayStation 1","Turn-based RPG","3 Discs"],games:["Cloud Strife","Sephiroth","Aerith Gainsborough","Tifa Lockhart","Barret Wallace"]},
-  {icon:"🐍",name:"METAL GEAR SOLID",year:"1998 — KONAMI",color:"#0a1a0a",image:"https://image2url.com/r2/default/images/1775693043187-c577153f-9c83-4143-aeb8-99d82e809df2.jpg",desc:"Hideo Kojima's stealth masterpiece. Solid Snake infiltrates Shadow Moses Island in a tense espionage thriller.",specs:["PlayStation 1","Stealth Action","2 Discs"],games:["Solid Snake","Liquid Snake","Meryl Silverburgh","Gray Fox","Revolver Ocelot"]},
+  {icon:"⚔️",name:"FINAL FANTASY VII",year:"1997 — SQUARE",color:"#1a0a3a",image:"",desc:"A landmark JRPG that told the story of Cloud Strife and AVALANCHE against the mega-corporation Shinra. One of the most influential games ever made.",specs:["PlayStation 1","Turn-based RPG","3 Discs"],games:["Cloud Strife","Sephiroth","Aerith Gainsborough","Tifa Lockhart","Barret Wallace"]},
+  {icon:"🐍",name:"METAL GEAR SOLID",year:"1998 — KONAMI",color:"#0a1a0a",image:"",desc:"Hideo Kojima's stealth masterpiece. Solid Snake infiltrates Shadow Moses Island in a tense espionage thriller.",specs:["PlayStation 1","Stealth Action","2 Discs"],games:["Solid Snake","Liquid Snake","Meryl Silverburgh","Gray Fox","Revolver Ocelot"]},
   {icon:"🌀",name:"SONIC THE HEDGEHOG 2",year:"1992 — SEGA",color:"#0a0a2a",image:"",desc:"The fastest thing alive. Sonic 2 introduced Miles 'Tails' Prower and the iconic Emerald Hill Zone.",specs:["Sega Mega Drive","Platformer","Cartridge"],games:["Sonic","Tails","Dr. Eggman","Chemical Plant Zone","Casino Night Zone"]},
   {icon:"🕐",name:"CHRONO TRIGGER",year:"1995 — SQUARE",color:"#1a1a0a",image:"",desc:"Widely considered the greatest RPG ever made. Time travel across multiple eras with 13 different endings.",specs:["Super Nintendo","Turn-based RPG","Cartridge"],games:["Crono","Marle","Lucca","Robo","Frog","Magus"]},
 ];
 
-function ld(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
-function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+// ── STATE ─────────────────────────────────────────────────────
+let CC = [];
+let GG = [];
+let PW = 'retro1234';
+let loggedIn = false;
+let curTab = 'consoles';
 
-let CC=ld('re_c',DEF_CONSOLES);
-let GG=ld('re_g',DEF_GAMES);
-let PW=ld('re_pw','retro1234');
-let loggedIn=false;
-let curTab='consoles';
+// ── FIREBASE HELPERS ──────────────────────────────────────────
+function showStatus(msg, isErr=false){
+  const el=document.getElementById('fbStatus');
+  el.textContent=msg;
+  el.className='fb-status'+(isErr?' err':'');
+  el.style.display='block';
+  setTimeout(()=>{el.style.display='none';},2500);
+}
+
+async function fbSave(path, data){
+  try{
+    await db.ref(path).set(data);
+    showStatus('✓ پاشەکەوت کرا Firebase');
+  } catch(e){
+    showStatus('✕ هەڵە: '+e.message, true);
+  }
+}
+
+// ── INIT: LOAD FROM FIREBASE ──────────────────────────────────
+async function initData(){
+  try {
+    const snap = await db.ref('retroerbil').get();
+    if(snap.exists()){
+      const d = snap.val();
+      CC = d.consoles ? Object.values(d.consoles) : DEF_CONSOLES;
+      GG = d.games    ? Object.values(d.games)    : DEF_GAMES;
+      PW = d.password || 'retro1234';
+    } else {
+      // First time: write defaults to Firebase
+      CC = DEF_CONSOLES;
+      GG = DEF_GAMES;
+      PW = 'retro1234';
+      await db.ref('retroerbil').set({
+        consoles: DEF_CONSOLES,
+        games: DEF_GAMES,
+        password: PW
+      });
+    }
+  } catch(e){
+    // Fallback to defaults if offline
+    CC = DEF_CONSOLES;
+    GG = DEF_GAMES;
+    showStatus('⚠ ئۆفلاین — داتای پێشگرتن بەکارهاتووە', true);
+  }
+  renderAll();
+}
 
 // ── PUBLIC ────────────────────────────────────────────────────
 function renderAll(){
@@ -230,6 +296,7 @@ function renderAll(){
 function renderGrid(items,id,lbl){
   const g=document.getElementById(id);
   g.innerHTML='';
+  if(!items.length){g.innerHTML='<div class="fb-loading">هیچ شتێک نەدۆزرایەوە</div>';return;}
   items.forEach(item=>{
     const c=document.createElement('div');
     c.className='card';
@@ -303,8 +370,8 @@ function buildTab(tab){
 }
 function delItem(tab,i){
   if(!confirm('دڵنیایت؟'))return;
-  if(tab==='consoles'){CC.splice(i,1);sv('re_c',CC);}
-  else{GG.splice(i,1);sv('re_g',GG);}
+  if(tab==='consoles'){CC.splice(i,1);fbSave('retroerbil/consoles',CC);}
+  else{GG.splice(i,1);fbSave('retroerbil/games',GG);}
   renderAll();buildTab(tab);
 }
 function showForm(tab,i){
@@ -349,78 +416,22 @@ function saveForm(tab,i){
   if(!newItem.name){alert('ناوەکە بنووسە!');return;}
   const arr=tab==='consoles'?CC:GG;
   if(i>=0)arr[i]=newItem; else arr.push(newItem);
-  if(tab==='consoles')sv('re_c',CC); else sv('re_g',GG);
+  if(tab==='consoles')fbSave('retroerbil/consoles',CC);
+  else fbSave('retroerbil/games',GG);
   renderAll();buildTab(tab);
 }
 function changePw(){
   const p1=document.getElementById('np1').value,p2=document.getElementById('np2').value,m=document.getElementById('pwMsg');
   if(!p1){m.style.color='#e24b4a';m.textContent='پاسوۆردی نوێ بنووسە!';return;}
   if(p1!==p2){m.style.color='#e24b4a';m.textContent='پاسوۆردەکان یەک نین!';return;}
-  PW=p1;sv('re_pw',PW);
-  m.style.color='#25d366';m.textContent='✓ پاسوۆردەکە گۆڕدرا!';
+  PW=p1;
+  fbSave('retroerbil/password',PW);
+  m.style.color='#25d366';m.textContent='✓ پاسوۆردەکە گۆڕدرا و پاشەکەوت کرا Firebase!';
   document.getElementById('np1').value='';document.getElementById('np2').value='';
 }
 
-renderAll();
-<script type="module">
-  // 1. هێنانە ناوەوەی کتێبخانەکان
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getDatabase, ref, set, onValue, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-  // 2. کۆنفیگی تایبەتی پڕۆژەکەی تۆ (وەک لە وێنەی دووەمدا دیارە)
-  const firebaseConfig = {
-    apiKey: "AIzaSyCmrGwoSQIFrWpVTH4W8aoumJfEyYP3F1E",
-    authDomain: "contactfrom-2ef93.firebaseapp.com",
-    databaseURL: "https://contactfrom-2ef93-default-rtdb.firebaseio.com",
-    projectId: "contactfrom-2ef93",
-    storageBucket: "contactfrom-2ef93.firebaseapp.com",
-    messagingSenderId: "238509815149",
-    appId: "1:238509815149:web:e481ee7eae4e7518d15664",
-    measurementId: "G-5D8GB9HHKP"
-  };
-
-  // 3. دەسپێکردن
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  // --- فانکشنەکانی ناو HTML ---
-
-  // گۆڕینی تابەکان (بۆ ئەوەی دوگمەکان کار بکەن)
-  window.switchTab = function(tabName, element) {
-    document.getElementById('tab-consoles').style.display = 'none';
-    document.getElementById('tab-games').style.display = 'none';
-    document.getElementById('tab-pw').style.display = 'none';
-    document.getElementById('tab-' + tabName).style.display = 'block';
-    
-    const tabs = document.querySelectorAll('.a-tab');
-    tabs.forEach(tab => tab.classList.remove('active'));
-    element.classList.add('active');
-  };
-
-  // داخستنی پانێڵی ئەدمین
-  window.closeAdmin = function() {
-    document.getElementById('dashboard').style.display = 'none';
-  };
-
-  // گۆڕینی وشەی تێپەڕ و سەیڤکردن لە داتابەیس
-  window.changePw = function() {
-    const newPass = document.getElementById('np1').value;
-    if(newPass) {
-      set(ref(db, 'admin/password'), newPass)
-        .then(() => alert("وشەی تێپەڕ لە داتابەیس سەیڤ کرا!"))
-        .catch((err) => alert("هەڵە: " + err.message));
-    } else {
-      alert("تکایە وشە تێپەڕەکە بنووسە");
-    }
-  };
-
-  // خوێندنەوەی وشەی تێپەڕ لە کاتی گۆڕانکاریدا
-  onValue(ref(db, 'admin/password'), (snapshot) => {
-    const data = snapshot.val();
-    if (data) {
-      console.log("پاسوۆردی نوێ لە داتابەیس: ", data);
-    }
-  });
+// ── START ─────────────────────────────────────────────────────
+initData();
 </script>
 </body>
 </html>
