@@ -28,10 +28,11 @@ nav{display:flex;justify-content:center;border-bottom:1px solid #2a2a1a;backgrou
 .section{display:none}
 .section.active{display:block}
 .section-title{font-family:'Press Start 2P',monospace;font-size:clamp(10px,2vw,13px);color:#f5c842;margin-bottom:2rem;padding-bottom:0.5rem;border-bottom:1px solid #2a2a1a;letter-spacing:1px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+/* BIGGER IMAGES */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
 .card{background:#111108;border:1px solid #2a2a1a;border-radius:4px;overflow:hidden;cursor:pointer;transition:border-color 0.2s,transform 0.15s}
 .card:hover{border-color:#f5c842;transform:translateY(-2px)}
-.card-img{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:64px;border-bottom:1px solid #2a2a1a;overflow:hidden}
+.card-img{width:100%;height:200px;display:flex;align-items:center;justify-content:center;font-size:80px;border-bottom:1px solid #2a2a1a;overflow:hidden}
 .card-img img{width:100%;height:100%;object-fit:cover}
 .card-body{padding:14px}
 .card-name{font-family:'Press Start 2P',monospace;font-size:9px;color:#f5c842;margin-bottom:6px;line-height:1.6}
@@ -103,6 +104,12 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid #2a2a1a;font-family
 .fb-loading{font-family:'VT323',monospace;font-size:20px;color:#706858;text-align:center;padding:3rem;letter-spacing:2px}
 .fb-status{position:fixed;bottom:60px;right:20px;z-index:901;font-family:'VT323',monospace;font-size:14px;padding:6px 14px;border-radius:4px;display:none;background:#0a1a0a;border:1px solid #25d366;color:#25d366}
 .fb-status.err{background:#1a0a0a;border-color:#e24b4a;color:#e24b4a}
+
+/* LANGUAGE SWITCHER */
+.lang-bar{display:flex;justify-content:flex-end;align-items:center;gap:4px;padding:6px 1rem;background:#0a0a0a;border-bottom:1px solid #1a1a0a}
+.lang-btn{font-family:'VT323',monospace;font-size:15px;padding:3px 12px;background:none;border:1px solid #2a2a1a;color:#706858;cursor:pointer;border-radius:2px;transition:all 0.15s;letter-spacing:1px}
+.lang-btn:hover{border-color:#a09878;color:#a09878}
+.lang-btn.active{border-color:#f5c842;color:#f5c842;background:#1a1a08}
 /* FILTER BAR */
 .filter-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.5rem}
 .f-btn{font-family:'VT323',monospace;font-size:16px;padding:5px 16px;background:none;border:1px solid #2a2a1a;color:#706858;cursor:pointer;border-radius:2px;transition:all 0.15s;letter-spacing:1px}
@@ -117,6 +124,12 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid #2a2a1a;font-family
 </head>
 <body>
 <div class="scanlines"></div>
+<!-- Language Bar -->
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('ku')">کوردی</button>
+  <button class="lang-btn" onclick="setLang('ar')">العربية</button>
+  <button class="lang-btn" onclick="setLang('en')">EN</button>
+</div>
 <div class="hero">
   <div class="logo">RETRO ERBIL<br><span style="font-size:0.6em;color:#c8b870">CLASSIC GAMING COLLECTION</span></div>
   <div class="tagline">INSERT COIN TO CONTINUE <span class="blink">█</span></div>
@@ -214,16 +227,128 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid #2a2a1a;font-family
 </div>
 
 <script>
+// ── TRANSLATIONS ─────────────────────────────────────────────
+const T = {
+  ku: {
+    dir:'ltr', consoles:'کۆنسۆلەکان', games:'یاریەکان', about:'دەربارە',
+    consoleTitle:'// کۆکراوەی کۆنسۆل', gameTitle:'// کتێبخانەی یاری',
+    aboutTitle:'RETRO ERBIL — هەولێر، کوردستان',
+    aboutText:'هەولێر-بازاڕی نیشتیمان-نهۆمی خوارەوە-پێشانگای سامی',
+    contact:'بۆ زانیاری زیاتر یان کڕین پەیوەندیمان پێوە بکە:',
+    loading:'چاوەڕوان بە…', noItems:'هیچ شتێک نەدۆزرایەوە',
+    classicGames:'یاریە کلاسیکەکان:', notableTitles:'ناوداران:',
+    addConsole:'+ کۆنسۆلێکی نوێ زیاد بکە', addGame:'+ یارییەکی نوێ زیاد بکە',
+    edit:'✏ گۆڕین', del:'✕ سڕینەوە', save:'💾 پاشەکەوت بکە', cancel:'پاشگەزبوونەوە',
+    loginTitle:'🔐 ADMIN
+RETRO ERBIL', loginErr:'پاسوۆردەکە هەڵەیە!',
+    pw:'پاسوۆرد', enter:'چوونە ژوورەوە →', back:'گەڕانەوە',
+    dashboard:'⚙ پانێلی بەڕێوەبردن', close:'✕ داخستن',
+    tabConsoles:'🎮 کۆنسۆلەکان', tabGames:'🕹 یاریەکان', tabPw:'🔐 پاسوۆرد',
+    changePw:'🔐 گۆڕینی پاسوۆرد', newPw:'پاسوۆردی نوێ', confirmPw:'دووبارە بنووسە',
+    changePwBtn:'پاسوۆرد بگۆڕە', sure:'دڵنیایت؟', writeName:'ناوەکە بنووسە!',
+    fIcon:'ئایکۆن (ئیمۆجی)', fColor:'رەنگ', fName:'ناو', fBrand:'بەرهەمهێنەر / Brand',
+    fBrandHint:'ئەمە بۆ فیلتەرکردن بەکاردێت', fYear:'ساڵ و بەرهەمهێنەر',
+    fImage:'لینکی وێنە', fImageHint:'وێنەکەت ئەپلۆد بکە بۆ imgur.com — ئینجا لینکەکەی لێرە بنووسە',
+    fDesc:'وەسف', fSpecs:'تایبەتمەندیەکان (بە کامایەوە)',
+    fGames:'یاریە نامدارەکان', fChars:'کەسایەتیەکان', addNew:'+ زیادکردن',
+    savedOk:'✓ پاشەکەوت کرا Firebase', savedErr:'✕ هەڵە: ',
+    offline:'⚠ ئۆفلاین — داتای پێشگرتن بەکارهاتووە',
+    pwNew:'پاسوۆردی نوێ', pwConfirm:'دووبارە', pwMsg:'✓ پاسوۆردەکە گۆڕدرا و پاشەکەوت کرا Firebase!',
+    pwErr1:'پاسوۆردی نوێ بنووسە!', pwErr2:'پاسوۆردەکان یەک نین!'
+  },
+  ar: {
+    dir:'rtl', consoles:'الأجهزة', games:'الألعاب', about:'حول',
+    consoleTitle:'// مجموعة الأجهزة', gameTitle:'// مكتبة الألعاب',
+    aboutTitle:'RETRO ERBIL — أربيل، كوردستان',
+    aboutText:'أربيل - بازار نيشتيمان - الدور السفلي - معرض سامي',
+    contact:'للمزيد من المعلومات أو الشراء تواصل معنا:',
+    loading:'جاري التحميل…', noItems:'لا توجد عناصر',
+    classicGames:'الألعاب الكلاسيكية:', notableTitles:'الأبرز:',
+    addConsole:'+ إضافة جهاز جديد', addGame:'+ إضافة لعبة جديدة',
+    edit:'✏ تعديل', del:'✕ حذف', save:'💾 حفظ', cancel:'إلغاء',
+    loginTitle:'🔐 ADMIN
+RETRO ERBIL', loginErr:'كلمة المرور خاطئة!',
+    pw:'كلمة المرور', enter:'دخول →', back:'رجوع',
+    dashboard:'⚙ لوحة التحكم', close:'✕ إغلاق',
+    tabConsoles:'🎮 الأجهزة', tabGames:'🕹 الألعاب', tabPw:'🔐 كلمة المرور',
+    changePw:'🔐 تغيير كلمة المرور', newPw:'كلمة المرور الجديدة', confirmPw:'تأكيد',
+    changePwBtn:'تغيير كلمة المرور', sure:'هل أنت متأكد؟', writeName:'أدخل الاسم!',
+    fIcon:'أيقونة (إيموجي)', fColor:'اللون', fName:'الاسم', fBrand:'الشركة المصنعة',
+    fBrandHint:'يستخدم للفلترة', fYear:'السنة والمصنع',
+    fImage:'رابط الصورة', fImageHint:'ارفع الصورة على imgur.com ثم ضع الرابط هنا',
+    fDesc:'الوصف', fSpecs:'المواصفات (مفصولة بفاصلة)',
+    fGames:'الألعاب الشهيرة', fChars:'الشخصيات', addNew:'+ إضافة',
+    savedOk:'✓ تم الحفظ في Firebase', savedErr:'✕ خطأ: ',
+    offline:'⚠ غير متصل — يتم استخدام البيانات الافتراضية',
+    pwNew:'كلمة المرور الجديدة', pwConfirm:'تأكيد', pwMsg:'✓ تم تغيير كلمة المرور وحفظها!',
+    pwErr1:'أدخل كلمة المرور الجديدة!', pwErr2:'كلمتا المرور غير متطابقتين!'
+  },
+  en: {
+    dir:'ltr', consoles:'CONSOLES', games:'GAMES', about:'ABOUT',
+    consoleTitle:'// CONSOLE COLLECTION', gameTitle:'// GAME LIBRARY',
+    aboutTitle:'RETRO ERBIL — HEWLÊR, KURDISTAN',
+    aboutText:'Erbil - Nishtiman Bazaar - Lower Floor - Sami Gallery',
+    contact:'For more info or to buy, contact us:',
+    loading:'LOADING…', noItems:'No items found',
+    classicGames:'CLASSIC GAMES:', notableTitles:'NOTABLE TITLES:',
+    addConsole:'+ Add New Console', addGame:'+ Add New Game',
+    edit:'✏ Edit', del:'✕ Delete', save:'💾 Save', cancel:'Cancel',
+    loginTitle:'🔐 ADMIN
+RETRO ERBIL', loginErr:'Wrong password!',
+    pw:'Password', enter:'Login →', back:'Back',
+    dashboard:'⚙ Admin Panel', close:'✕ Close',
+    tabConsoles:'🎮 Consoles', tabGames:'🕹 Games', tabPw:'🔐 Password',
+    changePw:'🔐 Change Password', newPw:'New Password', confirmPw:'Confirm',
+    changePwBtn:'Change Password', sure:'Are you sure?', writeName:'Enter the name!',
+    fIcon:'Icon (Emoji)', fColor:'Color', fName:'Name', fBrand:'Brand / Manufacturer',
+    fBrandHint:'Used for filtering', fYear:'Year & Manufacturer',
+    fImage:'Image URL', fImageHint:'Upload your image to imgur.com — then paste the link here',
+    fDesc:'Description', fSpecs:'Specs (comma separated)',
+    fGames:'Notable Games', fChars:'Characters', addNew:'+ Add New',
+    savedOk:'✓ Saved to Firebase', savedErr:'✕ Error: ',
+    offline:'⚠ Offline — using default data',
+    pwNew:'New Password', pwConfirm:'Confirm', pwMsg:'✓ Password changed and saved to Firebase!',
+    pwErr1:'Enter a new password!', pwErr2:'Passwords do not match!'
+  }
+};
+let lang = 'ku';
+
+function setLang(l){
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  const t = T[l];
+  document.documentElement.dir = t.dir;
+  // Nav
+  const navBtns = document.querySelectorAll('.nav-btn');
+  navBtns[0].textContent = t.consoles;
+  navBtns[1].textContent = t.games;
+  navBtns[2].textContent = t.about;
+  // Section titles
+  document.querySelector('#sec-consoles .section-title').textContent = t.consoleTitle;
+  document.querySelector('#sec-games .section-title').textContent = t.gameTitle;
+  // About
+  document.querySelector('.about-title').textContent = t.aboutTitle;
+  document.querySelector('.about-text').innerHTML = t.aboutText + '<br><br>' + t.contact;
+  // Footer
+  document.querySelector('footer').textContent = '© RETRO ERBIL — HEWLÊR, KURDISTAN — PRESS START';
+  // Re-render to update labels
+  renderAll();
+  // Admin labels if open
+  if(document.getElementById('adminOverlay').classList.contains('open') && loggedIn){
+    buildTab(curTab);
+  }
+}
+
 // ── FIREBASE INIT ─────────────────────────────────────────────
 const firebaseConfig = {
-  apiKey: "AIzaSyCmrGwoSQIFrWpVTH4W8aoumJfEyYP3F1E",
-  authDomain: "contactfrom-2ef93.firebaseapp.com",
-  databaseURL: "https://contactfrom-2ef93-default-rtdb.firebaseio.com",
-  projectId: "contactfrom-2ef93",
-  storageBucket: "contactfrom-2ef93.firebasestorage.app",
-  messagingSenderId: "238509815149",
-  appId: "1:238509815149:web:13891fdeac62a232d15664",
-  measurementId: "G-CEY3YG311B"
+  apiKey: "%%FIREBASE_API_KEY%%",
+  authDomain: "%%FIREBASE_AUTH_DOMAIN%%",
+  databaseURL: "%%FIREBASE_DATABASE_URL%%",
+  projectId: "%%FIREBASE_PROJECT_ID%%",
+  storageBucket: "%%FIREBASE_STORAGE_BUCKET%%",
+  messagingSenderId: "%%FIREBASE_MESSAGING_SENDER_ID%%",
+  appId: "%%FIREBASE_APP_ID%%"
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
@@ -263,46 +388,40 @@ function showStatus(msg, isErr=false){
 async function fbSave(path, data){
   try{
     await db.ref(path).set(data);
-    showStatus('✓ پاشەکەوت کرا Firebase');
+    showStatus(T[lang].savedOk);
   } catch(e){
-    showStatus('✕ هەڵە: '+e.message, true);
+    showStatus(T[lang].savedErr+e.message, true);
   }
 }
 
 // ── INIT: LOAD FROM FIREBASE ──────────────────────────────────
 async function initData(){
+  const fix = (arr) => {
+    if(!arr) return [];
+    return Object.values(arr).filter(i=>i&&typeof i==='object').map(i=>({
+      ...i,
+      brand: i.brand||'',
+      specs: Array.isArray(i.specs)?i.specs:(i.specs?Object.values(i.specs):[]),
+      games: Array.isArray(i.games)?i.games:(i.games?Object.values(i.games):[])
+    }));
+  };
   try {
     const snap = await db.ref('retroerbil').get();
     if(snap.exists()){
       const d = snap.val();
-      const fix = (arr) => {
-        if(!arr) return [];
-        return Object.values(arr).filter(i=>i&&typeof i==='object').map(i=>({
-          ...i,
-          brand: i.brand||'',
-          specs: Array.isArray(i.specs)?i.specs:(i.specs?Object.values(i.specs):[]),
-          games: Array.isArray(i.games)?i.games:(i.games?Object.values(i.games):[])
-        }));
-      };
       CC = fix(d.consoles).length ? fix(d.consoles) : DEF_CONSOLES;
       GG = fix(d.games).length   ? fix(d.games)    : DEF_GAMES;
       PW = d.password || 'retro1234';
     } else {
-      // First time: write defaults to Firebase
       CC = DEF_CONSOLES;
       GG = DEF_GAMES;
       PW = 'retro1234';
-      await db.ref('retroerbil').set({
-        consoles: DEF_CONSOLES,
-        games: DEF_GAMES,
-        password: PW
-      });
+      await db.ref('retroerbil').set({ consoles: DEF_CONSOLES, games: DEF_GAMES, password: PW });
     }
   } catch(e){
-    // Fallback to defaults if offline
     CC = DEF_CONSOLES;
     GG = DEF_GAMES;
-    showStatus('⚠ ئۆفلاین — داتای پێشگرتن بەکارهاتووە', true);
+    showStatus(T[lang].offline, true);
   }
   renderAll();
 }
@@ -311,15 +430,17 @@ async function initData(){
 let activeConsoleFilter = 'ALL';
 let activeGameFilter    = 'ALL';
 
-function getBrand(item){
-  return (item.brand || '').toUpperCase().trim() || 'OTHER';
-}
+function getBrand(item){ return (item.brand||'OTHER').toUpperCase().trim()||'OTHER'; }
 
-function buildFilterBar(items, barId, stateKey, gridId, lbl){
+function buildFilterBar(items, barId, stateKey){
   const bar = document.getElementById(barId);
-  const brands = ['ALL', ...new Set(items.map(i => getBrand(i)).filter(b => b && b !== 'OTHER')), ...items.some(i => getBrand(i)==='OTHER') ? ['OTHER'] : []];
-  bar.innerHTML = brands.map(b =>
-    `<button class="f-btn${(stateKey==='console'?activeConsoleFilter:activeGameFilter)===b?' active':''}" onclick="setFilter('${stateKey}','${b}')">${b}</button>`
+  if(!bar) return;
+  const used = [...new Set(items.map(i=>getBrand(i)).filter(b=>b&&b!=='OTHER'))];
+  const hasOther = items.some(i=>getBrand(i)==='OTHER');
+  const brands = ['ALL', ...used, ...(hasOther?['OTHER']:[])];
+  const cur = stateKey==='console' ? activeConsoleFilter : activeGameFilter;
+  bar.innerHTML = brands.map(b=>
+    `<button class="f-btn${cur===b?' active':''}" onclick="setFilter('${stateKey}','${b}')">${b}</button>`
   ).join('');
 }
 
@@ -331,18 +452,20 @@ function setFilter(type, brand){
 
 // ── PUBLIC ────────────────────────────────────────────────────
 function renderAll(){
-  buildFilterBar(CC,'consoleFilters','console','consolesGrid','CLASSIC GAMES:');
-  buildFilterBar(GG,'gameFilters','game','gamesGrid','NOTABLE TITLES:');
+  const t = T[lang];
+  buildFilterBar(CC,'consoleFilters','console');
+  buildFilterBar(GG,'gameFilters','game');
   const filteredCC = activeConsoleFilter==='ALL' ? CC : CC.filter(i=>getBrand(i)===activeConsoleFilter);
   const filteredGG = activeGameFilter==='ALL'    ? GG : GG.filter(i=>getBrand(i)===activeGameFilter);
-  renderGrid(filteredCC,'consolesGrid','CLASSIC GAMES:');
-  renderGrid(filteredGG,'gamesGrid','NOTABLE TITLES:');
+  renderGrid(filteredCC,'consolesGrid', t.classicGames);
+  renderGrid(filteredGG,'gamesGrid',    t.notableTitles);
 }
 
 function renderGrid(items,id,lbl){
+  const t=T[lang];
   const g=document.getElementById(id);
   g.innerHTML='';
-  if(!items.length){g.innerHTML='<div class="fb-loading">هیچ شتێک نەدۆزرایەوە</div>';return;}
+  if(!items.length){g.innerHTML=`<div class="fb-loading">${t.noItems}</div>`;return;}
   items.forEach(item=>{
     const c=document.createElement('div');
     c.className='card';
@@ -361,8 +484,8 @@ function openModal(item,lbl){
   if(item.image){img.src=item.image;img.style.display='block';ico.style.display='none';}
   else{img.style.display='none';ico.style.display='block';ico.textContent=item.icon;}
   document.getElementById('mTitle').textContent=item.name;
-  document.getElementById('mYear').textContent=item.year;
-  document.getElementById('mDesc').textContent=item.desc;
+  document.getElementById('mYear').textContent=item.year||'';
+  document.getElementById('mDesc').textContent=item.desc||'';
   document.getElementById('mLabel').textContent=lbl;
   document.getElementById('mChips').innerHTML=(Array.isArray(item.games)?item.games:[]).map(g=>`<span class="chip">${g}</span>`).join('');
   document.getElementById('modalOverlay').classList.add('open');
@@ -406,51 +529,55 @@ function switchTab(tab,btn){
   if(tab!=='pw')buildTab(tab);
 }
 function buildTab(tab){
+  const t=T[lang];
   const items=tab==='consoles'?CC:GG;
   const el=document.getElementById('tab-'+tab);
-  let html=`<button class="b-add" onclick="showForm('${tab}',-1)">+ ${tab==='consoles'?'کۆنسۆلێکی نوێ زیاد بکە':'یارییەکی نوێ زیاد بکە'}</button><div id="alist-${tab}">`;
+  let html=`<button class="b-add" onclick="showForm('${tab}',-1)">${tab==='consoles'?t.addConsole:t.addGame}</button><div id="alist-${tab}">`;
   items.forEach((item,i)=>{
-    html+=`<div class="a-item"><div class="a-item-icon">${item.icon}</div><div class="a-item-info"><div class="a-item-name">${item.name}</div><div class="a-item-year">${item.year}</div></div><div class="a-btns"><button class="b-edit" onclick="showForm('${tab}',${i})">✏ گۆڕین</button><button class="b-del" onclick="delItem('${tab}',${i})">✕</button></div></div>`;
+    html+=`<div class="a-item"><div class="a-item-icon">${item.icon}</div><div class="a-item-info"><div class="a-item-name">${item.name}</div><div class="a-item-year">${item.year||''}</div></div><div class="a-btns"><button class="b-edit" onclick="showForm('${tab}',${i})">${t.edit}</button><button class="b-del" onclick="delItem('${tab}',${i})">✕</button></div></div>`;
   });
   html+=`</div><div id="aform-${tab}"></div>`;
   el.innerHTML=html;
 }
 function delItem(tab,i){
-  if(!confirm('دڵنیایت؟'))return;
+  const t=T[lang];
+  if(!confirm(t.sure))return;
   if(tab==='consoles'){CC.splice(i,1);fbSave('retroerbil/consoles',CC.length?CC:null);}
   else{GG.splice(i,1);fbSave('retroerbil/games',GG.length?GG:null);}
   renderAll();buildTab(tab);
 }
 function showForm(tab,i){
+  const t=T[lang];
   const items=tab==='consoles'?CC:GG;
-  const item=i>=0?items[i]:{icon:'🎮',name:'',year:'',color:'#1a1a3a',image:'',desc:'',specs:[],games:[]};
+  const item=i>=0?items[i]:{icon:'🎮',name:'',brand:'',year:'',color:'#1a1a3a',image:'',desc:'',specs:[],games:[]};
   const isNew=i<0;
   document.getElementById('aform-'+tab).innerHTML=`
   <div class="a-form">
-    <div class="f-title">${isNew?'+ زیادکردن':'✏ گۆڕین'}</div>
+    <div class="f-title">${isNew?'+ '+t.addNew.replace('+ ',''):t.edit}</div>
     <div class="f-2">
-      <div class="f-row"><label class="f-label">ئایکۆن (ئیمۆجی)</label><input class="f-input" id="fi" value="${item.icon}"></div>
-      <div class="f-row"><label class="f-label">رەنگ</label><input class="f-input" id="fc" type="color" value="${item.color}" style="height:40px;padding:2px"></div>
+      <div class="f-row"><label class="f-label">${t.fIcon}</label><input class="f-input" id="fi" value="${item.icon}"></div>
+      <div class="f-row"><label class="f-label">${t.fColor}</label><input class="f-input" id="fc" type="color" value="${item.color||'#1a1a3a'}" style="height:40px;padding:2px"></div>
     </div>
-    <div class="f-row"><label class="f-label">ناو</label><input class="f-input" id="fn" value="${item.name}" placeholder="PLAYSTATION 1"></div>
-    <div class="f-row"><label class="f-label">بەرهەمهێنەر / Brand</label><input class="f-input" id="fbrand" value="${item.brand||''}" placeholder="PLAYSTATION / NINTENDO / SEGA / ATARI"><div class="f-hint">ئەمە بۆ فیلتەرکردن بەکاردێت</div></div>
-    <div class="f-row"><label class="f-label">ساڵ و بەرهەمهێنەر</label><input class="f-input" id="fy" value="${item.year}" placeholder="1994 — SONY"></div>
+    <div class="f-row"><label class="f-label">${t.fName}</label><input class="f-input" id="fn" value="${item.name}" placeholder="PLAYSTATION 1"></div>
+    <div class="f-row"><label class="f-label">${t.fBrand}</label><input class="f-input" id="fbrand" value="${item.brand||''}" placeholder="PLAYSTATION / NINTENDO / SEGA"><div class="f-hint">${t.fBrandHint}</div></div>
+    <div class="f-row"><label class="f-label">${t.fYear}</label><input class="f-input" id="fy" value="${item.year||''}" placeholder="1994 — SONY"></div>
     <div class="f-row">
-      <label class="f-label">لینکی وێنە</label>
-      <input class="f-input" id="fim" value="${item.image}" placeholder="https://i.imgur.com/abc.jpg">
-      <div class="f-hint">وێنەکەت ئەپلۆد بکە بۆ imgur.com — ئینجا لینکەکەی لێرە بنووسە</div>
+      <label class="f-label">${t.fImage}</label>
+      <input class="f-input" id="fim" value="${item.image||''}" placeholder="https://i.imgur.com/abc.jpg">
+      <div class="f-hint">${t.fImageHint}</div>
     </div>
-    <div class="f-row"><label class="f-label">وەسف</label><textarea class="f-input f-textarea" id="fd">${item.desc}</textarea></div>
-    <div class="f-row"><label class="f-label">تایبەتمەندیەکان (بە کامایەوە)</label><input class="f-input" id="fs" value="${item.specs.join(', ')}" placeholder="32-bit CPU, CD-ROM"></div>
-    <div class="f-row"><label class="f-label">${tab==='consoles'?'یاریە نامدارەکان':'کەسایەتیەکان'} (بە کامایەوە)</label><input class="f-input" id="fg" value="${item.games.join(', ')}"></div>
+    <div class="f-row"><label class="f-label">${t.fDesc}</label><textarea class="f-input f-textarea" id="fd">${item.desc||''}</textarea></div>
+    <div class="f-row"><label class="f-label">${t.fSpecs}</label><input class="f-input" id="fs" value="${(Array.isArray(item.specs)?item.specs:[]).join(', ')}" placeholder="32-bit CPU, CD-ROM"></div>
+    <div class="f-row"><label class="f-label">${tab==='consoles'?t.fGames:t.fChars}</label><input class="f-input" id="fg" value="${(Array.isArray(item.games)?item.games:[]).join(', ')}"></div>
     <div style="margin-top:1rem">
-      <button class="b-save" onclick="saveForm('${tab}',${i})">💾 پاشەکەوت بکە</button>
-      <button class="b-cancel" onclick="document.getElementById('aform-${tab}').innerHTML=''">پاشگەزبوونەوە</button>
+      <button class="b-save" onclick="saveForm('${tab}',${i})">${t.save}</button>
+      <button class="b-cancel" onclick="document.getElementById('aform-${tab}').innerHTML=''">${t.cancel}</button>
     </div>
   </div>`;
   document.getElementById('aform-'+tab).scrollIntoView({behavior:'smooth'});
 }
 function saveForm(tab,i){
+  const t=T[lang];
   const newItem={
     icon:document.getElementById('fi').value.trim()||'🎮',
     name:document.getElementById('fn').value.trim().toUpperCase(),
@@ -462,7 +589,7 @@ function saveForm(tab,i){
     specs:document.getElementById('fs').value.split(',').map(s=>s.trim()).filter(Boolean),
     games:document.getElementById('fg').value.split(',').map(s=>s.trim()).filter(Boolean),
   };
-  if(!newItem.name){alert('ناوەکە بنووسە!');return;}
+  if(!newItem.name){alert(t.writeName);return;}
   if(tab==='consoles'){
     if(i>=0) CC[i]=newItem; else CC.push(newItem);
     fbSave('retroerbil/consoles', CC);
@@ -473,12 +600,13 @@ function saveForm(tab,i){
   renderAll();buildTab(tab);
 }
 function changePw(){
+  const t=T[lang];
   const p1=document.getElementById('np1').value,p2=document.getElementById('np2').value,m=document.getElementById('pwMsg');
-  if(!p1){m.style.color='#e24b4a';m.textContent='پاسوۆردی نوێ بنووسە!';return;}
-  if(p1!==p2){m.style.color='#e24b4a';m.textContent='پاسوۆردەکان یەک نین!';return;}
+  if(!p1){m.style.color='#e24b4a';m.textContent=t.pwErr1;return;}
+  if(p1!==p2){m.style.color='#e24b4a';m.textContent=t.pwErr2;return;}
   PW=p1;
   fbSave('retroerbil/password',PW);
-  m.style.color='#25d366';m.textContent='✓ پاسوۆردەکە گۆڕدرا و پاشەکەوت کرا Firebase!';
+  m.style.color='#25d366';m.textContent=t.pwMsg;
   document.getElementById('np1').value='';document.getElementById('np2').value='';
 }
 
