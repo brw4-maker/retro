@@ -767,37 +767,51 @@ function showSection(n,btn){
 }
 
 // ══ AUTO-TRANSLATE (Claude API) ═══════════════════════════════
+// MyMemory free translation API — no key needed
+async function translateText(text, fromLang, toLang){
+  if(!text.trim()) return '';
+  const url=`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${fromLang}|${toLang}`;
+  const res=await fetch(url);
+  const data=await res.json();
+  return data.responseData?.translatedText||text;
+}
+
 async function autoTranslate(){
   const nameKu=document.getElementById('fnku')?.value.trim()||'';
-  const nameEn=document.getElementById('fn')?.value.trim()||'';
   const descKu=document.getElementById('fdku')?.value.trim()||'';
-  const descEn=document.getElementById('fd')?.value.trim()||'';
-  const source=nameKu||nameEn;
-  if(!source&&!descKu&&!descEn){alert('تکایە یەک ناوی کوردی یان ئینگلیزی بنووسە!');return;}
+  if(!nameKu&&!descKu){
+    alert('تکایە یەک ناوی کوردی یان وەسفی کوردی بنووسە!');return;
+  }
   const btn=document.getElementById('translateBtn');
   const status=document.getElementById('translateStatus');
   const t=T[lang];
   if(btn){btn.disabled=true;btn.textContent=t.translating;}
-  if(status)status.textContent=t.translating;
+  if(status){status.style.color='var(--text3)';status.textContent=t.translating;}
   try{
-    const prompt=`You are a translator. Translate the following gaming content into both Arabic and English.
-Source (Kurdish or English): Name="${source}", Description="${descKu||descEn||''}"
-Return ONLY valid JSON like:
-{"nameAr":"...","nameEn":"...","descAr":"...","descEn":"..."}
-Rules: nameEn should be uppercase English. Keep gaming terms. No extra text.`;
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
-    });
-    const data=await res.json();
-    const raw=data.content?.map(x=>x.text||'').join('');
-    const clean=raw.replace(/```json|```/g,'').trim();
-    const parsed=JSON.parse(clean);
-    if(parsed.nameAr){const el=document.getElementById('fnar');if(el)el.value=parsed.nameAr;}
-    if(parsed.nameEn&&!nameEn){const el=document.getElementById('fn');if(el)el.value=parsed.nameEn;}
-    if(parsed.descAr){const el=document.getElementById('fdar');if(el)el.value=parsed.descAr;}
-    if(parsed.descEn&&!descEn){const el=document.getElementById('fd');if(el)el.value=parsed.descEn;}
+    // Translate name: Kurdish → English and Kurdish → Arabic
+    const [nameEn, nameAr, descEn, descAr] = await Promise.all([
+      nameKu ? translateText(nameKu,'ckb','en') : Promise.resolve(''),
+      nameKu ? translateText(nameKu,'ckb','ar') : Promise.resolve(''),
+      descKu  ? translateText(descKu,'ckb','en')  : Promise.resolve(''),
+      descKu  ? translateText(descKu,'ckb','ar')  : Promise.resolve(''),
+    ]);
+
+    // Fill English name (uppercase)
+    const fnEl=document.getElementById('fn');
+    if(fnEl&&nameEn&&!fnEl.value) fnEl.value=nameEn.toUpperCase();
+
+    // Fill Arabic name
+    const fnarEl=document.getElementById('fnar');
+    if(fnarEl&&nameAr&&!fnarEl.value) fnarEl.value=nameAr;
+
+    // Fill English desc
+    const fdEl=document.getElementById('fd');
+    if(fdEl&&descEn&&!fdEl.value) fdEl.value=descEn;
+
+    // Fill Arabic desc
+    const fdarEl=document.getElementById('fdar');
+    if(fdarEl&&descAr&&!fdarEl.value) fdarEl.value=descAr;
+
     if(status){status.style.color='var(--green)';status.textContent=t.translateDone;}
     sfxOneUp&&sfxOneUp();
   }catch(e){
