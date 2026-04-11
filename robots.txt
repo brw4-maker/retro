@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://brw4-maker.github.io/RETRO-ERBIL88/sitemap.xml
