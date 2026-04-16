@@ -589,9 +589,25 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid var(--border);font-
     </div>
     <div id="cartItems"></div>
     <button class="cart-checkout" id="checkoutBtn" onclick="doCheckout()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      کڕین لە WhatsApp دا
+      🛒 <span id="cartCheckoutLabel">داوای کڕین بنێرە</span>
     </button>
+    <!-- Choice buttons -->
+    <div id="checkoutChoice" style="display:none;flex-direction:column;gap:8px;margin-top:10px">
+      <div style="font-family:'VT323',monospace;font-size:16px;color:var(--text2);text-align:center;margin-bottom:4px" id="choiceLabel">بە کام ئەپ دەنێریت؟</div>
+      <button onclick="checkoutVia('wa')" style="font-family:'VT323',monospace;font-size:17px;padding:10px;background:#0a2014;border:1px solid var(--green);color:var(--green);cursor:pointer;border-radius:3px;display:flex;align-items:center;justify-content:center;gap:8px">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp — 0787 115 5811
+      </button>
+      <button onclick="checkoutVia('wa2')" style="font-family:'VT323',monospace;font-size:17px;padding:10px;background:#0a2014;border:1px solid #1a9a50;color:#1a9a50;cursor:pointer;border-radius:3px;display:flex;align-items:center;justify-content:center;gap:8px">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="#1a9a50"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp — 0750 604 1911
+      </button>
+      <button onclick="checkoutVia('vb')" style="font-family:'VT323',monospace;font-size:17px;padding:10px;background:#0c0a28;border:1px solid var(--violet);color:var(--violet);cursor:pointer;border-radius:3px;display:flex;align-items:center;justify-content:center;gap:8px">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="#9d8eff"><path d="M11.4 0C5.5 0 .9 4.2.9 9.4c0 3.1 1.6 5.9 4.1 7.7v3.4l3.2-1.7c1 .3 2.1.4 3.2.4 5.9 0 10.5-4.2 10.5-9.4S17.3 0 11.4 0zm1 12.7l-2.6-2.8-5 2.8 5.5-5.9 2.7 2.8 5-2.8-5.6 5.9z"/></svg>
+        Viber — 0750 604 1911
+      </button>
+      <button onclick="document.getElementById('checkoutChoice').style.display='none'" style="font-family:'VT323',monospace;font-size:16px;padding:8px;background:none;border:1px solid var(--border);color:var(--text3);cursor:pointer;border-radius:3px">پاشگەزبوونەوە</button>
+    </div>
   </div>
 </div>
 
@@ -616,6 +632,19 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid var(--border);font-
       <div class="admin-header">
         <div class="admin-title">⚙ پانێلی بەڕێوەبردن</div>
         <button class="a-close" onclick="closeAdmin()">✕ داخستن</button>
+      </div>
+      <!-- Visitor Stats -->
+      <div id="adminStats" style="background:#08080e;border:1px solid var(--border);border-radius:3px;padding:1rem;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="text-align:center;border:1px solid var(--border2);border-radius:3px;padding:.8rem">
+          <div style="font-size:28px;margin-bottom:4px">👁️</div>
+          <div style="font-family:'Press Start 2P',monospace;font-size:14px;color:var(--gold)" id="statVisitors">—</div>
+          <div style="font-family:'VT323',monospace;font-size:15px;color:var(--text3);margin-top:3px">کۆی سەردانکاران</div>
+        </div>
+        <div style="text-align:center;border:1px solid var(--border2);border-radius:3px;padding:.8rem">
+          <div style="font-size:28px;margin-bottom:4px">🎮</div>
+          <div style="font-family:'Press Start 2P',monospace;font-size:14px;color:var(--gold)" id="statItems">—</div>
+          <div style="font-family:'VT323',monospace;font-size:15px;color:var(--text3);margin-top:3px">کۆی کاڵاکان</div>
+        </div>
       </div>
       <div class="a-tabs">
         <button class="a-tab active" onclick="switchTab('consoles',this)">🎮 کۆنسۆلەکان</button>
@@ -667,7 +696,7 @@ const T={
     fNamesSection:'// ناوەکان بە ٣ زمان',fDescsSection:'// وەسفەکان بە ٣ زمان',
     translateBtn:'🤖 وەرگێڕان بۆ عەرەبی و ئینگلیزی',translating:'⏳ وەرگێڕان…',translateDone:'✓ وەرگێڕان تەواو بوو!',translateFail:'✕ هەڵەی وەرگێڕان',
     addNew:'+ زیادکردن',editLabel:'✏ گۆڕین',sure:'دڵنیایت؟',nameRequired:'ناوی کوردی یان ئینگلیزیەکە بنووسە!',
-    navParts:'پارچەکان',addCart:'زیادکە بۆ سوندوق',oosLabel:'❌ نەماوە',savedOk:'✓ پاشەکەوت کرا',savedErr:'✕ هەڵە: ',offline:'⚠ ئۆفلاین'},
+    navParts:'پارچەکان',addCart:'🛒 زیادکە بۆ سوندوق',oosLabel:'❌ نەماوە',cartTitle:'سوندوقی کڕین',savedOk:'✓ پاشەکەوت کرا',savedErr:'✕ هەڵە: ',offline:'⚠ ئۆفلاین'},
   ar:{dir:'rtl',navConsoles:'الأجهزة',navGames:'الألعاب',navAbout:'حول',
     titleConsoles:'// مجموعة الأجهزة',titleGames:'// مكتبة الألعاب',titleAbout:'// حول',
     aboutTitle:'RETRO ERBIL — أربيل، كوردستان',aboutText:'أربيل — بازار نيشتيمان — الطابق السفلي — معرض سامي',
@@ -688,7 +717,7 @@ const T={
     fNamesSection:'// الأسماء بـ ٣ لغات',fDescsSection:'// الأوصاف بـ ٣ لغات',
     translateBtn:'🤖 ترجمة إلى العربية والإنجليزية',translating:'⏳ جاري الترجمة…',translateDone:'✓ تمت الترجمة!',translateFail:'✕ خطأ في الترجمة',
     addNew:'+ إضافة',editLabel:'✏ تعديل',sure:'هل أنت متأكد؟',nameRequired:'أدخل الاسم!',
-    navParts:'قطع الغيار',addCart:'أضف للسلة',oosLabel:'❌ غير متوفر',savedOk:'✓ تم الحفظ',savedErr:'✕ خطأ: ',offline:'⚠ غير متصل'},
+    navParts:'قطع الغيار',addCart:'🛒 أضف للسلة',oosLabel:'❌ غير متوفر',cartTitle:'سلة الشراء',savedOk:'✓ تم الحفظ',savedErr:'✕ خطأ: ',offline:'⚠ غير متصل'},
   en:{dir:'ltr',navConsoles:'CONSOLES',navGames:'GAMES',navAbout:'ABOUT',
     titleConsoles:'// CONSOLE COLLECTION',titleGames:'// GAME LIBRARY',titleAbout:'// ABOUT',
     aboutTitle:'RETRO ERBIL — HEWLÊR, KURDISTAN',aboutText:'Erbil — Nishtiman Bazaar — Lower Floor — Sami Gallery',
@@ -709,7 +738,7 @@ const T={
     fNamesSection:'// Names in 3 Languages',fDescsSection:'// Descriptions in 3 Languages',
     translateBtn:'🤖 Auto-translate to Arabic & English',translating:'⏳ Translating…',translateDone:'✓ Translation done!',translateFail:'✕ Translation failed',
     addNew:'+ Add New',editLabel:'✏ Edit',sure:'Are you sure?',nameRequired:'Enter a name!',
-    navParts:'PARTS',addCart:'Add to Cart',oosLabel:'❌ Out of Stock',savedOk:'✓ Saved',savedErr:'✕ Error: ',offline:'⚠ Offline'}
+    navParts:'PARTS',addCart:'🛒 Add to Cart',oosLabel:'❌ Out of Stock',cartTitle:'Shopping Cart',savedOk:'✓ Saved',savedErr:'✕ Error: ',offline:'⚠ Offline'}
 };
 let lang='ku';
 
@@ -728,7 +757,9 @@ function setLang(l,btn){
   document.getElementById('searchInput').placeholder=t.searchPh;
   updateShopStatus();
   renderAll();
-  if(loggedIn&&document.getElementById('adminOverlay').classList.contains('open'))buildTab(curTab);
+  renderParts();
+  renderCartItems();
+  if(loggedIn&&document.getElementById('adminOverlay').classList.contains('open')){buildTab(curTab);loadAdminStats();}
 }
 
 // ══ SHOP STATUS ═══════════════════════════════════════════════
@@ -788,6 +819,14 @@ function fixArr(arr){
   }));
 }
 async function initData(){
+  // Count visitor
+  try{
+    const visRef=db.ref('retroerbil/visitors');
+    const visSnap=await visRef.get();
+    const cur=visSnap.exists()?(visSnap.val()||0):0;
+    await visRef.set(cur+1);
+  }catch(e){}
+
   try{
     const snap=await db.ref('retroerbil').get();
     if(snap.exists()){
@@ -911,7 +950,7 @@ function renderGrid(items,id,lbl){
     const oos=item.outOfStock?`<div class="out-of-stock-badge">❌ نەماوە</div>`:'';
     const cartBtn=item.outOfStock
       ?`<button class="add-cart-btn oos-btn" disabled>❌ نەماوە</button>`
-      :`<button class="add-cart-btn" onclick="event.stopPropagation();addToCart(${JSON.stringify(item).replace(/"/g,'&quot;')},'${lbl}')">🛒 زیادکە بۆ سوندوق</button>`;
+      :`<button class="add-cart-btn" onclick="event.stopPropagation();addToCart(${JSON.stringify(item).replace(/"/g,'&quot;')},'${lbl}')">${T[lang].addCart||'🛒 زیادکە بۆ سوندوق'}</button>`;
     if(item.brand&&item.brand!=='OTHER')c.innerHTML=`<div class="card-brand">${item.brand}</div>`;
     c.innerHTML+=`<div style="position:relative">${imgPart}${oos}</div><div class="card-body"><div class="card-name">${name}</div><div class="card-year">${item.year||''}</div><div class="card-desc">${desc.substring(0,90)}…</div><div>${specs.map(s=>`<span class="badge">${s}</span>`).join('')}</div>${cartBtn}</div>`;
     c.onclick=()=>openModal(item,lbl);
@@ -996,10 +1035,24 @@ async function autoTranslate(){
 }
 
 // ══ ADMIN ════════════════════════════════════════════════════
+async function loadAdminStats(){
+  try{
+    const snap=await db.ref('retroerbil/visitors').get();
+    const v=snap.exists()?snap.val():0;
+    const el=document.getElementById('statVisitors');
+    if(el)el.textContent=v.toLocaleString();
+    const ei=document.getElementById('statItems');
+    if(ei)ei.textContent=(CC.length+GG.length+PP.length);
+  }catch(e){}
+}
 function openAdmin(){
   document.getElementById('adminOverlay').classList.add('open');
-  if(loggedIn){document.getElementById('loginBox').style.display='none';document.getElementById('dashboard').style.display='block';buildTab(curTab);}
-  else{document.getElementById('loginBox').style.display='block';document.getElementById('dashboard').style.display='none';}
+  if(loggedIn){
+    document.getElementById('loginBox').style.display='none';
+    document.getElementById('dashboard').style.display='block';
+    buildTab(curTab);
+    loadAdminStats();
+  }else{document.getElementById('loginBox').style.display='block';document.getElementById('dashboard').style.display='none';}
 }
 function closeAdmin(){
   document.getElementById('adminOverlay').classList.remove('open');
@@ -1224,28 +1277,58 @@ function closeCart(){document.getElementById('cartOverlay').classList.remove('op
 function renderCartItems(){
   const el=document.getElementById('cartItems');
   const btn=document.getElementById('checkoutBtn');
+  const t=T[lang];
   if(!el)return;
+  // Update labels
+  const cl=document.getElementById('cartCheckoutLabel');
+  if(cl)cl.textContent=lang==='ku'?'داوای کڕین بنێرە':lang==='ar'?'أرسل طلب الشراء':'Send Purchase Request';
+  const chLabel=document.getElementById('choiceLabel');
+  if(chLabel)chLabel.textContent=lang==='ku'?'بە کام ئەپ دەنێریت؟':lang==='ar'?'عبر أي تطبيق؟':'Send via which app?';
+  const cl2=document.getElementById('cartCountLabel');
+  if(cl2)cl2.textContent=lang==='ku'?'سوندوق':lang==='ar'?'السلة':'Cart';
   if(!cart.length){
-    el.innerHTML='<div class="cart-empty">🛒 سوندوقەکە بەتاڵە</div>';
+    el.innerHTML=`<div class="cart-empty">${lang==='ku'?'🛒 سوندوقەکە بەتاڵە':lang==='ar'?'🛒 السلة فارغة':'🛒 Cart is empty'}</div>`;
     if(btn)btn.disabled=true;return;
   }
   if(btn)btn.disabled=false;
-  el.innerHTML=cart.map((item,i)=>`
-    <div class="cart-item">
-      <div class="cart-item-icon">${item.icon}</div>
+  el.innerHTML=cart.map((item,i)=>{
+    const imgHtml=item.image
+      ?`<img src="${item.image}" style="width:48px;height:48px;object-fit:contain;border-radius:3px;background:#06060e;border:1px solid var(--border)" onerror="this.style.display='none'">`
+      :`<div style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:28px;background:${item.color||'#1a1a2a'};border-radius:3px;border:1px solid var(--border)">${item.icon}</div>`;
+    const removeLabel=lang==='ku'?'سڕینەوە':lang==='ar'?'حذف':'Remove';
+    return `<div class="cart-item">
+      ${imgHtml}
       <div class="cart-item-info">
         <div class="cart-item-name">${getN(item)}</div>
         <div class="cart-item-cat">${item.category}</div>
       </div>
-      <button class="cart-item-remove" onclick="removeFromCart(${i})">✕</button>
-    </div>`).join('');
+      <button class="cart-item-remove" onclick="removeFromCart(${i})" title="${removeLabel}">✕</button>
+    </div>`;
+  }).join('');
 }
 function doCheckout(){
   if(!cart.length)return;
-  const lines=cart.map((item,i)=>`${i+1}. ${item.name} (${item.category})`).join('%0A');
-  const msg=`🛒 *RETRO ERBIL — داواکاری کڕین*%0A%0A${lines}%0A%0A📍 هەولێر — بازاڕی نیشتیمان%0A⭐ تکایە مەبەستم لە کڕینی ئەم بابەتانەیە`;
-  window.open(`https://wa.me/9647871155811?text=${msg}`,'_blank');
+  const lines=cart.map((item,i)=>`${i+1}. ${getN(item)}`).join('%0A');
+  const greet = lang==='ku'?'🛒 *RETRO ERBIL — داواکاری کڕین*':lang==='ar'?'🛒 *RETRO ERBIL — طلب شراء*':'🛒 *RETRO ERBIL — Purchase Request*';
+  const footer = lang==='ku'?'📍 هەولێر — بازاڕی نیشتیمان — پێشانگای سامی%0A✅ فرۆشتن و چاکردنەوە':lang==='ar'?'📍 أربيل — بازار نيشتيمان — معرض سامي%0A✅ بيع وإصلاح':'📍 Erbil — Nishtiman Bazaar — Sami Gallery%0A✅ Sales & Repair';
+  const msg=encodeURIComponent(`${greet.replace(/\*/g,'')}
+
+${cart.map((item,i)=>`${i+1}. ${getN(item)}`).join('
+')}
+
+${decodeURIComponent(footer)}`);
+  // Show choice: WhatsApp or Viber
+  const choice=document.getElementById('checkoutChoice');
+  if(choice){choice.style.display='flex';window._checkoutMsg=msg;}
+}
+function checkoutVia(type){
+  const msg=window._checkoutMsg||'';
+  if(type==='wa') window.open(`https://wa.me/9647871155811?text=${msg}`,'_blank');
+  if(type==='vb') window.open(`viber://chat?number=9647506041911&text=${msg}`,'_blank');
+  if(type==='wa2') window.open(`https://wa.me/9647506041911?text=${msg}`,'_blank');
   sfxOneUp&&sfxOneUp();
+  const choice=document.getElementById('checkoutChoice');
+  if(choice)choice.style.display='none';
 }
 
 // ══ PARTS FUNCTIONS ════════════════════════════════════════════
