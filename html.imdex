@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+
+<html lang="ku" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RETRO ERBIL — Classic Gaming Collection | هەولێر</title>
+
+<!-- ══ SEO ══ -->
+
+<meta name="description" content="RETRO ERBIL — فرۆشگای کۆنسۆل و یاریە کلاسیکەکان لە هەولێر. PlayStation, Nintendo, Sega, Atari. بازاڕی نیشتیمان، نهۆمی خوارەوە، پێشانگای سامی.">
+<meta name="keywords" content="RETRO ERBIL, retro erbil, ریترۆ ئەربیل, فرۆشگای یاری هەولێر, كونسول اربيل, playstation erbil, nintendo erbil, sega erbil, retro games iraq, classic gaming erbil, هەولێر یاری, بازاڕی نیشتیمان, پێشانگای سامی">
+<meta name="author" content="RETRO ERBIL">
+<meta name="robots" content="index, follow">
+<meta name="language" content="Kurdish, Arabic, English">
+<link rel="canonical" href="https://brw4-maker.github.io/RETRO-ERBIL88/">
+
+<!-- ══ OPEN GRAPH (Facebook / WhatsApp preview) ══ -->
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="RETRO ERBIL — Classic Gaming Collection">
+<meta property="og:description" content="فرۆشگای کۆنسۆل و یاریە کلاسیکەکان لە هەولێر — بازاڕی نیشتیمان، پێشانگای سامی. PlayStation, Nintendo, Sega و زیاتر.">
+<meta property="og:url" content="https://brw4-maker.github.io/RETRO-ERBIL88/">
+<meta property="og:site_name" content="RETRO ERBIL">
+<meta property="og:locale" content="ckb_IQ">
+
+<!-- ══ TWITTER CARD ══ -->
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RETRO ERBIL — Classic Gaming Collection">
+<meta name="twitter:description" content="فرۆشگای کۆنسۆل و یاریە کلاسیکەکان لە هەولێر">
+
+<!-- ══ STRUCTURED DATA (Google Rich Results) ══ -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "name": "RETRO ERBIL",
+  "alternateName": ["ریترۆ ئەربیل", "ريترو اربيل", "Retro Erbil Gaming"],
+  "description": "Classic gaming consoles and games shop in Erbil, Kurdistan. PlayStation, Nintendo, Sega, Atari collections.",
+  "url": "https://brw4-maker.github.io/RETRO-ERBIL88/",
+  "telephone": ["+9647506041911", "+9647871155811"],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Nishtiman Bazaar, Lower Floor, Sami Gallery",
+    "addressLocality": "Erbil",
+    "addressRegion": "Kurdistan",
+    "addressCountry": "IQ"
+  },
+  "openingHours": "Mo-Sa 09:00-18:00",
+  "sameAs": ["https://www.facebook.com/share/18JVEk4PzW/?mibextid=wwXIfr"]
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#f5c842;--gold2:#c8b870;--gold3:#8a6f00;--gold4:#3a2e00;
+  --dark:#060608;--dark2:#0e0e12;--dark3:#080810;
+  --border:#2a2a3a;--border2:#3a3a4a;
+  --text:#e8e0d0;--text2:#a09888;--text3:#606070;
+  --green:#25d366;--red:#e24b4a;--blue:#4a9eff;--violet:#9d8eff;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Courier Prime',monospace;background:var(--dark);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* ─── SCANLINES ─── */
+.scanlines{position:fixed;top:0;left:0;width:100%;height:100%;
+background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.06) 3px,rgba(0,0,0,0.06) 4px);
+pointer-events:none;z-index:9000}
+
+/* ─── INTRO ─── */
+#introScreen{position:fixed;inset:0;background:#000;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;cursor:pointer}
+#introScreen.hide{animation:iFade .9s ease forwards}
+@keyframes iFade{to{opacity:0;visibility:hidden}}
+.i-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(245,200,66,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(245,200,66,.03) 1px,transparent 1px);background-size:44px 44px;animation:iGrid 10s linear infinite}
+@keyframes iGrid{to{background-position:44px 44px}}
+.i-ring{position:absolute;border-radius:50%;border:1px solid rgba(245,200,66,.12);animation:iRing 4s ease-in-out infinite}
+.i-ring:nth-child(2){width:300px;height:300px}.i-ring:nth-child(3){width:480px;height:480px;animation-delay:.6s;opacity:.6}.i-ring:nth-child(4){width:680px;height:680px;animation-delay:1.2s;opacity:.3}
+@keyframes iRing{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.i-corner{position:absolute;width:50px;height:50px;border-color:rgba(245,200,66,.5);border-style:solid}
+.i-corner.tl{top:18px;left:18px;border-width:2px 0 0 2px}.i-corner.tr{top:18px;right:18px;border-width:2px 2px 0 0}
+.i-corner.bl{bottom:18px;left:18px;border-width:0 0 2px 2px}.i-corner.br{bottom:18px;right:18px;border-width:0 2px 2px 0}
+.i-content{position:relative;z-index:2;text-align:center;padding:2rem}
+.i-sprite{font-size:56px;display:block;margin-bottom:1.2rem;animation:iFloat 2.2s ease-in-out infinite;filter:drop-shadow(0 0 16px rgba(245,200,66,.5))}
+@keyframes iFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.i-logo{font-family:‘Press Start 2P’,monospace;font-size:clamp(14px,3vw,24px);color:var(–gold);letter-spacing:3px;text-shadow:3px 3px 0 var(–gold3),0 0 40px rgba(245,200,66,.4);margin-bottom:.4rem;animation:iGlow 2s ease-in-out infinite alternate}
+@keyframes iGlow{from{text-shadow:3px 3px 0 var(–gold3),0 0 20px rgba(245,200,66,.3)}to{text-shadow:3px 3px 0 var(–gold3),0 0 60px rgba(245,200,66,.7)}}
+.i-sub{font-family:‘VT323’,monospace;font-size:clamp(16px,3vw,22px);color:var(–gold2);letter-spacing:5px;margin-bottom:2rem}
+.i-welcome{margin-bottom:.8rem}
+.i-wline{font-family:‘VT323’,monospace;font-size:clamp(24px,5vw,42px);line-height:1.5;opacity:0;transform:translateY(18px);animation:iWel .6s ease forwards}
+.i-wline:nth-child(1){color:var(–gold);animation-delay:.4s}
+.i-wline:nth-child(2){color:#e8d89a;animation-delay:.9s}
+.i-wline:nth-child(3){color:var(–gold2);animation-delay:1.4s}
+@keyframes iWel{to{opacity:1;transform:translateY(0)}}
+.i-gallery{font-family:‘Press Start 2P’,monospace;font-size:clamp(9px,2vw,14px);color:#fff;letter-spacing:2px;margin:1rem 0 2rem;text-shadow:0 0 20px rgba(255,255,255,.3);opacity:0;animation:iWel .6s ease 1.9s forwards}
+.i-since{font-family:‘VT323’,monospace;font-size:16px;color:var(–text3);letter-spacing:3px;margin-bottom:1.5rem;opacity:0;animation:iWel .6s ease 2.2s forwards}
+.i-bar-wrap{width:260px;height:3px;background:#1a1a2a;border:1px solid var(–border);border-radius:2px;margin:0 auto 1.2rem;overflow:hidden}
+.i-bar{height:100%;background:linear-gradient(90deg,var(–gold3),var(–gold));width:0;animation:iBar 2.8s ease forwards .6s;border-radius:2px}
+@keyframes iBar{to{width:100%}}
+.i-press{font-family:‘VT323’,monospace;font-size:clamp(15px,3vw,20px);color:var(–text3);letter-spacing:3px;opacity:0;transition:opacity .4s}
+.i-press.show{animation:iPulse 1s step-end infinite}
+@keyframes iPulse{0%,100%{opacity:1}50%{opacity:0}}
+.i-star{position:absolute;width:2px;height:2px;background:var(–gold);border-radius:50%;animation:iStar var(–d,3s) ease-in-out var(–dl,0s) infinite;opacity:0}
+@keyframes iStar{0%,100%{opacity:0}50%{opacity:.9}}
+
+/* ─── SHOP STATUS ─── */
+.shop-status-bar{display:flex;align-items:center;justify-content:space-between;padding:6px 1.2rem;background:#040406;border-bottom:1px solid var(–border);font-family:‘VT323’,monospace;font-size:15px;flex-wrap:wrap;gap:6px}
+.shop-open{color:var(–green);display:flex;align-items:center;gap:6px}
+.shop-closed{color:var(–red);display:flex;align-items:center;gap:6px}
+.shop-dot{width:8px;height:8px;border-radius:50%;background:currentColor;animation:dotPulse 1.4s ease-in-out infinite}
+@keyframes dotPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.shop-hours{color:var(–text3);letter-spacing:1px}
+.shop-time{color:var(–gold2)}
+
+/* ─── MARQUEE ─── */
+.marquee-wrap{background:#040406;border-bottom:1px solid var(–border);overflow:hidden;padding:5px 0}
+.marquee-track{display:flex;white-space:nowrap;animation:marquee 36s linear infinite}
+.marquee-track span{font-family:‘VT323’,monospace;font-size:14px;color:var(–text3);letter-spacing:2px;padding-right:60px}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ─── LANG BAR ─── */
+.lang-bar{display:flex;justify-content:flex-end;gap:5px;padding:6px 1.2rem;background:#050508;border-bottom:1px solid #1a1a2a;align-items:center}
+.lang-btn{font-family:‘VT323’,monospace;font-size:15px;padding:3px 13px;background:none;border:1px solid var(–border);color:var(–text3);cursor:pointer;border-radius:2px;transition:all .15s;letter-spacing:1px}
+.lang-btn:hover{border-color:var(–text2);color:var(–text2)}
+.lang-btn.active{border-color:var(–gold);color:var(–gold);background:#1a1a06}
+
+/* ─── HERO ─── */
+.hero{padding:2.8rem 2rem 2rem;text-align:center;border-bottom:2px solid var(–border2);position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% -20%,rgba(245,200,66,.09) 0%,transparent 55%),repeating-linear-gradient(90deg,transparent,transparent 80px,rgba(245,200,66,.015) 80px,rgba(245,200,66,.015) 81px)}
+.hero::before,.hero::after{content:’’;position:absolute;left:0;right:0;height:1px;background:repeating-linear-gradient(90deg,transparent,transparent 10px,var(–gold3) 10px,var(–gold3) 16px)}
+.hero::before{top:0}.hero::after{bottom:0}
+.logo{position:relative;font-family:‘Press Start 2P’,monospace;font-size:clamp(13px,2.8vw,24px);color:var(–gold);letter-spacing:2px;line-height:1.7;text-shadow:3px 3px 0 var(–gold3),0 0 50px rgba(245,200,66,.2);margin-bottom:.5rem}
+.logo-sub{font-size:.48em;color:var(–gold2);display:block;margin-top:5px;letter-spacing:6px}
+.tagline{position:relative;font-family:‘VT323’,monospace;font-size:clamp(18px,3vw,26px);color:var(–text2);letter-spacing:4px;margin-top:.5rem}
+.hero-badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:1.2rem;position:relative}
+.hero-badge{font-family:‘VT323’,monospace;font-size:14px;padding:3px 12px;border:1px solid var(–border2);color:var(–text3);border-radius:2px;letter-spacing:1px}
+.blink{animation:blink 1.2s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ─── NAV ─── */
+nav{display:flex;justify-content:center;border-bottom:1px solid var(–border);background:#050508;flex-wrap:wrap;position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.6)}
+.nav-btn{font-family:‘VT323’,monospace;font-size:18px;letter-spacing:1px;padding:11px 24px;background:none;border:none;border-right:1px solid var(–border);color:var(–text3);cursor:pointer;transition:all .15s}
+.nav-btn:last-child{border-right:none}
+.nav-btn:hover,.nav-btn.active{color:var(–gold);background:#0e0e14}
+
+/* ─── SEARCH BAR ─── */
+.search-wrap{padding:1.2rem 2rem .5rem;max-width:1200px;margin:0 auto}
+.search-box{display:flex;align-items:center;gap:10px;background:var(–dark2);border:1px solid var(–border);border-radius:3px;padding:8px 14px;transition:border-color .2s}
+.search-box:focus-within{border-color:var(–gold)}
+.search-icon{font-size:18px;color:var(–text3);flex-shrink:0}
+.search-input{flex:1;background:none;border:none;color:var(–text);font-family:‘Courier Prime’,monospace;font-size:14px;outline:none}
+.search-input::placeholder{color:var(–text3)}
+.search-clear{font-family:‘VT323’,monospace;font-size:16px;color:var(–text3);background:none;border:none;cursor:pointer;padding:0 4px;display:none}
+.search-clear.show{display:block}
+.search-result-info{font-family:‘VT323’,monospace;font-size:15px;color:var(–text3);margin-top:6px;letter-spacing:1px}
+
+/* ─── MAIN ─── */
+.main{padding:1rem 2rem 2rem;max-width:1200px;margin:0 auto}
+.section{display:none}.section.active{display:block}
+.section-header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid var(–border);flex-wrap:wrap}
+.section-title{font-family:‘Press Start 2P’,monospace;font-size:clamp(9px,1.7vw,12px);color:var(–gold);letter-spacing:1px;flex:1}
+.item-count{font-family:‘VT323’,monospace;font-size:17px;color:var(–text3);border:1px solid var(–border);padding:2px 10px;border-radius:2px}
+
+/* ─── CATEGORY TABS ─── */
+.cat-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1rem}
+.cat-tab{font-family:‘VT323’,monospace;font-size:15px;padding:4px 14px;background:none;border:1px solid var(–border);color:var(–text3);cursor:pointer;border-radius:2px;transition:all .15s;letter-spacing:1px}
+.cat-tab:hover{border-color:var(–text2);color:var(–text2)}
+.cat-tab.active{border-color:var(–gold);color:var(–gold);background:#1a1a08}
+.cat-tab.brand-tab{border-color:var(–border2)}
+
+/* ─── YEAR FILTER ─── */
+.year-filter{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:1.2rem;align-items:center}
+.year-label{font-family:‘VT323’,monospace;font-size:15px;color:var(–text3);margin-right:4px;letter-spacing:1px}
+.year-btn{font-family:‘VT323’,monospace;font-size:14px;padding:2px 10px;background:none;border:1px solid var(–border);color:var(–text3);cursor:pointer;border-radius:2px;transition:all .15s}
+.year-btn:hover{border-color:var(–gold2);color:var(–gold2)}
+.year-btn.active{border-color:var(–gold);color:var(–gold);background:#1a1a08}
+
+/* ─── GRID ─── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:16px}
+.card{background:var(–dark2);border:1px solid var(–border);border-radius:3px;overflow:hidden;cursor:pointer;transition:border-color .2s,transform .15s,box-shadow .2s;position:relative}
+.card:hover{border-color:var(–gold);transform:translateY(-3px);box-shadow:0 8px 30px rgba(245,200,66,.08)}
+.card-img{width:100%;height:210px;display:flex;align-items:center;justify-content:center;font-size:80px;border-bottom:1px solid var(–border);overflow:hidden;background:#060610}
+.card-img img{width:100%;height:100%;object-fit:contain;background:#060610}
+.card-body{padding:14px}
+.card-name{font-family:‘Press Start 2P’,monospace;font-size:8px;color:var(–gold);margin-bottom:4px;line-height:1.8}
+.card-year{font-family:‘VT323’,monospace;font-size:16px;color:var(–text3);margin-bottom:6px}
+.card-desc{font-size:12px;color:#706860;line-height:1.5;margin-bottom:6px}
+.badge{display:inline-block;font-family:‘VT323’,monospace;font-size:12px;padding:1px 7px;margin:2px 2px 0 0;border-radius:2px;background:#10100c;border:1px solid #303020;color:var(–gold2)}
+.card-brand{position:absolute;top:8px;right:8px;font-family:‘VT323’,monospace;font-size:12px;padding:2px 8px;background:rgba(0,0,0,.7);border:1px solid var(–border2);color:var(–text3);border-radius:2px;letter-spacing:1px}
+
+/* ─── MODAL ─── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.93);display:none;align-items:center;justify-content:center;z-index:500;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:#0a0a10;border:1px solid var(–gold);max-width:560px;width:100%;max-height:90vh;overflow-y:auto;border-radius:4px}
+.modal-header{background:#0e0e14;padding:1rem 1.5rem;border-bottom:1px solid var(–border);display:flex;align-items:center;justify-content:space-between}
+.modal-close{font-family:‘Press Start 2P’,monospace;font-size:9px;background:none;border:1px solid var(–border);color:var(–text3);cursor:pointer;padding:5px 10px;border-radius:2px}
+.modal-close:hover{color:var(–gold);border-color:var(–gold)}
+.modal-body{padding:1.5rem 1.8rem 2rem}
+.modal-img{width:100%;max-height:260px;object-fit:contain;border-radius:3px;margin-bottom:1rem;background:#060610;display:block}
+.modal-icon{font-size:80px;text-align:center;margin-bottom:1rem}
+.modal-title{font-family:‘Press Start 2P’,monospace;font-size:11px;color:var(–gold);margin-bottom:.4rem;line-height:1.7}
+.modal-year{font-family:‘VT323’,monospace;font-size:20px;color:var(–text3);margin-bottom:.8rem}
+.modal-desc{font-size:14px;color:var(–text2);line-height:1.8;margin-bottom:1.5rem}
+.modal-label{font-family:‘VT323’,monospace;font-size:17px;color:var(–gold);margin-bottom:7px;border-bottom:1px solid var(–border);padding-bottom:4px}
+.chip{display:inline-block;font-family:‘VT323’,monospace;font-size:14px;padding:3px 10px;margin:3px;background:#0e0e14;border:1px solid #303040;color:var(–gold2);border-radius:2px}
+
+/* ─── ABOUT ─── */
+.about-box{background:var(–dark2);border:1px solid var(–border);border-radius:4px;padding:2rem;max-width:720px;margin-top:1.5rem}
+.about-title{font-family:‘VT323’,monospace;font-size:24px;color:var(–gold);display:block;margin-bottom:.8rem;letter-spacing:2px}
+.about-text{font-size:15px;color:var(–text2);line-height:1.9;margin-bottom:1rem}
+.shop-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.5rem}
+.shop-tag{font-family:‘VT323’,monospace;font-size:15px;padding:4px 12px;border:1px solid var(–border2);color:var(–text3);border-radius:2px;letter-spacing:1px}
+.hours-box{background:#08080e;border:1px solid var(–border);border-radius:3px;padding:1rem 1.2rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.hours-icon{font-size:24px}
+.hours-text{font-family:‘VT323’,monospace;font-size:17px;color:var(–text2);letter-spacing:1px;line-height:1.6}
+.hours-time{color:var(–gold);font-size:19px}
+.contact-title{font-family:‘VT323’,monospace;font-size:19px;color:var(–gold2);margin-bottom:.8rem;letter-spacing:1px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem}
+.contact-card{background:#08080e;border:1px solid var(–border);border-radius:3px;padding:1rem}
+.contact-label{font-family:‘VT323’,monospace;font-size:15px;color:var(–text3);letter-spacing:1px;margin-bottom:4px}
+.contact-num{font-family:‘Press Start 2P’,monospace;font-size:8.5px;color:var(–gold2);margin-bottom:10px;letter-spacing:1px}
+.contact-btns{display:flex;flex-direction:column;gap:7px}
+.wa-btn,.vb-btn,.fb-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:3px;font-family:‘VT323’,monospace;font-size:17px;letter-spacing:1px;text-decoration:none;transition:background .2s}
+.wa-btn{background:#0a2014;border:1px solid var(–green);color:var(–green)}
+.wa-btn:hover{background:#0f2a18}
+.vb-btn{background:#0c0a28;border:1px solid var(–violet);color:var(–violet)}
+.vb-btn:hover{background:#141040}
+.fb-btn{background:#08101e;border:1px solid var(–blue);color:var(–blue)}
+.fb-btn:hover{background:#0c1828}
+.social-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:1rem}
+.pixel-art{font-family:‘VT323’,monospace;font-size:13px;color:#1e1e28;line-height:1.4;margin-top:1.5rem;text-align:center}
+
+/* ─── FOOTER ─── */
+footer{text-align:center;padding:1.5rem;border-top:1px solid var(–border);font-family:‘VT323’,monospace;font-size:15px;color:#202028;margin-top:3rem;letter-spacing:2px}
+
+/* ─── ADMIN ─── */
+.admin-btn{position:fixed;bottom:20px;right:20px;z-index:900;font-family:‘Press Start 2P’,monospace;font-size:8px;padding:10px 14px;background:var(–dark2);border:1px solid var(–border);color:#202028;cursor:pointer;border-radius:3px;transition:all .2s}
+.admin-btn:hover{border-color:var(–gold);color:var(–gold)}
+.admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.97);display:none;z-index:800;overflow-y:auto}
+.admin-overlay.open{display:block}
+.admin-panel{max-width:900px;margin:0 auto;padding:2rem}
+.admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;border-bottom:1px solid var(–border);padding-bottom:1rem}
+.admin-title{font-family:‘Press Start 2P’,monospace;font-size:11px;color:var(–gold)}
+.a-close{font-family:‘VT323’,monospace;font-size:19px;background:none;border:1px solid #3a3a4a;color:var(–text3);padding:5px 14px;cursor:pointer;border-radius:3px}
+.a-close:hover{color:var(–gold);border-color:var(–gold)}
+.a-tabs{display:flex;margin-bottom:2rem;border:1px solid var(–border);border-radius:4px;overflow:hidden}
+.a-tab{flex:1;font-family:‘VT323’,monospace;font-size:18px;padding:10px;background:none;border:none;color:var(–text3);cursor:pointer;transition:all .15s}
+.a-tab.active{background:#1a1a10;color:var(–gold)}
+.a-item{background:var(–dark2);border:1px solid var(–border);border-radius:3px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.a-item-icon{font-size:26px;flex-shrink:0}
+.a-item-info{flex:1}
+.a-item-name{font-family:‘Press Start 2P’,monospace;font-size:8px;color:var(–gold);margin-bottom:3px}
+.a-item-year{font-family:‘VT323’,monospace;font-size:14px;color:var(–text3)}
+.a-btns{display:flex;gap:6px}
+.b-edit{font-family:‘VT323’,monospace;font-size:14px;padding:4px 12px;background:none;border:1px solid #3a3a4a;color:var(–gold2);cursor:pointer;border-radius:2px}
+.b-edit:hover{border-color:var(–gold);color:var(–gold)}
+.b-del{font-family:‘VT323’,monospace;font-size:14px;padding:4px 12px;background:none;border:1px solid #2a0a0a;color:#8a3a3a;cursor:pointer;border-radius:2px}
+.b-del:hover{border-color:var(–red);color:var(–red)}
+.a-form{background:var(–dark2);border:1px solid var(–border);border-radius:4px;padding:1.5rem;margin-top:1rem}
+.f-title{font-family:‘Press Start 2P’,monospace;font-size:10px;color:var(–gold);margin-bottom:1.5rem}
+.f-section{font-family:‘VT323’,monospace;font-size:17px;color:var(–gold2);margin:1.2rem 0 .6rem;border-bottom:1px solid var(–border);padding-bottom:3px}
+.f-row{margin-bottom:1rem}
+.f-label{font-family:‘VT323’,monospace;font-size:16px;color:var(–text2);display:block;margin-bottom:4px}
+.f-input{width:100%;background:#08080e;border:1px solid var(–border);color:var(–text);font-family:‘Courier Prime’,monospace;font-size:13px;padding:8px 12px;border-radius:3px;outline:none}
+.f-input:focus{border-color:var(–gold)}
+.f-textarea{min-height:70px;resize:vertical}
+.f-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.f-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.f-hint{font-family:‘VT323’,monospace;font-size:13px;color:var(–text3);margin-top:4px}
+.b-save{font-family:‘VT323’,monospace;font-size:18px;padding:10px 26px;background:#1a1a08;border:1px solid var(–gold);color:var(–gold);cursor:pointer;border-radius:3px}
+.b-save:hover{background:#252512}
+.b-cancel{font-family:‘VT323’,monospace;font-size:18px;padding:10px 26px;background:none;border:1px solid #3a3a4a;color:var(–text3);cursor:pointer;border-radius:3px;margin-left:8px}
+.b-cancel:hover{color:var(–text2)}
+.b-add{font-family:‘VT323’,monospace;font-size:18px;padding:10px 20px;background:#081408;border:1px solid var(–green);color:var(–green);cursor:pointer;border-radius:3px;margin-bottom:1.5rem;display:block;width:100%;text-align:center}
+.b-add:hover{background:#0d200d}
+.b-translate{font-family:‘VT323’,monospace;font-size:16px;padding:8px 18px;background:#080e1a;border:1px solid var(–blue);color:var(–blue);cursor:pointer;border-radius:3px;width:100%;text-align:center;margin-bottom:.8rem;transition:all .2s}
+.b-translate:hover{background:#0c1424}
+.b-translate:disabled{opacity:.5;cursor:not-allowed}
+.translate-status{font-family:‘VT323’,monospace;font-size:15px;color:var(–text3);text-align:center;padding:4px;letter-spacing:1px;min-height:22px}
+.login-box{max-width:360px;margin:5rem auto;background:var(–dark2);border:1px solid var(–border);border-radius:4px;padding:2rem;text-align:center}
+.login-title{font-family:‘Press Start 2P’,monospace;font-size:11px;color:var(–gold);margin-bottom:1.5rem;line-height:1.7}
+.l-err{font-family:‘VT323’,monospace;font-size:16px;color:var(–red);margin-bottom:1rem;display:none}
+.fb-loading{font-family:‘VT323’,monospace;font-size:20px;color:var(–text3);text-align:center;padding:3rem;letter-spacing:2px}
+.no-results{font-family:‘VT323’,monospace;font-size:20px;color:var(–text3);text-align:center;padding:3rem;letter-spacing:2px;grid-column:1/-1}
+.fb-status{position:fixed;bottom:64px;right:20px;z-index:901;font-family:‘VT323’,monospace;font-size:14px;padding:6px 14px;border-radius:3px;display:none;background:#081408;border:1px solid var(–green);color:var(–green)}
+.fb-status.err{background:#140808;border-color:var(–red);color:var(–red)}
+
+/* ── SCROLL ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-32px);transition:opacity .6s ease,transform .6s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-scale{opacity:0;transform:scale(.92);transition:opacity .5s ease,transform .5s ease}
+.reveal-scale.visible{opacity:1;transform:scale(1)}
+
+/* ── CART BUTTON ── */
+.cart-btn{position:fixed;bottom:20px;left:20px;z-index:900;font-family:‘Press Start 2P’,monospace;font-size:8px;padding:10px 14px;background:#0a1a08;border:1px solid var(–green);color:var(–green);cursor:pointer;border-radius:3px;transition:all .2s;display:flex;align-items:center;gap:7px}
+.cart-btn:hover{background:#0d2a0d;box-shadow:0 0 16px rgba(37,211,102,.2)}
+.cart-count{background:var(–red);color:#fff;font-size:9px;min-width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;padding:0 3px}
+
+/* ── CART OVERLAY ── */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.93);display:none;align-items:flex-end;justify-content:center;z-index:600;padding:0}
+.cart-overlay.open{display:flex}
+.cart-panel{background:#0a0a12;border:1px solid var(–gold);border-bottom:none;width:100%;max-width:540px;max-height:85vh;border-radius:4px 4px 0 0;overflow-y:auto;padding:1.5rem}
+.cart-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;border-bottom:1px solid var(–border);padding-bottom:.8rem}
+.cart-title{font-family:‘Press Start 2P’,monospace;font-size:10px;color:var(–gold)}
+.cart-close{font-family:‘VT323’,monospace;font-size:18px;background:none;border:1px solid var(–border);color:var(–text3);cursor:pointer;padding:4px 10px;border-radius:2px}
+.cart-close:hover{color:var(–gold);border-color:var(–gold)}
+.cart-item{display:flex;align-items:center;gap:12px;background:var(–dark2);border:1px solid var(–border);border-radius:3px;padding:10px 12px;margin-bottom:8px}
+.cart-item-icon{font-size:28px;flex-shrink:0}
+.cart-item-info{flex:1}
+.cart-item-name{font-family:‘Press Start 2P’,monospace;font-size:7.5px;color:var(–gold);line-height:1.7;margin-bottom:2px}
+.cart-item-cat{font-family:‘VT323’,monospace;font-size:14px;color:var(–text3)}
+.cart-item-remove{font-family:‘VT323’,monospace;font-size:16px;background:none;border:1px solid #2a0a0a;color:#8a3a3a;cursor:pointer;padding:3px 9px;border-radius:2px}
+.cart-item-remove:hover{border-color:var(–red);color:var(–red)}
+.cart-empty{font-family:‘VT323’,monospace;font-size:20px;color:var(–text3);text-align:center;padding:2rem;letter-spacing:2px}
+.cart-checkout{width:100%;font-family:‘Press Start 2P’,monospace;font-size:9px;padding:14px;background:#0a2014;border:1px solid var(–green);color:var(–green);cursor:pointer;border-radius:3px;margin-top:1rem;display:flex;align-items:center;justify-content:center;gap:10px;transition:background .2s}
+.cart-checkout:hover{background:#0d2a18}
+.cart-checkout:disabled{opacity:.4;cursor:not-allowed}
+
+/* ── OUT OF STOCK ── */
+.out-of-stock-badge{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:‘Press Start 2P’,monospace;font-size:9px;color:#fff;background:rgba(180,30,30,.92);padding:8px 14px;border-radius:3px;border:1px solid var(–red);letter-spacing:1px;text-align:center;line-height:1.6;pointer-events:none;z-index:2}
+.card.oos .card-img{filter:grayscale(60%)brightness(.7)}
+.card.oos{border-color:#3a1a1a}
+.card.oos:hover{border-color:var(–red)}
+.add-cart-btn{width:100%;font-family:‘VT323’,monospace;font-size:16px;padding:7px;background:#081408;border:1px solid var(–green);color:var(–green);cursor:pointer;border-radius:2px;margin-top:8px;transition:background .2s;letter-spacing:1px}
+.add-cart-btn:hover{background:#0d200d}
+.add-cart-btn.oos-btn{background:#140808;border-color:#3a1a1a;color:#5a2a2a;cursor:not-allowed}
+
+/* ── PARTS SECTION ── */
+.parts-card{background:var(–dark2);border:1px solid var(–border);border-radius:3px;overflow:hidden;cursor:pointer;transition:border-color .2s,transform .15s,box-shadow .2s;position:relative}
+.parts-card:hover{border-color:var(–gold);transform:translateY(-3px);box-shadow:0 8px 30px rgba(245,200,66,.07)}
+.parts-img{width:100%;height:180px;display:flex;align-items:center;justify-content:center;font-size:64px;border-bottom:1px solid var(–border);overflow:hidden;background:#060610}
+.parts-img img{width:100%;height:100%;object-fit:contain;background:#060610}
+.parts-body{padding:12px}
+.parts-name{font-family:‘Press Start 2P’,monospace;font-size:8px;color:var(–gold);margin-bottom:4px;line-height:1.8}
+.parts-compat{font-family:‘VT323’,monospace;font-size:15px;color:var(–blue);margin-bottom:4px}
+.parts-desc{font-size:12px;color:#706860;line-height:1.5}
+
+@media(max-width:600px){
+.nav-btn{padding:10px 14px;font-size:16px}
+.hero{padding:2rem 1rem 1.5rem}
+.main,.search-wrap{padding:1rem}
+.f-2,.f-3{grid-template-columns:1fr}
+.contact-grid{grid-template-columns:1fr}
+.shop-status-bar{flex-direction:column;gap:3px}
+}
+</style>
+
+</head>
+<body>
+<div class="scanlines"></div>
+
+<!-- ══ INTRO ══ -->
+
+<div id="introScreen" onclick="dismissIntro()">
+  <div class="i-grid"></div>
+  <div class="i-ring"></div><div class="i-ring"></div><div class="i-ring"></div>
+  <div class="i-corner tl"></div><div class="i-corner tr"></div>
+  <div class="i-corner bl"></div><div class="i-corner br"></div>
+  <div class="i-content">
+    <span class="i-sprite">🕹️</span>
+    <div class="i-logo">RETRO ERBIL<br><span style="font-size:.45em;letter-spacing:6px;color:var(--gold2)">CLASSIC GAMING</span></div>
+    <div class="i-welcome">
+      <div class="i-wline">بەخێربێیت بۆ پێشانگای سامی</div>
+      <div class="i-wline">مرحباً بكم في معرض سامي</div>
+      <div class="i-wline">Welcome to Sami Gallery</div>
+    </div>
+    <div class="i-gallery">— HEWLÊR · NISHTIMAN BAZAAR —</div>
+    <div class="i-since">★ SINCE 2002 ★</div>
+    <div class="i-bar-wrap"><div class="i-bar"></div></div>
+    <div class="i-press" id="introPress">▶ PRESS ANY KEY TO START ◀</div>
+  </div>
+</div>
+
+<!-- ══ SHOP STATUS ══ -->
+
+<div class="shop-status-bar">
+  <div id="shopStatusEl"></div>
+  <div class="shop-hours" id="shopHoursEl"></div>
+</div>
+
+<!-- ══ MARQUEE ══ -->
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>★ RETRO ERBIL ★ هەولێر — بازاڕی نیشتیمان ★ SINCE 2002 ★ PLAYSTATION ★ NINTENDO ★ SEGA ★ ATARI ★ INSERT COIN ★ PLAYER ONE ★ HIGH SCORE ★ GAME OVER ★ PRESS START ★&nbsp;</span>
+    <span>★ RETRO ERBIL ★ هەولێر — بازاڕی نیشتیمان ★ SINCE 2002 ★ PLAYSTATION ★ NINTENDO ★ SEGA ★ ATARI ★ INSERT COIN ★ PLAYER ONE ★ HIGH SCORE ★ GAME OVER ★ PRESS START ★&nbsp;</span>
+  </div>
+</div>
+
+<!-- ══ LANG BAR ══ -->
+
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('ku',this)">کوردی</button>
+  <button class="lang-btn" onclick="setLang('ar',this)">العربية</button>
+  <button class="lang-btn" onclick="setLang('en',this)">EN</button>
+</div>
+
+<!-- ══ HERO ══ -->
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="logo">RETRO ERBIL<span class="logo-sub">CLASSIC GAMING COLLECTION</span></div>
+  <div class="tagline">INSERT COIN TO CONTINUE <span class="blink">█</span></div>
+  <div class="hero-badges">
+    <span class="hero-badge">★ SINCE 2002</span>
+    <span class="hero-badge">🎮 CONSOLES &amp; GAMES</span>
+    <span class="hero-badge">★ HEWLÊR, KURDISTAN</span>
+  </div>
+</div>
+
+<!-- ══ NAV ══ -->
+
+<nav>
+  <button class="nav-btn active" id="nav-consoles" onclick="showSection('consoles',this)">CONSOLES</button>
+  <button class="nav-btn" id="nav-games" onclick="showSection('games',this)">GAMES</button>
+  <button class="nav-btn" id="nav-parts" onclick="showSection('parts',this)">PARTS</button>
+  <button class="nav-btn" id="nav-about" onclick="showSection('about',this)">ABOUT</button>
+</nav>
+
+<!-- ══ SEARCH ══ -->
+
+<div class="search-wrap">
+  <div class="search-box">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" id="searchInput" placeholder="گەڕان / بحث / Search…" oninput="onSearch()">
+    <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+  </div>
+  <div class="search-result-info" id="searchInfo"></div>
+</div>
+
+<div class="main">
+
+  <!-- CONSOLES -->
+
+  <div class="section active" id="sec-consoles">
+    <div class="section-header">
+      <div class="section-title" id="title-consoles">// CONSOLE COLLECTION</div>
+      <span class="item-count" id="count-consoles">—</span>
+    </div>
+    <div class="cat-tabs" id="consoleBrandTabs"></div>
+    <div class="year-filter" id="consoleYearFilter"></div>
+    <div class="grid" id="consolesGrid"><div class="fb-loading">LOADING… <span class="blink">█</span></div></div>
+  </div>
+
+  <!-- PARTS -->
+
+  <div class="section" id="sec-parts">
+    <div class="section-header reveal">
+      <div class="section-title" id="title-parts">// پارچەی یەدەگ و ئەکسسوار</div>
+      <span class="item-count" id="count-parts">—</span>
+    </div>
+    <div class="cat-tabs" id="partsBrandTabs"></div>
+    <div class="grid" id="partsGrid"><div class="fb-loading">LOADING… <span class="blink">█</span></div></div>
+  </div>
+
+  <!-- GAMES -->
+
+  <div class="section" id="sec-games">
+    <div class="section-header">
+      <div class="section-title" id="title-games">// GAME LIBRARY</div>
+      <span class="item-count" id="count-games">—</span>
+    </div>
+    <div class="cat-tabs" id="gameBrandTabs"></div>
+    <div class="year-filter" id="gameYearFilter"></div>
+    <div class="grid" id="gamesGrid"><div class="fb-loading">LOADING… <span class="blink">█</span></div></div>
+  </div>
+
+  <!-- ABOUT -->
+
+  <div class="section" id="sec-about">
+    <div class="section-title" id="title-about">// ABOUT THE COLLECTION</div>
+    <div class="about-box">
+      <span class="about-title" id="about-title">RETRO ERBIL — HEWLÊR, KURDISTAN</span>
+      <p class="about-text" id="about-text">هەولێر — بازاڕی نیشتیمان — نهۆمی خوارەوە — پێشانگای سامی</p>
+      <div class="shop-tags">
+        <span class="shop-tag">📍 هەولێر</span>
+        <span class="shop-tag">🏪 بازاڕی نیشتیمان</span>
+        <span class="shop-tag">⬇️ نهۆمی خوارەوە</span>
+        <span class="shop-tag">🎮 پێشانگای سامی</span>
+        <span class="shop-tag">★ SINCE 2002</span>
+      </div>
+      <div class="hours-box">
+        <span class="hours-icon">🕐</span>
+        <div class="hours-text" id="about-hours">
+          کاتژمێری کار: <span class="hours-time">٩:٠٠ بەیانی — ٦:٠٠ ئێوارە</span>
+        </div>
+      </div>
+      <div class="contact-title" id="contact-title">📲 پەیوەندی</div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-label" id="c-label1">📞 ژمارەی ١</div>
+          <div class="contact-num">0750 604 1911</div>
+          <div class="contact-btns">
+            <a class="wa-btn" href="https://wa.me/9647506041911" target="_blank">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              WhatsApp
+            </a>
+            <a class="vb-btn" href="viber://chat?number=9647506041911" target="_blank">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="#9d8eff"><path d="M11.4 0C5.5 0 .9 4.2.9 9.4c0 3.1 1.6 5.9 4.1 7.7v3.4l3.2-1.7c1 .3 2.1.4 3.2.4 5.9 0 10.5-4.2 10.5-9.4S17.3 0 11.4 0zm1 12.7l-2.6-2.8-5 2.8 5.5-5.9 2.7 2.8 5-2.8-5.6 5.9z"/></svg>
+              Viber
+            </a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-label" id="c-label2">📞 ژمارەی ٢</div>
+          <div class="contact-num">0787 115 5811</div>
+          <div class="contact-btns">
+            <a class="wa-btn" href="https://wa.me/9647871155811" target="_blank">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              WhatsApp
+            </a>
+            <a class="vb-btn" href="viber://chat?number=9647871155811" target="_blank">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="#9d8eff"><path d="M11.4 0C5.5 0 .9 4.2.9 9.4c0 3.1 1.6 5.9 4.1 7.7v3.4l3.2-1.7c1 .3 2.1.4 3.2.4 5.9 0 10.5-4.2 10.5-9.4S17.3 0 11.4 0zm1 12.7l-2.6-2.8-5 2.8 5.5-5.9 2.7 2.8 5-2.8-5.6 5.9z"/></svg>
+              Viber
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-title">🌐 سۆشیال میدیا</div>
+      <div class="social-row">
+        <a class="fb-btn" href="https://www.facebook.com/share/18JVEk4PzW/?mibextid=wwXIfr" target="_blank">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="#4a9eff"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          RETRO ERBIL — Facebook
+        </a>
+        <a class="fb-btn" href="https://www.facebook.com/share/19vRkygSLA/?mibextid=wwXIfr" target="_blank" style="background:#081e08;border-color:#25d366;color:#25d366">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="#25d366"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          🎮 Game Pass &amp; PS Plus — Facebook
+        </a>
+        <a class="fb-btn" href="https://www.tiktok.com/@toroskurd?_r=1&_t=ZS-95XIpKccAh" target="_blank" style="background:#0a0a14;border-color:#ff0050;color:#ff0050">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="#ff0050"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.02-.06z"/></svg>
+          TikTok — @toroskurd
+        </a>
+      </div>
+
+```
+  <!-- ══ GAME PASS & PS PLUS ══ -->
+  <div style="margin-top:1.5rem">
+    <div class="contact-title">🎮 فرۆشتنی ئەبۆنمەنت</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1rem">
+      <div style="background:#08080e;border:1px solid #107c10;border-radius:3px;padding:1rem;text-align:center">
+        <div style="font-size:32px;margin-bottom:8px">🟢</div>
+        <div style="font-family:'Press Start 2P',monospace;font-size:8px;color:#107c10;line-height:1.8;margin-bottom:6px">XBOX<br>GAME PASS</div>
+        <div style="font-family:'VT323',monospace;font-size:15px;color:var(--text2);line-height:1.6">دەستگەیشتن بە ٢٥٠+ یاری<br>PC &amp; Console</div>
+        <a href="https://www.facebook.com/share/19vRkygSLA/?mibextid=wwXIfr" target="_blank" style="display:inline-block;margin-top:10px;font-family:'VT323',monospace;font-size:16px;padding:5px 14px;background:none;border:1px solid #107c10;color:#107c10;border-radius:2px;text-decoration:none">زیاتر بزانە →</a>
+      </div>
+      <div style="background:#08080e;border:1px solid #003087;border-radius:3px;padding:1rem;text-align:center">
+        <div style="font-size:32px;margin-bottom:8px">🔵</div>
+        <div style="font-family:'Press Start 2P',monospace;font-size:8px;color:#4a9eff;line-height:1.8;margin-bottom:6px">PLAYSTATION<br>PS PLUS</div>
+        <div style="font-family:'VT323',monospace;font-size:15px;color:var(--text2);line-height:1.6">یاریەکانی PS4 &amp; PS5<br>دەبارکەی بخۆت</div>
+        <a href="https://www.facebook.com/share/19vRkygSLA/?mibextid=wwXIfr" target="_blank" style="display:inline-block;margin-top:10px;font-family:'VT323',monospace;font-size:16px;padding:5px 14px;background:none;border:1px solid #4a9eff;color:#4a9eff;border-radius:2px;text-decoration:none">زیاتر بزانە →</a>
+      </div>
+    </div>
+    <div style="background:#08080e;border:1px solid var(--border2);border-radius:3px;padding:1rem;text-align:center">
+      <div style="font-family:'VT323',monospace;font-size:18px;color:var(--gold2);letter-spacing:1px;margin-bottom:6px">📲 بۆ زانیاری زیاتر و کڕین پەیوەندیمان پێوە بکە</div>
+      <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+        <a href="https://wa.me/9647506041911" target="_blank" style="font-family:'VT323',monospace;font-size:16px;padding:5px 14px;background:#0a2014;border:1px solid var(--green);color:var(--green);border-radius:2px;text-decoration:none">WhatsApp ١</a>
+        <a href="https://wa.me/9647871155811" target="_blank" style="font-family:'VT323',monospace;font-size:16px;padding:5px 14px;background:#0a2014;border:1px solid var(--green);color:var(--green);border-radius:2px;text-decoration:none">WhatsApp ٢</a>
+        <a href="https://www.facebook.com/share/19vRkygSLA/?mibextid=wwXIfr" target="_blank" style="font-family:'VT323',monospace;font-size:16px;padding:5px 14px;background:#08101e;border:1px solid var(--blue);color:var(--blue);border-radius:2px;text-decoration:none">Facebook</a>
+      </div>
+    </div>
+  </div>
+  <div class="pixel-art" style="margin-top:1.5rem">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░<br>▓▓▓ RETRO ERBIL — SINCE 2002 — GOLDEN AGE OF GAMING ▓▓▓<br>░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░</div>
+</div>
+```
+
+  </div>
+</div>
+
+<footer>© RETRO ERBIL — HEWLÊR, KURDISTAN — PRESS START TO PLAY</footer>
+
+<!-- Modal -->
+
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target.id==='modalOverlay')closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div style="font-family:'VT323',monospace;font-size:18px;color:var(--gold2);letter-spacing:2px">RETRO ERBIL</div>
+      <button class="modal-close" onclick="closeModal()">✕ CLOSE</button>
+    </div>
+    <div class="modal-body">
+      <img id="mImg" class="modal-img" src="" alt="" style="display:none">
+      <div id="mIcon" class="modal-icon"></div>
+      <div class="modal-title" id="mTitle"></div>
+      <div class="modal-year" id="mYear"></div>
+      <div class="modal-desc" id="mDesc"></div>
+      <div class="modal-label" id="mLabel"></div>
+      <div id="mChips"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CART BUTTON -->
+
+<button class="cart-btn" onclick="openCart()">
+  🛒 <span id="cartCountLabel">سوندوق</span>
+  <span class="cart-count" id="cartCount">0</span>
+</button>
+
+<!-- CART OVERLAY -->
+
+<div class="cart-overlay" id="cartOverlay" onclick="if(event.target.id==='cartOverlay')closeCart()">
+  <div class="cart-panel">
+    <div class="cart-header">
+      <div class="cart-title">🛒 سوندوقی کڕین</div>
+      <button class="cart-close" onclick="closeCart()">✕ داخستن</button>
+    </div>
+    <div id="cartItems"></div>
+    <button class="cart-checkout" id="checkoutBtn" onclick="doCheckout()">
+      🛒 <span id="cartCheckoutLabel">داوای کڕین بنێرە</span>
+    </button>
+    <!-- Choice buttons -->
+    <div id="checkoutChoice" style="display:none;flex-direction:column;gap:8px;margin-top:10px">
+      <div style="font-family:'VT323',monospace;font-size:16px;color:var(--text2);text-align:center;margin-bottom:4px" id="choiceLabel">بە کام ئەپ دەنێریت؟</div>
+      <button onclick="checkoutVia('wa')" style="font-family:'VT323',monospace;font-size:17px;padding:10px;background:#0a2014;border:1px solid var(--green);color:var(--green);cursor:pointer;border-radius:3px;display:flex;align-items:center;justify-content:center;gap:8px">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp — 0787 115 5811
+      </button>
+      <button onclick="checkoutVia('wa2')" style="font-family:'VT323',monospace;font-size:17px;padding:10px;background:#0a2014;border:1px solid #1a9a50;color:#1a9a50;cursor:pointer;border-radius:3px;display:flex;align-items:center;justify-content:center;gap:8px">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="#1a9a50"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp — 0750 604 1911
+      </button>
+      <button onclick="checkoutVia('vb')" style="font-family:'VT323',monospace;font-size:17px;padding:10px;background:#0c0a28;border:1px solid var(--violet);color:var(--violet);cursor:pointer;border-radius:3px;display:flex;align-items:center;justify-content:center;gap:8px">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="#9d8eff"><path d="M11.4 0C5.5 0 .9 4.2.9 9.4c0 3.1 1.6 5.9 4.1 7.7v3.4l3.2-1.7c1 .3 2.1.4 3.2.4 5.9 0 10.5-4.2 10.5-9.4S17.3 0 11.4 0zm1 12.7l-2.6-2.8-5 2.8 5.5-5.9 2.7 2.8 5-2.8-5.6 5.9z"/></svg>
+        Viber — 0750 604 1911
+      </button>
+      <button onclick="document.getElementById('checkoutChoice').style.display='none'" style="font-family:'VT323',monospace;font-size:16px;padding:8px;background:none;border:1px solid var(--border);color:var(--text3);cursor:pointer;border-radius:3px">پاشگەزبوونەوە</button>
+    </div>
+  </div>
+</div>
+
+<button class="admin-btn" onclick="openAdmin()">⚙ ADMIN</button>
+
+<div class="fb-status" id="fbStatus"></div>
+
+<!-- Admin -->
+
+<div class="admin-overlay" id="adminOverlay">
+  <div id="loginBox" class="login-box">
+    <div class="login-title">🔐 ADMIN<br>RETRO ERBIL</div>
+    <div class="l-err" id="loginErr">پاسوۆردەکە هەڵەیە!</div>
+    <div class="f-row">
+      <label class="f-label">پاسوۆرد</label>
+      <input class="f-input" type="password" id="pwInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="b-save" style="width:100%;margin-top:.5rem" onclick="doLogin()">چوونە ژوورەوە →</button>
+  </div>
+  <div id="dashboard" style="display:none">
+    <div class="admin-panel">
+      <div class="admin-header">
+        <div class="admin-title">⚙ پانێلی بەڕێوەبردن</div>
+        <button class="a-close" onclick="closeAdmin()">✕ داخستن</button>
+      </div>
+      <!-- Visitor Stats -->
+      <div id="adminStats" style="background:#08080e;border:1px solid var(--border);border-radius:3px;padding:1rem;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="text-align:center;border:1px solid var(--border2);border-radius:3px;padding:.8rem">
+          <div style="font-size:28px;margin-bottom:4px">👁️</div>
+          <div style="font-family:'Press Start 2P',monospace;font-size:14px;color:var(--gold)" id="statVisitors">—</div>
+          <div style="font-family:'VT323',monospace;font-size:15px;color:var(--text3);margin-top:3px">کۆی سەردانکاران</div>
+        </div>
+        <div style="text-align:center;border:1px solid var(--border2);border-radius:3px;padding:.8rem">
+          <div style="font-size:28px;margin-bottom:4px">🎮</div>
+          <div style="font-family:'Press Start 2P',monospace;font-size:14px;color:var(--gold)" id="statItems">—</div>
+          <div style="font-family:'VT323',monospace;font-size:15px;color:var(--text3);margin-top:3px">کۆی کاڵاکان</div>
+        </div>
+      </div>
+      <div class="a-tabs">
+        <button class="a-tab active" onclick="switchTab('consoles',this)">🎮 کۆنسۆلەکان</button>
+        <button class="a-tab" onclick="switchTab('games',this)">🕹 یاریەکان</button>
+        <button class="a-tab" onclick="switchTab('parts',this)">🔧 پارچەکان</button>
+        <button class="a-tab" onclick="switchTab('pw',this)">🔐 پاسوۆرد</button>
+      </div>
+      <div id="tab-consoles"></div>
+      <div id="tab-games" style="display:none"></div>
+      <div id="tab-parts" style="display:none"></div>
+      <div id="tab-pw" style="display:none">
+        <div class="a-form">
+          <div class="f-title">🔐 گۆڕینی پاسوۆرد</div>
+          <div class="f-row"><label class="f-label">پاسوۆردی نوێ</label><input class="f-input" type="password" id="np1"></div>
+          <div class="f-row"><label class="f-label">دووبارە بنووسە</label><input class="f-input" type="password" id="np2"></div>
+          <div id="pwMsg" style="font-family:VT323,monospace;font-size:16px;margin:8px 0"></div>
+          <button class="b-save" onclick="changePw()">پاسوۆرد بگۆڕە</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══ FIREBASE ══════════════════════════════════════════════════
+const firebaseConfig={apiKey:"AIzaSyCmrGwoSQIFrWpVTH4W8aoumJfEyYP3F1E",authDomain:"contactfrom-2ef93.firebaseapp.com",databaseURL:"https://contactfrom-2ef93-default-rtdb.firebaseio.com",projectId:"contactfrom-2ef93",storageBucket:"contactfrom-2ef93.firebasestorage.app",messagingSenderId:"238509815149",appId:"1:238509815149:web:13891fdeac62a232d15664"};
+firebase.initializeApp(firebaseConfig);
+const db=firebase.database();
+
+// ══ TRANSLATIONS ══════════════════════════════════════════════
+const T={
+  ku:{dir:'ltr',navConsoles:'کۆنسۆلەکان',navGames:'یاریەکان',navAbout:'دەربارە',
+    titleConsoles:'// کۆکراوەی کۆنسۆل',titleGames:'// کتێبخانەی یاری',titleAbout:'// دەربارە',
+    aboutTitle:'RETRO ERBIL — هەولێر، کوردستان',aboutText:'هەولێر — بازاڕی نیشتیمان — نهۆمی خوارەوە — پێشانگای سامی',
+    contactTitle:'📲 پەیوەندی',cLabel1:'📞 ژمارەی ١',cLabel2:'📞 ژمارەی ٢',
+    classicGames:'یاریە نامدارەکان:',notableTitles:'کەسایەتیە سەرەکیەکان:',
+    noItems:'هیچ شتێک نەدۆزرایەوە',searchPh:'گەڕان…',
+    shopOpen:'دوکانەکە کراوەتەوە',shopClosed:'دوکانەکە داخراوە',
+    shopHours:'کاتژمێری کار: ٩:٠٠ بەیانی — ٦:٠٠ ئێوارە',
+    aboutHours:'کاتژمێری کار: <span class="hours-time">٩:٠٠ بەیانی — ٦:٠٠ ئێوارە</span>',
+    allBrands:'هەموو',allYears:'هەموو ساڵەکان',
+    addConsole:'+ کۆنسۆلێکی نوێ زیاد بکە',addGame:'+ یارییەکی نوێ زیاد بکە',
+    edit:'✏ گۆڕین',save:'💾 پاشەکەوت',cancel:'پاشگەزبوونەوە',
+    fIcon:'ئایکۆن',fColor:'رەنگ',fName:'ناوی ئینگلیزی',fNameKu:'ناوی کوردی',fNameAr:'ناوی عەرەبی',
+    fYear:'ساڵ و بەرهەمهێنەر',fBrand:'Brand (بۆ کاتیگۆری)',fImage:'لینکی وێنە',
+    fImageHint:'وێنەکەت بکە imgur.com — ئینجا لینکەکەی لێرە بنووسە',
+    fDesc:'وەسفی ئینگلیزی',fDescKu:'وەسفی کوردی',fDescAr:'وەسفی عەرەبی',
+    fSpecs:'تایبەتمەندیەکان (بە کامایەوە)',fGames:'یاریە نامدارەکان (بە کامایەوە)',fChars:'کەسایەتیەکان (بە کامایەوە)',
+    fNamesSection:'// ناوەکان بە ٣ زمان',fDescsSection:'// وەسفەکان بە ٣ زمان',
+    translateBtn:'🤖 وەرگێڕان بۆ عەرەبی و ئینگلیزی',translating:'⏳ وەرگێڕان…',translateDone:'✓ وەرگێڕان تەواو بوو!',translateFail:'✕ هەڵەی وەرگێڕان',
+    addNew:'+ زیادکردن',editLabel:'✏ گۆڕین',sure:'دڵنیایت؟',nameRequired:'ناوی کوردی یان ئینگلیزیەکە بنووسە!',
+    navParts:'پارچەکان',addCart:'🛒 زیادکە بۆ سوندوق',oosLabel:'❌ نەماوە',cartTitle:'سوندوقی کڕین',savedOk:'✓ پاشەکەوت کرا',savedErr:'✕ هەڵە: ',offline:'⚠ ئۆفلاین'},
+  ar:{dir:'rtl',navConsoles:'الأجهزة',navGames:'الألعاب',navAbout:'حول',
+    titleConsoles:'// مجموعة الأجهزة',titleGames:'// مكتبة الألعاب',titleAbout:'// حول',
+    aboutTitle:'RETRO ERBIL — أربيل، كوردستان',aboutText:'أربيل — بازار نيشتيمان — الطابق السفلي — معرض سامي',
+    contactTitle:'📲 تواصل معنا',cLabel1:'📞 الرقم الأول',cLabel2:'📞 الرقم الثاني',
+    classicGames:'الألعاب المشهورة:',notableTitles:'الشخصيات الرئيسية:',
+    noItems:'لا توجد عناصر',searchPh:'بحث…',
+    shopOpen:'المحل مفتوح',shopClosed:'المحل مغلق',
+    shopHours:'ساعات العمل: ٩:٠٠ ص — ٦:٠٠ م',
+    aboutHours:'ساعات العمل: <span class="hours-time">٩:٠٠ صباحاً — ٦:٠٠ مساءً</span>',
+    allBrands:'الكل',allYears:'كل السنوات',
+    addConsole:'+ إضافة جهاز',addGame:'+ إضافة لعبة',
+    edit:'✏ تعديل',save:'💾 حفظ',cancel:'إلغاء',
+    fIcon:'أيقونة',fColor:'اللون',fName:'الاسم (إنجليزي)',fNameKu:'الاسم (كوردي)',fNameAr:'الاسم (عربي)',
+    fYear:'السنة والمصنع',fBrand:'العلامة التجارية',fImage:'رابط الصورة',
+    fImageHint:'ارفع الصورة على imgur.com ثم ضع الرابط',
+    fDesc:'الوصف (إنجليزي)',fDescKu:'الوصف (كوردي)',fDescAr:'الوصف (عربي)',
+    fSpecs:'المواصفات (مفصولة بفاصلة)',fGames:'الألعاب الشهيرة (مفصولة بفاصلة)',fChars:'الشخصيات (مفصولة بفاصلة)',
+    fNamesSection:'// الأسماء بـ ٣ لغات',fDescsSection:'// الأوصاف بـ ٣ لغات',
+    translateBtn:'🤖 ترجمة إلى العربية والإنجليزية',translating:'⏳ جاري الترجمة…',translateDone:'✓ تمت الترجمة!',translateFail:'✕ خطأ في الترجمة',
+    addNew:'+ إضافة',editLabel:'✏ تعديل',sure:'هل أنت متأكد؟',nameRequired:'أدخل الاسم!',
+    navParts:'قطع الغيار',addCart:'🛒 أضف للسلة',oosLabel:'❌ غير متوفر',cartTitle:'سلة الشراء',savedOk:'✓ تم الحفظ',savedErr:'✕ خطأ: ',offline:'⚠ غير متصل'},
+  en:{dir:'ltr',navConsoles:'CONSOLES',navGames:'GAMES',navAbout:'ABOUT',
+    titleConsoles:'// CONSOLE COLLECTION',titleGames:'// GAME LIBRARY',titleAbout:'// ABOUT',
+    aboutTitle:'RETRO ERBIL — HEWLÊR, KURDISTAN',aboutText:'Erbil — Nishtiman Bazaar — Lower Floor — Sami Gallery',
+    contactTitle:'📲 Contact Us',cLabel1:'📞 Number 1',cLabel2:'📞 Number 2',
+    classicGames:'NOTABLE GAMES:',notableTitles:'MAIN CHARACTERS:',
+    noItems:'No items found',searchPh:'Search…',
+    shopOpen:'Shop is Open',shopClosed:'Shop is Closed',
+    shopHours:'Hours: 9:00 AM — 6:00 PM',
+    aboutHours:'Opening Hours: <span class="hours-time">9:00 AM — 6:00 PM</span>',
+    allBrands:'ALL',allYears:'ALL YEARS',
+    addConsole:'+ Add New Console',addGame:'+ Add New Game',
+    edit:'✏ Edit',save:'💾 Save',cancel:'Cancel',
+    fIcon:'Icon',fColor:'Color',fName:'Name (English)',fNameKu:'Name (Kurdish)',fNameAr:'Name (Arabic)',
+    fYear:'Year & Manufacturer',fBrand:'Brand (for category)',fImage:'Image URL',
+    fImageHint:'Upload to imgur.com — then paste the link here',
+    fDesc:'Description (English)',fDescKu:'Description (Kurdish)',fDescAr:'Description (Arabic)',
+    fSpecs:'Specs (comma separated)',fGames:'Notable Games (comma separated)',fChars:'Characters (comma separated)',
+    fNamesSection:'// Names in 3 Languages',fDescsSection:'// Descriptions in 3 Languages',
+    translateBtn:'🤖 Auto-translate to Arabic & English',translating:'⏳ Translating…',translateDone:'✓ Translation done!',translateFail:'✕ Translation failed',
+    addNew:'+ Add New',editLabel:'✏ Edit',sure:'Are you sure?',nameRequired:'Enter a name!',
+    navParts:'PARTS',addCart:'🛒 Add to Cart',oosLabel:'❌ Out of Stock',cartTitle:'Shopping Cart',savedOk:'✓ Saved',savedErr:'✕ Error: ',offline:'⚠ Offline'}
+};
+let lang='ku';
+
+function setLang(l,btn){
+  lang=l;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  const t=T[l];
+  document.documentElement.dir=t.dir;
+  const ids={'nav-consoles':t.navConsoles,'nav-games':t.navGames,'nav-about':t.navAbout,
+    'title-consoles':t.titleConsoles,'title-games':t.titleGames,'title-about':t.titleAbout,'title-parts':'// '+t.navParts,
+    'about-title':t.aboutTitle,'about-text':t.aboutText,
+    'contact-title':t.contactTitle,'c-label1':t.cLabel1,'c-label2':t.cLabel2};
+  for(const[id,val]of Object.entries(ids)){const el=document.getElementById(id);if(el)el.textContent=val;}
+  const ah=document.getElementById('about-hours');if(ah)ah.innerHTML=t.aboutHours;
+  document.getElementById('searchInput').placeholder=t.searchPh;
+  updateShopStatus();
+  renderAll();
+  renderParts();
+  renderCartItems();
+  if(loggedIn&&document.getElementById('adminOverlay').classList.contains('open')){buildTab(curTab);loadAdminStats();}
+}
+
+// ══ SHOP STATUS ═══════════════════════════════════════════════
+function updateShopStatus(){
+  const t=T[lang];
+  const now=new Date();
+  const h=now.getHours(),m=now.getMinutes();
+  const mins=h*60+m;
+  const open=9*60,close=18*60;
+  const isOpen=mins>=open&&mins<close;
+  const statusEl=document.getElementById('shopStatusEl');
+  const hoursEl=document.getElementById('shopHoursEl');
+  if(statusEl){
+    statusEl.innerHTML=isOpen
+      ?`<span class="shop-open"><span class="shop-dot"></span>${t.shopOpen}</span>`
+      :`<span class="shop-closed"><span class="shop-dot"></span>${t.shopClosed}</span>`;
+  }
+  if(hoursEl)hoursEl.innerHTML=`<span class="shop-time">${t.shopHours}</span>`;
+}
+setInterval(updateShopStatus,60000);
+
+// ══ DEFAULT DATA ══════════════════════════════════════════════
+const DEF_CONSOLES=[
+  {icon:"🎮",name:"PLAYSTATION 1",nameKu:"پلەیستەیشن ١",nameAr:"بلايستيشن ١",brand:"PLAYSTATION",year:"1994",color:"#1a1a3a",image:"",desc:"The original PlayStation revolutionized gaming with CD-ROM technology and 3D graphics. Sold over 102 million units worldwide.",descKu:"پلەیستەیشنی یەکەم گردوگۆڕی گەیمینگ کردەوە بە تەکنەلۆژیای CD-ROM و گرافیکی 3D.",descAr:"أحدث بلايستيشن الأصلي ثورة في عالم الألعاب بتقنية CD-ROM والرسومات ثلاثية الأبعاد.",specs:["32-bit CPU","CD-ROM","33 MHz MIPS"],games:["Final Fantasy VII","Metal Gear Solid","Crash Bandicoot","Tekken 3"]},
+  {icon:"🕹️",name:"PLAYSTATION 2",nameKu:"پلەیستەیشن ٢",nameAr:"بلايستيشن ٢",brand:"PLAYSTATION",year:"2000",color:"#0a0a2a",image:"",desc:"The best-selling console of all time with over 155 million units sold.",descKu:"باشترین کۆنسۆلی کاتی خۆی لە مێژوودا بە زیاتر لە ١٥٥ ملیۆن دانە.",descAr:"أفضل جهاز ألعاب مبيعاً على الإطلاق بأكثر من 155 مليون وحدة.",specs:["128-bit Emotion Engine","DVD","300 MHz CPU"],games:["Shadow of the Colossus","God of War","GTA: San Andreas"]},
+  {icon:"🎲",name:"GAMECUBE",nameKu:"گەیمکیوب",nameAr:"غيم كيوب",brand:"NINTENDO",year:"2001",color:"#1a0a3a",image:"",desc:"Nintendo's compact powerhouse with some of the greatest exclusives ever made.",descKu:"کۆنسۆلی بچووک و بەهێزی نینتێندۆ بە یارییە تایبەتیە باشەکانەوە.",descAr:"جهاز نينتندو المدمج القوي مع أفضل الألعاب الحصرية.",specs:["128-bit Gekko CPU","Mini-DVD","485 MHz"],games:["Zelda: Wind Waker","Metroid Prime","Super Smash Bros. Melee"]},
+  {icon:"🦔",name:"SEGA MEGA DRIVE",nameKu:"سیگا مێگا درایڤ",nameAr:"سيجا ميجا درايف",brand:"SEGA",year:"1988",color:"#0a1a0a",image:"",desc:"Genesis does what Nintendon't. The definitive 16-bit rival.",descKu:"جینیسیس ئەوەی دەکات کە نینتێندۆ ناکات. جێگیرترین هاوپشکی ١٦-بیتی.",descAr:"جينيسيس يفعل ما لا تستطيع نينتندو. المنافس الحاسم ذو 16 بت.",specs:["16-bit Motorola 68000","Cartridge","7.6 MHz"],games:["Sonic the Hedgehog","Streets of Rage 2","Earthworm Jim"]},
+  {icon:"🍄",name:"SUPER NINTENDO",nameKu:"سوپەر نینتێندۆ",nameAr:"سوبر نينتندو",brand:"NINTENDO",year:"1990",color:"#1a0a2a",image:"",desc:"The pinnacle of 16-bit gaming with iconic Mode 7 effects.",descKu:"لوتکەی گەیمینگی ١٦-بیتی بە کاریگەری Mode 7 یادگار.",descAr:"قمة ألعاب 16 بت مع تأثيرات Mode 7 الأيقونية.",specs:["16-bit 65C816","Cartridge","3.58 MHz"],games:["Super Mario World","Zelda: A Link to the Past","Chrono Trigger"]},
+];
+const DEF_GAMES=[
+  {icon:"⚔️",name:"FINAL FANTASY VII",nameKu:"فاینەل فانتازی ٧",nameAr:"فاينال فانتازي ٧",brand:"PLAYSTATION",year:"1997",color:"#1a0a3a",image:"",desc:"A landmark JRPG telling the story of Cloud Strife against Shinra.",descKu:"یارییەکی JRPG نیشانەدار کە چیرۆکی Cloud Strife دەگێڕێتەوە.",descAr:"لعبة JRPG بارزة تروي قصة Cloud Strife ضد شركة Shinra.",specs:["PlayStation 1","Turn-based RPG","3 Discs"],games:["Cloud Strife","Sephiroth","Aerith","Tifa","Barret"]},
+  {icon:"🐍",name:"METAL GEAR SOLID",nameKu:"مێتەل گیر سۆلید",nameAr:"ميتال جير سوليد",brand:"PLAYSTATION",year:"1998",color:"#0a1a0a",image:"",desc:"Hideo Kojima's stealth masterpiece. Solid Snake infiltrates Shadow Moses.",descKu:"شاهکاری مووری Kojima. Solid Snake دەچێتە Shadow Moses.",descAr:"تحفة كوجيما في التخفي. سوليد سنيك يتسلل إلى شادو موسيس.",specs:["PlayStation 1","Stealth Action","2 Discs"],games:["Solid Snake","Liquid Snake","Meryl","Gray Fox"]},
+  {icon:"🌀",name:"SONIC THE HEDGEHOG 2",nameKu:"سۆنیک ٢",nameAr:"سونيك القنفذ ٢",brand:"SEGA",year:"1992",color:"#0a0a2a",image:"",desc:"The fastest thing alive. Introduced Tails and Emerald Hill Zone.",descKu:"خێراترین شتی زیندوو. Tails و Emerald Hill Zone نیشان دا.",descAr:"أسرع شيء على قيد الحياة. قدّم شخصية تيلز.",specs:["Sega Mega Drive","Platformer","Cartridge"],games:["Sonic","Tails","Dr. Eggman"]},
+  {icon:"🕐",name:"CHRONO TRIGGER",nameKu:"کڕۆنۆ تریگەر",nameAr:"كرونو تريغر",brand:"NINTENDO",year:"1995",color:"#1a1a0a",image:"",desc:"The greatest RPG ever made. Time travel with 13 different endings.",descKu:"باشترین RPGی کاتی خۆیی. گەشتی کات بە ١٣ کۆتایی جیاواز.",descAr:"أفضل لعبة RPG على الإطلاق. السفر عبر الزمن مع 13 نهاية.",specs:["Super Nintendo","Turn-based RPG","Cartridge"],games:["Crono","Marle","Lucca","Robo","Frog","Magus"]},
+];
+
+// ══ STATE ════════════════════════════════════════════════════
+let CC=[],GG=[],PW='retro1234',loggedIn=false,curTab='consoles';
+let cBrand='ALL',gBrand='ALL',cYear='ALL',gYear='ALL',searchQ='';
+
+// ══ FIREBASE ════════════════════════════════════════════════
+function showStatus(msg,isErr=false){
+  const el=document.getElementById('fbStatus');
+  el.textContent=msg;el.className='fb-status'+(isErr?' err':'');el.style.display='block';
+  setTimeout(()=>el.style.display='none',2800);
+}
+async function fbSave(path,data){
+  try{await db.ref(path).set(data);showStatus(T[lang].savedOk);}
+  catch(e){showStatus(T[lang].savedErr+e.message,true);}
+}
+function fixArr(arr){
+  if(!arr)return[];
+  return Object.values(arr).filter(i=>i&&typeof i==='object').map(i=>({
+    ...i,
+    specs:Array.isArray(i.specs)?i.specs:(i.specs?Object.values(i.specs):[]),
+    games:Array.isArray(i.games)?i.games:(i.games?Object.values(i.games):[])
+  }));
+}
+async function initData(){
+  // Count visitor
+  try{
+    const visRef=db.ref('retroerbil/visitors');
+    const visSnap=await visRef.get();
+    const cur=visSnap.exists()?(visSnap.val()||0):0;
+    await visRef.set(cur+1);
+  }catch(e){}
+
+  try{
+    const snap=await db.ref('retroerbil').get();
+    if(snap.exists()){
+      const d=snap.val();
+      CC=fixArr(d.consoles).length?fixArr(d.consoles):DEF_CONSOLES;
+      GG=fixArr(d.games).length?fixArr(d.games):DEF_GAMES;
+      PP=fixArr(d.parts).length?fixArr(d.parts):DEF_PARTS;
+      PW=d.password||'retro1234';
+    }else{
+      CC=DEF_CONSOLES;GG=DEF_GAMES;PP=DEF_PARTS;PW='retro1234';
+      await db.ref('retroerbil').set({consoles:DEF_CONSOLES,games:DEF_GAMES,parts:DEF_PARTS,password:PW});
+    }
+  }catch(e){CC=DEF_CONSOLES;GG=DEF_GAMES;PP=DEF_PARTS;showStatus(T[lang].offline,true);}
+  renderAll();
+  renderParts();
+  setTimeout(initReveal,400);
+}
+
+// ══ LANG HELPERS ═════════════════════════════════════════════
+function getN(item){return(lang==='ku'&&item.nameKu?item.nameKu:lang==='ar'&&item.nameAr?item.nameAr:item.name)||item.name||'';}
+function getD(item){return(lang==='ku'&&item.descKu?item.descKu:lang==='ar'&&item.descAr?item.descAr:item.desc)||item.desc||'';}
+
+// ══ SEARCH ═══════════════════════════════════════════════════
+function onSearch(){
+  const v=document.getElementById('searchInput').value.trim();
+  searchQ=v.toLowerCase();
+  const cl=document.getElementById('searchClear');
+  if(cl)cl.className='search-clear'+(v?' show':'');
+  renderAll();
+}
+function clearSearch(){
+  document.getElementById('searchInput').value='';
+  searchQ='';
+  const cl=document.getElementById('searchClear');
+  if(cl)cl.className='search-clear';
+  renderAll();
+}
+function matchSearch(item){
+  if(!searchQ)return true;
+  const fields=[item.name,item.nameKu,item.nameAr,item.desc,item.descKu,item.descAr,item.year,item.brand,...(item.specs||[]),...(item.games||[])];
+  return fields.some(f=>f&&f.toLowerCase().includes(searchQ));
+}
+
+// ══ CATEGORY & YEAR FILTERS ══════════════════════════════════
+function getYear(item){return(item.year||'').split(/[-—\s]/)[0].trim();}
+function getBrand(item){return(item.brand||'OTHER').toUpperCase().trim();}
+
+function buildCatTabs(items,elId,type){
+  const el=document.getElementById(elId);if(!el)return;
+  const t=T[lang];
+  const brands=['ALL',...new Set(items.map(i=>getBrand(i)).filter(b=>b&&b!=='OTHER')),...(items.some(i=>getBrand(i)==='OTHER')?['OTHER']:[])];
+  const cur=type==='console'?cBrand:gBrand;
+  el.innerHTML=brands.map(b=>`<button class="cat-tab${cur===b?' active':''}" onclick="setBrand('${type}','${b}')">${b==='ALL'?t.allBrands:b}</button>`).join('');
+}
+
+function buildYearFilter(items,elId,type){
+  const el=document.getElementById(elId);if(!el)return;
+  const t=T[lang];
+  const brand=type==='console'?cBrand:gBrand;
+  const filtered=brand==='ALL'?items:items.filter(i=>getBrand(i)===brand);
+  const years=[...new Set(filtered.map(i=>getYear(i)).filter(Boolean))].sort((a,b)=>b-a);
+  if(years.length<=1){el.innerHTML='';return;}
+  const cur=type==='console'?cYear:gYear;
+  el.innerHTML=`<span class="year-label">${t.allYears.split(' ')[0]}:</span>`+
+    [`<button class="year-btn${cur==='ALL'?' active':''}" onclick="setYear('${type}','ALL')">${t.allYears}</button>`,
+    ...years.map(y=>`<button class="year-btn${cur===y?' active':''}" onclick="setYear('${type}','${y}')">${y}</button>`)].join('');
+}
+
+function setBrand(type,brand){
+  if(type==='console'){cBrand=brand;cYear='ALL';}
+  else{gBrand=brand;gYear='ALL';}
+  renderAll();
+}
+function setYear(type,year){
+  if(type==='console')cYear=year;else gYear=year;
+  renderAll();
+}
+
+// ══ RENDER ═══════════════════════════════════════════════════
+function renderAll(){
+  const t=T[lang];
+  buildCatTabs(CC,'consoleBrandTabs','console');
+  buildCatTabs(GG,'gameBrandTabs','game');
+  buildYearFilter(CC,'consoleYearFilter','console');
+  buildYearFilter(GG,'gameYearFilter','game');
+
+  let fc=CC.filter(i=>matchSearch(i));
+  if(cBrand!=='ALL')fc=fc.filter(i=>getBrand(i)===cBrand);
+  if(cYear!=='ALL')fc=fc.filter(i=>getYear(i)===cYear);
+
+  let fg=GG.filter(i=>matchSearch(i));
+  if(gBrand!=='ALL')fg=fg.filter(i=>getBrand(i)===gBrand);
+  if(gYear!=='ALL')fg=fg.filter(i=>getYear(i)===gYear);
+
+  renderGrid(fc,'consolesGrid',t.classicGames);
+  renderGrid(fg,'gamesGrid',t.notableTitles);
+
+  const cc=document.getElementById('count-consoles');
+  const cg=document.getElementById('count-games');
+  if(cc)cc.textContent=fc.length;if(cg)cg.textContent=fg.length;
+
+  // Search info
+  const si=document.getElementById('searchInfo');
+  if(si&&searchQ){
+    const tot=fc.length+fg.length;
+    si.textContent=lang==='ku'?`${tot} ئەنجام`:(lang==='ar'?`${tot} نتيجة`:`${tot} results`);
+  } else if(si){si.textContent='';}
+}
+
+function renderGrid(items,id,lbl){
+  const t=T[lang];const g=document.getElementById(id);g.innerHTML='';
+  if(!items.length){g.innerHTML=`<div class="no-results">${t.noItems}</div>`;return;}
+  items.forEach(item=>{
+    const c=document.createElement('div');
+    c.className='card reveal-scale'+(item.outOfStock?' oos':'');
+    const name=getN(item),desc=getD(item);
+    const imgPart=item.image
+      ?`<div class="card-img"><img src="${item.image}" alt="${name}" loading="lazy" onerror="this.parentElement.innerHTML='<span style=font-size:80px>${item.icon}</span>'"></div>`
+      :`<div class="card-img" style="background:${item.color||'#1a1a2a'}">${item.icon}</div>`;
+    const specs=Array.isArray(item.specs)?item.specs:[];
+    const oos=item.outOfStock?`<div class="out-of-stock-badge">❌ نەماوە</div>`:'';
+    const cartBtn=item.outOfStock
+      ?`<button class="add-cart-btn oos-btn" disabled>❌ نەماوە</button>`
+      :`<button class="add-cart-btn" onclick="event.stopPropagation();addToCart(${JSON.stringify(item).replace(/"/g,'&quot;')},'${lbl}')">${T[lang].addCart||'🛒 زیادکە بۆ سوندوق'}</button>`;
+    if(item.brand&&item.brand!=='OTHER')c.innerHTML=`<div class="card-brand">${item.brand}</div>`;
+    c.innerHTML+=`<div style="position:relative">${imgPart}${oos}</div><div class="card-body"><div class="card-name">${name}</div><div class="card-year">${item.year||''}</div><div class="card-desc">${desc.substring(0,90)}…</div><div>${specs.map(s=>`<span class="badge">${s}</span>`).join('')}</div>${cartBtn}</div>`;
+    c.onclick=()=>openModal(item,lbl);
+    g.appendChild(c);
+  });
+  setTimeout(initReveal,100);
+}
+
+function openModal(item,lbl){
+  const img=document.getElementById('mImg'),ico=document.getElementById('mIcon');
+  if(item.image){img.src=item.image;img.style.display='block';ico.style.display='none';}
+  else{img.style.display='none';ico.style.display='block';ico.textContent=item.icon;}
+  document.getElementById('mTitle').textContent=getN(item);
+  document.getElementById('mYear').textContent=item.year||'';
+  document.getElementById('mDesc').textContent=getD(item);
+  document.getElementById('mLabel').textContent=lbl;
+  document.getElementById('mChips').innerHTML=(Array.isArray(item.games)?item.games:[]).map(g=>`<span class="chip">${g}</span>`).join('');
+  document.getElementById('modalOverlay').classList.add('open');
+  sfxPowerup&&sfxPowerup();
+}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');}
+function showSection(n,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+n).classList.add('active');btn.classList.add('active');
+  sfxCoin&&sfxCoin();
+}
+
+// ══ AUTO-TRANSLATE (Claude API) ═══════════════════════════════
+// MyMemory free translation API — no key needed
+async function translateText(text, fromLang, toLang){
+  if(!text.trim()) return '';
+  const url=`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${fromLang}|${toLang}`;
+  const res=await fetch(url);
+  const data=await res.json();
+  return data.responseData?.translatedText||text;
+}
+
+async function autoTranslate(){
+  const nameKu=document.getElementById('fnku')?.value.trim()||'';
+  const descKu=document.getElementById('fdku')?.value.trim()||'';
+  if(!nameKu&&!descKu){
+    alert('تکایە یەک ناوی کوردی یان وەسفی کوردی بنووسە!');return;
+  }
+  const btn=document.getElementById('translateBtn');
+  const status=document.getElementById('translateStatus');
+  const t=T[lang];
+  if(btn){btn.disabled=true;btn.textContent=t.translating;}
+  if(status){status.style.color='var(--text3)';status.textContent=t.translating;}
+  try{
+    // Translate name: Kurdish → English and Kurdish → Arabic
+    const [nameEn, nameAr, descEn, descAr] = await Promise.all([
+      nameKu ? translateText(nameKu,'ckb','en') : Promise.resolve(''),
+      nameKu ? translateText(nameKu,'ckb','ar') : Promise.resolve(''),
+      descKu  ? translateText(descKu,'ckb','en')  : Promise.resolve(''),
+      descKu  ? translateText(descKu,'ckb','ar')  : Promise.resolve(''),
+    ]);
+
+    // Fill English name (uppercase)
+    const fnEl=document.getElementById('fn');
+    if(fnEl&&nameEn&&!fnEl.value) fnEl.value=nameEn.toUpperCase();
+
+    // Fill Arabic name
+    const fnarEl=document.getElementById('fnar');
+    if(fnarEl&&nameAr&&!fnarEl.value) fnarEl.value=nameAr;
+
+    // Fill English desc
+    const fdEl=document.getElementById('fd');
+    if(fdEl&&descEn&&!fdEl.value) fdEl.value=descEn;
+
+    // Fill Arabic desc
+    const fdarEl=document.getElementById('fdar');
+    if(fdarEl&&descAr&&!fdarEl.value) fdarEl.value=descAr;
+
+    if(status){status.style.color='var(--green)';status.textContent=t.translateDone;}
+    sfxOneUp&&sfxOneUp();
+  }catch(e){
+    if(status){status.style.color='var(--red)';status.textContent=t.translateFail+': '+e.message;}
+  }finally{
+    if(btn){btn.disabled=false;btn.textContent=t.translateBtn;}
+  }
+}
+
+// ══ ADMIN ════════════════════════════════════════════════════
+async function loadAdminStats(){
+  try{
+    const snap=await db.ref('retroerbil/visitors').get();
+    const v=snap.exists()?snap.val():0;
+    const el=document.getElementById('statVisitors');
+    if(el)el.textContent=v.toLocaleString();
+    const ei=document.getElementById('statItems');
+    if(ei)ei.textContent=(CC.length+GG.length+PP.length);
+  }catch(e){}
+}
+function openAdmin(){
+  document.getElementById('adminOverlay').classList.add('open');
+  if(loggedIn){
+    document.getElementById('loginBox').style.display='none';
+    document.getElementById('dashboard').style.display='block';
+    buildTab(curTab);
+    loadAdminStats();
+  }else{document.getElementById('loginBox').style.display='block';document.getElementById('dashboard').style.display='none';}
+}
+function closeAdmin(){
+  document.getElementById('adminOverlay').classList.remove('open');
+  document.getElementById('pwInput').value='';
+  document.getElementById('loginErr').style.display='none';
+}
+function doLogin(){
+  if(document.getElementById('pwInput').value===PW){
+    loggedIn=true;
+    document.getElementById('loginBox').style.display='none';
+    document.getElementById('dashboard').style.display='block';
+    document.getElementById('pwInput').value='';buildTab(curTab);
+  }else{document.getElementById('loginErr').style.display='block';}
+}
+function switchTab(tab,btn){
+  curTab=tab;
+  document.querySelectorAll('.a-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  ['consoles','games','parts','pw'].forEach(t=>document.getElementById('tab-'+t).style.display=t===tab?'block':'none');
+  if(tab!=='pw')buildTab(tab);
+}
+function buildTab(tab){
+  const t=T[lang];
+  const items=tab==='consoles'?CC:tab==='games'?GG:PP;
+  const el=document.getElementById('tab-'+tab);
+  const addLabel=tab==='consoles'?t.addConsole:tab==='games'?t.addGame:'+ پارچەیەکی نوێ زیاد بکە';
+  let html=`<button class="b-add" onclick="showForm('${tab}',-1)">${addLabel}</button><div id="alist-${tab}">`;
+  items.forEach((item,i)=>{
+    const oosTag=item.outOfStock?`<span style="font-family:VT323,monospace;font-size:13px;color:var(--red);border:1px solid var(--red);padding:1px 6px;border-radius:2px;margin-left:6px">نەماوە</span>`:'';
+    const oosToggle=item.outOfStock
+      ?`<button class="b-edit" style="border-color:var(--green);color:var(--green)" onclick="toggleOOS('${tab}',${i},false)">✓ هەیە</button>`
+      :`<button class="b-edit" style="border-color:var(--red);color:var(--red)" onclick="toggleOOS('${tab}',${i},true)">❌ نەماوە</button>`;
+    html+=`<div class="a-item"><div class="a-item-icon">${item.icon}</div><div class="a-item-info"><div class="a-item-name">${item.name}${oosTag}</div><div class="a-item-year">${item.year||item.compat||''}</div></div><div class="a-btns">${oosToggle}<button class="b-edit" onclick="showForm('${tab}',${i})">${t.edit}</button><button class="b-del" onclick="delItem('${tab}',${i})">✕</button></div></div>`;
+  });
+  html+=`</div><div id="aform-${tab}"></div>`;el.innerHTML=html;
+}
+
+function toggleOOS(tab,i,val){
+  const arr=tab==='consoles'?CC:tab==='games'?GG:PP;
+  arr[i].outOfStock=val;
+  const path=tab==='consoles'?'retroerbil/consoles':tab==='games'?'retroerbil/games':'retroerbil/parts';
+  fbSave(path,arr);
+  renderAll();renderParts();buildTab(tab);
+  sfxCoin&&sfxCoin();
+}
+function delItem(tab,i){
+  const t=T[lang];if(!confirm(t.sure))return;
+  if(tab==='consoles'){CC.splice(i,1);fbSave('retroerbil/consoles',CC.length?CC:null);}
+  else if(tab==='games'){GG.splice(i,1);fbSave('retroerbil/games',GG.length?GG:null);}
+  else{PP.splice(i,1);fbSave('retroerbil/parts',PP.length?PP:null);renderParts();}
+  renderAll();buildTab(tab);
+}
+function showForm(tab,i){
+  const t=T[lang];const items=tab==='consoles'?CC:GG;
+  const item=i>=0?items[i]:{icon:'🎮',name:'',nameKu:'',nameAr:'',brand:'',year:'',compat:'',color:'#1a1a3a',image:'',desc:'',descKu:'',descAr:'',specs:[],games:[],outOfStock:false};
+  const isNew=i<0;
+  const sp=(Array.isArray(item.specs)?item.specs:[]).join(', ');
+  const gm=(Array.isArray(item.games)?item.games:[]).join(', ');
+  document.getElementById('aform-'+tab).innerHTML=`
+  <div class="a-form">
+    <div class="f-title">${isNew?t.addNew:t.editLabel}</div>
+    <div class="f-2">
+      <div class="f-row"><label class="f-label">${t.fIcon}</label><input class="f-input" id="fi" value="${item.icon||'🎮'}"></div>
+      <div class="f-row"><label class="f-label">${t.fColor}</label><input class="f-input" id="fc" type="color" value="${item.color||'#1a1a3a'}" style="height:40px;padding:2px"></div>
+    </div>
+    <div class="f-section">${t.fNamesSection}</div>
+    <div class="f-row"><label class="f-label">${t.fNameKu} ⭐</label><input class="f-input" id="fnku" value="${item.nameKu||''}" placeholder="پلەیستەیشن ١" oninput="livePreviewName()"></div>
+    <div class="f-row"><label class="f-label">${t.fName}</label><input class="f-input" id="fn" value="${item.name||''}" placeholder="PLAYSTATION 1"></div>
+    <div class="f-row"><label class="f-label">${t.fNameAr}</label><input class="f-input" id="fnar" value="${item.nameAr||''}" placeholder="بلايستيشن ١"></div>
+    <div class="f-row"><label class="f-label">${t.fBrand}</label><input class="f-input" id="fbrand" value="${item.brand||''}" placeholder="PLAYSTATION / NINTENDO / SEGA"></div>
+    <div class="f-row"><label class="f-label">${t.fYear}</label><input class="f-input" id="fy" value="${item.year||''}" placeholder="1994"></div>
+    ${tab==='parts'?`<div class="f-row"><label class="f-label">🔧 گونجاوە بۆ (Compatible)</label><input class="f-input" id="fcompat" value="${item.compat||''}" placeholder="PS4 / PS2 / SNES"></div>`:'<input type="hidden" id="fcompat" value="">'}
+    <div class="f-row"><label class="f-label">${t.fImage}</label><input class="f-input" id="fim" value="${item.image||''}" placeholder="https://i.imgur.com/abc.jpg"><div class="f-hint">${t.fImageHint}</div></div>
+    <div class="f-section">${t.fDescsSection}</div>
+    <div class="f-row"><label class="f-label">${t.fDescKu} ⭐</label><textarea class="f-input f-textarea" id="fdku">${item.descKu||''}</textarea></div>
+
+```
+<div class="f-row"><label class="f-label">${t.fDesc}</label><textarea class="f-input f-textarea" id="fd">${item.desc||''}</textarea></div>
+<div class="f-row"><label class="f-label">${t.fDescAr}</label><textarea class="f-input f-textarea" id="fdar">${item.descAr||''}</textarea></div>
+<div class="f-row"><label class="f-label">${t.fSpecs}</label><input class="f-input" id="fs" value="${sp}" placeholder="32-bit CPU, CD-ROM"></div>
+<div class="f-row"><label class="f-label">${tab==='consoles'?t.fGames:t.fChars}</label><input class="f-input" id="fg" value="${gm}"></div>
+<button class="b-translate" id="translateBtn" onclick="autoTranslate()">${t.translateBtn}</button>
+<div class="translate-status" id="translateStatus"></div>
+<div style="margin-top:1rem">
+  <button class="b-save" onclick="saveForm('${tab}',${i})">${t.save}</button>
+  <button class="b-cancel" onclick="document.getElementById('aform-${tab}').innerHTML=''">${t.cancel}</button>
+</div>
+```
+
+  </div>`;
+  document.getElementById('aform-'+tab).scrollIntoView({behavior:'smooth'});
+}
+function livePreviewName(){
+  const ku=document.getElementById('fnku')?.value.trim()||'';
+  const fn=document.getElementById('fn');
+  if(fn&&!fn.value)fn.placeholder='('+ku+' — '+T[lang].translateBtn.split(' ')[0]+')';
+}
+function saveForm(tab,i){
+  const t=T[lang];
+  const ku=document.getElementById('fnku').value.trim();
+  const en=document.getElementById('fn').value.trim();
+  if(!ku&&!en){alert(t.nameRequired);return;}
+  const newItem={
+    icon:document.getElementById('fi').value.trim()||'🎮',
+    name:en.toUpperCase()||ku.toUpperCase(),
+    nameKu:ku,
+    nameAr:document.getElementById('fnar').value.trim(),
+    brand:document.getElementById('fbrand').value.trim().toUpperCase(),
+    year:document.getElementById('fy').value.trim(),
+    compat:document.getElementById('fcompat')?.value.trim()||'',
+    color:document.getElementById('fc').value,
+    image:document.getElementById('fim').value.trim(),
+    desc:document.getElementById('fd').value.trim(),
+    descKu:document.getElementById('fdku').value.trim(),
+    descAr:document.getElementById('fdar').value.trim(),
+    specs:document.getElementById('fs').value.split(',').map(s=>s.trim()).filter(Boolean),
+    games:document.getElementById('fg').value.split(',').map(s=>s.trim()).filter(Boolean),
+    outOfStock:(i>=0&&tab==='consoles'?CC[i]:i>=0&&tab==='games'?GG[i]:i>=0?PP[i]:null)?.outOfStock||false,
+  };
+  if(tab==='consoles'){if(i>=0)CC[i]=newItem;else CC.push(newItem);fbSave('retroerbil/consoles',CC);}
+  else if(tab==='games'){if(i>=0)GG[i]=newItem;else GG.push(newItem);fbSave('retroerbil/games',GG);}
+  else{if(i>=0)PP[i]=newItem;else PP.push(newItem);fbSave('retroerbil/parts',PP);renderParts();}
+  renderAll();buildTab(tab);
+}
+function changePw(){
+  const p1=document.getElementById('np1').value,p2=document.getElementById('np2').value,m=document.getElementById('pwMsg');
+  if(!p1){m.style.color='var(--red)';m.textContent=T[lang].savedErr.replace(':','')+'!';return;}
+  if(p1!==p2){m.style.color='var(--red)';m.textContent='پاسوۆردەکان یەک نین!';return;}
+  PW=p1;fbSave('retroerbil/password',PW);
+  m.style.color='var(--green)';m.textContent='✓ گۆڕدرا!';
+  document.getElementById('np1').value='';document.getElementById('np2').value='';
+}
+
+// ══ SOUND ENGINE ══════════════════════════════════════════════
+let audioCtx=null;
+function getAudio(){if(!audioCtx){try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){return null;}}if(audioCtx.state===‘suspended’)audioCtx.resume();return audioCtx;}
+function playTone(f,d,type=‘square’,vol=.18,delay=0){const ctx=getAudio();if(!ctx)return;const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type=type;o.frequency.setValueAtTime(f,ctx.currentTime+delay);g.gain.setValueAtTime(vol,ctx.currentTime+delay);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+delay+d);o.start(ctx.currentTime+delay);o.stop(ctx.currentTime+delay+d+.01);}
+function sfxCoin(){playTone(988,.08,‘square’,.2);playTone(1319,.12,‘square’,.2,.09);}
+function sfxJump(){const ctx=getAudio();if(!ctx)return;const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.type=‘square’;o.frequency.setValueAtTime(200,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(600,ctx.currentTime+.1);g.gain.setValueAtTime(.15,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.15);o.start();o.stop(ctx.currentTime+.16);}
+function sfxOneUp(){const n=[523,659,784,1047,784,1047],d=[.08,.08,.08,.08,.08,.15];let t=0;n.forEach((f,i)=>{playTone(f,d[i],‘square’,.18,t);t+=d[i]*.9;});}
+function sfxPowerup(){const n=[659,784,988,1319,988,784,659];let t=0;n.forEach(f=>{playTone(f,.06,‘square’,.15,t);t+=.07;});}
+function sfxHover(){playTone(440,.03,‘square’,.05);}
+function sfxIntroFanfare(){const m=[[659,.1],[0,.05],[659,.1],[0,.05],[659,.15],[523,.1],[659,.15],[784,.3],[392,.3]];let t=0;m.forEach(([f,d])=>{if(f>0)playTone(f,d,‘square’,.15,t);t+=d*1.05;});}
+
+// ══ INTRO ════════════════════════════════════════════════════
+let introDone=false;
+function dismissIntro(){
+if(introDone)return;introDone=true;sfxOneUp();
+const el=document.getElementById(‘introScreen’);
+if(!el)return;el.classList.add(‘hide’);
+setTimeout(()=>el.style.display=‘none’,900);
+}
+function createStars(){
+const intro=document.getElementById(‘introScreen’);if(!intro)return;
+for(let i=0;i<55;i++){const s=document.createElement(‘div’);s.className=‘i-star’;s.style.cssText=‘left:’+Math.random()*100+’%;top:’+Math.random()*100+’%;–d:’+(2+Math.random()*4)+‘s;–dl:’+Math.random()*3+‘s’;intro.appendChild(s);}
+}
+function initIntro(){
+createStars();
+setTimeout(()=>{const p=document.getElementById(‘introPress’);if(p)p.classList.add(‘show’);sfxIntroFanfare();},3200);
+setTimeout(()=>{if(!introDone)dismissIntro();},7500);
+}
+document.addEventListener(‘keydown’,()=>{if(!introDone)dismissIntro();},{once:true});
+
+// ══ BOOT ═════════════════════════════════════════════════════
+window.addEventListener(‘load’,()=>{
+initIntro();
+updateShopStatus();
+// Sound on nav
+document.querySelectorAll(’.nav-btn’).forEach(b=>b.addEventListener(‘click’,sfxCoin));
+const ab=document.querySelector(’.admin-btn’);if(ab)ab.addEventListener(‘click’,sfxJump);
+// Hover sound on cards
+let lastCard=’’;
+document.addEventListener(‘mouseover’,e=>{const c=e.target.closest(’.card’);if(c&&c!==lastCard){lastCard=c;sfxHover();}});
+// Click sounds
+document.addEventListener(‘click’,e=>{
+if(e.target.classList.contains(‘b-save’))sfxCoin();
+if(e.target.classList.contains(‘b-add’))sfxJump();
+if(e.target.classList.contains(‘b-del’))playTone(220,.15,‘sawtooth’,.1);
+if(e.target.classList.contains(‘cat-tab’)||e.target.classList.contains(‘year-btn’))sfxCoin();
+if(e.target.classList.contains(‘modal-close’))sfxCoin();
+});
+});
+
+initData();
+
+// ══ DEFAULT PARTS DATA ════════════════════════════════════════
+const DEF_PARTS=[
+{icon:“🎮”,name:“DUALSHOCK 4 CONTROLLER”,nameKu:“کۆنترۆڵەری دووئەڵشۆک ٤”,nameAr:“يد تحكم دواشوك 4”,brand:“PLAYSTATION”,compat:“PS4 / PS3 / PC”,year:””,color:”#1a1a3a”,image:””,desc:“Original DualShock 4 wireless controller. Compatible with PS4, PS3 and PC.”,descKu:“کۆنترۆڵەری ئۆریجینالی DualShock 4. گونجاوە بۆ PS4، PS3 و PC.”,descAr:“يد تحكم DualShock 4 الأصلية. متوافقة مع PS4 وPS3 والكمبيوتر.”,specs:[“Wireless”,“Touchpad”,“Built-in Speaker”],games:[],outOfStock:false},
+{icon:“🔋”,name:“PS4 HDMI PORT REPAIR”,nameKu:“چاکردنەوەی پۆرتی HDMI ی PS4”,nameAr:“إصلاح منفذ HDMI للـ PS4”,brand:“PLAYSTATION”,compat:“PS4 / PS4 Pro”,year:””,color:”#1a0a3a”,image:””,desc:“Original HDMI port replacement for PS4 and PS4 Pro.”,descKu:“پۆرتی HDMI ی ئۆریجینال بۆ PS4 و PS4 Pro جێگرەوە.”,descAr:“منفذ HDMI أصلي بديل لـ PS4 وPS4 Pro.”,specs:[“Original Part”,“PS4 / PS4 Pro”],games:[],outOfStock:false},
+{icon:“💾”,name:“PS2 MEMORY CARD 8MB”,nameKu:“کارتی میموری PS2 ٨ مێگابایت”,nameAr:“بطاقة ذاكرة PS2 8MB”,brand:“PLAYSTATION”,compat:“PS2”,year:””,color:”#0a0a2a”,image:””,desc:“Original 8MB memory card for PlayStation 2.”,descKu:“کارتی میموری ئۆریجینالی ٨ مێگابایت بۆ PlayStation 2.”,descAr:“بطاقة ذاكرة أصلية 8 ميجابايت لـ PlayStation 2.”,specs:[“8MB”,“Official Sony”],games:[],outOfStock:false},
+{icon:“🕹️”,name:“SEGA MEGA DRIVE CONTROLLER”,nameKu:“کۆنترۆڵەری سیگا مێگا درایڤ”,nameAr:“يد تحكم سيجا ميجا درايف”,brand:“SEGA”,compat:“Mega Drive / Genesis”,year:””,color:”#0a1a0a”,image:””,desc:“Original 6-button controller for Sega Mega Drive and Genesis.”,descKu:“کۆنترۆڵەری ٦ دوگمەیی ئۆریجینال بۆ Sega Mega Drive.”,descAr:“يد تحكم أصلية بـ 6 أزرار لسيجا ميجا درايف.”,specs:[“6 Button”,“Original”],games:[],outOfStock:false},
+{icon:“🔌”,name:“SUPER NINTENDO AC ADAPTER”,nameKu:“ئەداپتەری SNES”,nameAr:“محول طاقة سوبر نينتندو”,brand:“NINTENDO”,compat:“SNES / Super Famicom”,year:””,color:”#1a0a2a”,image:””,desc:“Original AC power adapter for Super Nintendo Entertainment System.”,descKu:“ئەداپتەری کارەبای ئۆریجینال بۆ Super Nintendo.”,descAr:“محول طاقة أصلي لجهاز سوبر نينتندو.”,specs:[“10V DC”,“Original”],games:[],outOfStock:false},
+{icon:“📺”,name:“AV CABLE — MULTI CONSOLE”,nameKu:“کابلی AV بۆ کۆنسۆڵ”,nameAr:“كابل AV متعدد الأجهزة”,brand:“OTHER”,compat:“PS1 / PS2 / SNES / Mega Drive”,year:””,color:”#1a1a0a”,image:””,desc:“Universal AV cable compatible with multiple retro consoles.”,descKu:“کابلی AV گشتی گونجاوە بۆ زۆر کۆنسۆڵی کلاسیک.”,descAr:“كابل AV عالمي متوافق مع أجهزة ألعاب كلاسيكية متعددة.”,specs:[“RCA Output”,“Universal”],games:[],outOfStock:false},
+];
+
+let PP=[]; // parts array
+
+// ══ CART STATE ════════════════════════════════════════════════
+let cart=[];
+
+function addToCart(item,category){
+if(item.outOfStock)return;
+// Check if already in cart
+const exists=cart.find(c=>c.name===item.name&&c.category===category);
+if(exists){showStatus(‘✓ هەیە لە سوندوقدا — ‘+getN(item));return;}
+cart.push({…item,category});
+updateCartCount();
+showStatus(‘✓ زیادکرا: ‘+getN(item));
+sfxCoin&&sfxCoin();
+}
+function removeFromCart(idx){
+cart.splice(idx,1);
+updateCartCount();
+renderCartItems();
+sfxCoin&&sfxCoin();
+}
+function updateCartCount(){
+const el=document.getElementById(‘cartCount’);
+if(el)el.textContent=cart.length;
+}
+function openCart(){
+document.getElementById(‘cartOverlay’).classList.add(‘open’);
+renderCartItems();
+sfxJump&&sfxJump();
+}
+function closeCart(){document.getElementById(‘cartOverlay’).classList.remove(‘open’);}
+function renderCartItems(){
+const el=document.getElementById(‘cartItems’);
+const btn=document.getElementById(‘checkoutBtn’);
+const t=T[lang];
+if(!el)return;
+// Update labels
+const cl=document.getElementById(‘cartCheckoutLabel’);
+if(cl)cl.textContent=lang===‘ku’?‘داوای کڕین بنێرە’:lang===‘ar’?‘أرسل طلب الشراء’:‘Send Purchase Request’;
+const chLabel=document.getElementById(‘choiceLabel’);
+if(chLabel)chLabel.textContent=lang===‘ku’?‘بە کام ئەپ دەنێریت؟’:lang===‘ar’?‘عبر أي تطبيق؟’:‘Send via which app?’;
+const cl2=document.getElementById(‘cartCountLabel’);
+if(cl2)cl2.textContent=lang===‘ku’?‘سوندوق’:lang===‘ar’?‘السلة’:‘Cart’;
+if(!cart.length){
+el.innerHTML=`<div class="cart-empty">${lang==='ku'?'🛒 سوندوقەکە بەتاڵە':lang==='ar'?'🛒 السلة فارغة':'🛒 Cart is empty'}</div>`;
+if(btn)btn.disabled=true;return;
+}
+if(btn)btn.disabled=false;
+el.innerHTML=cart.map((item,i)=>{
+const imgHtml=item.image
+?`<img src="${item.image}" style="width:48px;height:48px;object-fit:contain;border-radius:3px;background:#06060e;border:1px solid var(--border)" onerror="this.style.display='none'">`
+:`<div style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:28px;background:${item.color||'#1a1a2a'};border-radius:3px;border:1px solid var(--border)">${item.icon}</div>`;
+const removeLabel=lang===‘ku’?‘سڕینەوە’:lang===‘ar’?‘حذف’:‘Remove’;
+return `<div class="cart-item"> ${imgHtml} <div class="cart-item-info"> <div class="cart-item-name">${getN(item)}</div> <div class="cart-item-cat">${item.category}</div> </div> <button class="cart-item-remove" onclick="removeFromCart(${i})" title="${removeLabel}">✕</button> </div>`;
+}).join(’’);
+}
+function doCheckout(){
+if(!cart.length)return;
+const lines=cart.map((item,i)=>`${i+1}. ${getN(item)}`).join(’%0A’);
+const greet = lang===‘ku’?‘🛒 *RETRO ERBIL — داواکاری کڕین*’:lang===‘ar’?‘🛒 *RETRO ERBIL — طلب شراء*’:‘🛒 *RETRO ERBIL — Purchase Request*’;
+const footer = lang===‘ku’?‘📍 هەولێر — بازاڕی نیشتیمان — پێشانگای سامی%0A✅ فرۆشتن و چاکردنەوە’:lang===‘ar’?‘📍 أربيل — بازار نيشتيمان — معرض سامي%0A✅ بيع وإصلاح’:‘📍 Erbil — Nishtiman Bazaar — Sami Gallery%0A✅ Sales & Repair’;
+const msg=encodeURIComponent(`${greet.replace(/*/g,’’)}
+
+${cart.map((item,i)=>`${i+1}. ${getN(item)}`).join(’
+’)}
+
+${decodeURIComponent(footer)}`); // Show choice: WhatsApp or Viber const choice=document.getElementById('checkoutChoice'); if(choice){choice.style.display='flex';window._checkoutMsg=msg;} } function checkoutVia(type){ const msg=window._checkoutMsg||''; if(type==='wa') window.open(`https://wa.me/9647871155811?text=${msg}`,'_blank'); if(type==='vb') window.open(`viber://chat?number=9647506041911&text=${msg}`,'_blank'); if(type==='wa2') window.open(`https://wa.me/9647506041911?text=${msg}`,’_blank’);
+sfxOneUp&&sfxOneUp();
+const choice=document.getElementById(‘checkoutChoice’);
+if(choice)choice.style.display=‘none’;
+}
+
+// ══ PARTS FUNCTIONS ════════════════════════════════════════════
+let pBrand=‘ALL’;
+
+function initParts(d){
+PP=d&&d.parts?fixArr(d.parts):DEF_PARTS;
+}
+function renderParts(){
+const t=T[lang];
+// Build brand tabs
+const bar=document.getElementById(‘partsBrandTabs’);
+if(bar){
+const brands=[‘ALL’,…new Set(PP.map(i=>(i.brand||‘OTHER’).toUpperCase()).filter(b=>b&&b!==‘OTHER’)),…(PP.some(i=>(i.brand||‘OTHER’)===‘OTHER’)?[‘OTHER’]:[])];
+bar.innerHTML=brands.map(b=>`<button class="cat-tab${pBrand===b?' active':''}" onclick="setPBrand('${b}')">${b==='ALL'?t.allBrands:b}</button>`).join(’’);
+}
+const filtered=pBrand===‘ALL’?PP:PP.filter(i=>(i.brand||‘OTHER’).toUpperCase()===pBrand);
+const g=document.getElementById(‘partsGrid’);
+if(!g)return;
+const cp=document.getElementById(‘count-parts’);
+if(cp)cp.textContent=filtered.length;
+g.innerHTML=’’;
+if(!filtered.length){g.innerHTML=`<div class="no-results">${t.noItems}</div>`;return;}
+filtered.forEach(item=>{
+const c=document.createElement(‘div’);
+c.className=‘parts-card reveal-scale’+(item.outOfStock?’ oos’:’’);
+const name=getN(item);
+const imgPart=item.image
+?`<div class="parts-img"><img src="${item.image}" alt="${name}" loading="lazy" onerror="this.parentElement.innerHTML='<span style=font-size:64px>${item.icon}</span>'"></div>`
+:`<div class="parts-img" style="background:${item.color||'#1a1a2a'}">${item.icon}</div>`;
+const oos=item.outOfStock?`<div class="out-of-stock-badge">❌ نەماوە</div>`:’’;
+const cartBtnLabel=item.outOfStock?t.oosLabel||‘نەماوە’:’🛒 ’+(t.addCart||‘زیادکە بۆ سوندوق’);
+c.innerHTML=`<div style="position:relative">${imgPart}${oos}</div> <div class="parts-body"> <div class="parts-name">${name}</div> <div class="parts-compat">🔧 ${item.compat||''}</div> <div class="parts-desc">${(getD(item)).substring(0,80)}…</div> <button class="add-cart-btn${item.outOfStock?' oos-btn':''}" onclick="event.stopPropagation();addToCart(${JSON.stringify(item).replace(/"/g,'&quot;')},T[lang].navParts||'Parts')" ${item.outOfStock?'disabled':''}>${cartBtnLabel}</button> </div>`;
+c.onclick=()=>openPartsModal(item);
+g.appendChild(c);
+});
+initReveal();
+}
+function setPBrand(b){pBrand=b;renderParts();}
+
+function openPartsModal(item){
+const img=document.getElementById(‘mImg’),ico=document.getElementById(‘mIcon’);
+if(item.image){img.src=item.image;img.style.display=‘block’;ico.style.display=‘none’;}
+else{img.style.display=‘none’;ico.style.display=‘block’;ico.textContent=item.icon;}
+document.getElementById(‘mTitle’).textContent=getN(item);
+document.getElementById(‘mYear’).textContent=item.compat||’’;
+document.getElementById(‘mDesc’).textContent=getD(item);
+document.getElementById(‘mLabel’).textContent=‘🔧 ‘+(T[lang].navParts||‘Parts’);
+document.getElementById(‘mChips’).innerHTML=(Array.isArray(item.specs)?item.specs:[]).map(s=>`<span class="chip">${s}</span>`).join(’’);
+document.getElementById(‘modalOverlay’).classList.add(‘open’);
+sfxPowerup&&sfxPowerup();
+}
+
+// ══ SCROLL REVEAL ══════════════════════════════════════════════
+function initReveal(){
+const obs=new IntersectionObserver((entries)=>{
+entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add(‘visible’);obs.unobserve(e.target);}});
+},{threshold:.12,rootMargin:‘0px 0px -40px 0px’});
+document.querySelectorAll(’.reveal,.reveal-left,.reveal-scale’).forEach((el,i)=>{
+el.style.transitionDelay=(i%6)*.07+‘s’;
+obs.observe(el);
+});
+}
+
+// ══ OUT OF STOCK IN ADMIN ══════════════════════════════════════
+const origBuildTab=window.buildTab;
+
+</script>
+</body>
+</html>
