@@ -68,9 +68,8 @@ body{font-family:'Courier Prime',monospace;background:var(--dark);color:var(--te
   pointer-events:none;z-index:9000}
 
 /* ─── INTRO ─── */
-#introScreen{position:fixed;inset:0;background:#000;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;cursor:pointer}
-#introScreen.hide{animation:iFade .9s ease forwards;pointer-events:none}
-@keyframes iFade{0%{opacity:1}100%{opacity:0;visibility:hidden}}
+#introScreen{position:fixed;inset:0;background:#000;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#introScreen.hide{opacity:0;pointer-events:none;transition:opacity .7s ease}
 .i-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(245,200,66,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(245,200,66,.03) 1px,transparent 1px);background-size:44px 44px;animation:iGrid 10s linear infinite}
 @keyframes iGrid{to{background-position:44px 44px}}
 .i-ring{position:absolute;border-radius:50%;border:1px solid rgba(245,200,66,.12);animation:iRing 4s ease-in-out infinite}
@@ -631,6 +630,24 @@ footer{text-align:center;padding:1.5rem;border-top:1px solid var(--border);font-
         <div class="admin-title">⚙ پانێلی بەڕێوەبردن</div>
         <button class="a-close" onclick="closeAdmin()">✕ داخستن</button>
       </div>
+      <!-- Stats -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:1.5rem">
+        <div style="background:#08080e;border:1px solid var(--border2);border-radius:3px;padding:.8rem;text-align:center">
+          <div style="font-size:22px">👁️</div>
+          <div style="font-family:'Press Start 2P',monospace;font-size:12px;color:var(--gold);margin:4px 0" id="statVisitors">—</div>
+          <div style="font-family:'VT323',monospace;font-size:14px;color:var(--text3)">سەردانکار</div>
+        </div>
+        <div style="background:#08080e;border:1px solid var(--border2);border-radius:3px;padding:.8rem;text-align:center">
+          <div style="font-size:22px">🎮</div>
+          <div style="font-family:'Press Start 2P',monospace;font-size:12px;color:var(--gold);margin:4px 0" id="statConsoles">—</div>
+          <div style="font-family:'VT323',monospace;font-size:14px;color:var(--text3)">کۆنسۆل</div>
+        </div>
+        <div style="background:#08080e;border:1px solid var(--border2);border-radius:3px;padding:.8rem;text-align:center">
+          <div style="font-size:22px">🕹️</div>
+          <div style="font-family:'Press Start 2P',monospace;font-size:12px;color:var(--gold);margin:4px 0" id="statGames">—</div>
+          <div style="font-family:'VT323',monospace;font-size:14px;color:var(--text3)">یاری</div>
+        </div>
+      </div>
       <div class="a-tabs">
         <button class="a-tab active" onclick="switchTab('consoles',this)">🎮 کۆنسۆلەکان</button>
         <button class="a-tab" onclick="switchTab('games',this)">🕹 یاریەکان</button>
@@ -1024,10 +1041,9 @@ async function loadAdminStats(){
   try{
     const snap=await db.ref('retroerbil/visitors').get();
     const v=snap.exists()?snap.val():0;
-    const el=document.getElementById('statVisitors');
-    if(el)el.textContent=v.toLocaleString();
-    const ei=document.getElementById('statItems');
-    if(ei)ei.textContent=(CC.length+GG.length+PP.length);
+    const ev=document.getElementById('statVisitors');if(ev)ev.textContent=v.toLocaleString();
+    const ec=document.getElementById('statConsoles');if(ec)ec.textContent=CC.length;
+    const eg=document.getElementById('statGames');if(eg)eg.textContent=GG.length;
   }catch(e){}
 }
 function openAdmin(){
@@ -1185,13 +1201,10 @@ function dismissIntro(){
   try{sfxOneUp();}catch(e){}
   const el=document.getElementById('introScreen');
   if(!el)return;
-  el.style.transition='opacity .8s ease';
-  el.style.opacity='0';
-  el.style.pointerEvents='none';
+  el.classList.add('hide');
   setTimeout(()=>{
     el.style.display='none';
-    el.remove();
-  },850);
+  },750);
 }
 function createStars(){
   const intro=document.getElementById('introScreen');if(!intro)return;
@@ -1200,10 +1213,11 @@ function createStars(){
 function initIntro(){
   createStars();
   setTimeout(()=>{const p=document.getElementById('introPress');if(p)p.classList.add('show');sfxIntroFanfare();},3200);
-  setTimeout(()=>{if(!introDone)dismissIntro();},5000);
+  setTimeout(()=>{if(!introDone)dismissIntro();},3500);
 }
 document.addEventListener('keydown',()=>{if(!introDone)dismissIntro();},{once:true});
-document.addEventListener('touchstart',()=>{if(!introDone)dismissIntro();},{once:true,passive:true});
+document.addEventListener('touchend',()=>{if(!introDone)dismissIntro();},{once:true,passive:true});
+document.addEventListener('click',()=>{if(!introDone)dismissIntro();},{once:true});
 
 // ══ BOOT ═════════════════════════════════════════════════════
 window.addEventListener('load',()=>{
