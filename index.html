@@ -1319,7 +1319,7 @@ function doCheckout(){
   const lines=cart.map((item,i)=>`${i+1}. ${getN(item)}`).join('%0A');
   const greet = lang==='ku'?'🛒 *RETRO ERBIL — داواکاری کڕین*':lang==='ar'?'🛒 *RETRO ERBIL — طلب شراء*':'🛒 *RETRO ERBIL — Purchase Request*';
   const footer = lang==='ku'?'📍 هەولێر — بازاڕی نیشتیمان — پێشانگای سامی%0A✅ فرۆشتن و چاکردنەوە':lang==='ar'?'📍 أربيل — بازار نيشتيمان — معرض سامي%0A✅ بيع وإصلاح':'📍 Erbil — Nishtiman Bazaar — Sami Gallery%0A✅ Sales & Repair';
-  const msg=encodeURIComponent(`${greet.replace(/\*/g,'')}
+ const msg=encodeURIComponent(`${greet.replace(/\*/g,'')}
 
 ${cart.map((item,i)=>`${i+1}. ${getN(item)}`).join('\n')}
 
