@@ -1321,8 +1321,7 @@ function doCheckout(){
   const footer = lang==='ku'?'📍 هەولێر — بازاڕی نیشتیمان — پێشانگای سامی%0A✅ فرۆشتن و چاکردنەوە':lang==='ar'?'📍 أربيل — بازار نيشتيمان — معرض سامي%0A✅ بيع وإصلاح':'📍 Erbil — Nishtiman Bazaar — Sami Gallery%0A✅ Sales & Repair';
   const msg=encodeURIComponent(`${greet.replace(/\*/g,'')}
 
-${cart.map((item,i)=>`${i+1}. ${getN(item)}`).join('
-')}
+${cart.map((item,i)=>`${i+1}. ${getN(item)}`).join('\n')}
 
 ${decodeURIComponent(footer)}`);
   // Show choice: WhatsApp or Viber
