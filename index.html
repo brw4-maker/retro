@@ -1319,11 +1319,13 @@ function updateCartCount(){
 }
 function openCart(){
   document.getElementById('cartOverlay').classList.add('open');
-const msg = encodeURIComponent(`${greet.replace(/\*/g, '')}
-
-${cart.map((item,i)=>`${i+1}. ${getN(item)}`).join('\n')}
-
-${decodeURIComponent(footer)}`);
+  renderCartItems();
+  sfxJump&&sfxJump();
+}
+function closeCart(){document.getElementById('cartOverlay').classList.remove('open');}
+function renderCartItems(){
+  const el=document.getElementById('cartItems');
+  const btn=document.getElementById('checkoutBtn');
   const t=T[lang];
   if(!el)return;
   // Update labels
@@ -1687,16 +1689,6 @@ window.addEventListener('load',function(){
   floatItem();floatItem();floatItem();
   setInterval(floatItem,4000);
 });
-<script>
-function dismissIntro() {
-  const intro = document.getElementById('introScreen');
-  if (intro) {
-    intro.classList.add('hide');
-    setTimeout(() => {
-      intro.style.display = 'none';
-    }, 700);
-  }
-}
 </script>
 </body>
 </html>
