@@ -1687,6 +1687,16 @@ window.addEventListener('load',function(){
   floatItem();floatItem();floatItem();
   setInterval(floatItem,4000);
 });
+<script>
+function dismissIntro() {
+    const intro = document.getElementById('introScreen');
+    if (intro) {
+        intro.classList.add('hide');
+        setTimeout(() => {
+            intro.style.display = 'none';
+        }, 700);
+    }
+}
 </script>
 </body>
 </html>
