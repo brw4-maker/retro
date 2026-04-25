@@ -1319,9 +1319,9 @@ function updateCartCount(){
 }
 function openCart(){
   document.getElementById('cartOverlay').classList.add('open');
- const msg = encodeURIComponent(`${greet.replace(/\*/g, '')}
+const msg = encodeURIComponent(`${greet.replace(/\*/g, '')}
 
-${cart.map((item, i) => `${i + 1}. ${getN(item)}`).join('\n')}
+${cart.map((item,i)=>`${i+1}. ${getN(item)}`).join('\n')}
 
 ${decodeURIComponent(footer)}`);
   const t=T[lang];
@@ -1689,13 +1689,13 @@ window.addEventListener('load',function(){
 });
 <script>
 function dismissIntro() {
-    const intro = document.getElementById('introScreen');
-    if (intro) {
-        intro.classList.add('hide');
-        setTimeout(() => {
-            intro.style.display = 'none';
-        }, 700);
-    }
+  const intro = document.getElementById('introScreen');
+  if (intro) {
+    intro.classList.add('hide');
+    setTimeout(() => {
+      intro.style.display = 'none';
+    }, 700);
+  }
 }
 </script>
 </body>
