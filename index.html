@@ -1321,6 +1321,7 @@ function openCart(){
   document.getElementById('cartOverlay').classList.add('open');
   renderCartItems();
   sfxJump&&sfxJump();
+${cart.map((item,i)=>`${i+1}. ${getN(item)}`).join('\n')}
 }
 function closeCart(){document.getElementById('cartOverlay').classList.remove('open');}
 function renderCartItems(){
