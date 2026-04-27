@@ -1378,15 +1378,15 @@ function doCheckout(){
   const itemLines = cart.map((item, i) => `${i + 1}. ${buildItemMsg(item)}`).join('\n');
   const footer=lang==='ku'?'📍 هەولێر — بازاڕی نیشتیمان — پێشانگای سامی
 ✅ فرۆشتن و چاکردنەوە
-⏰ ٩ بەیانی — ٦ ئێوارە':
-    lang==='ar'?'📍 أربيل — بازار نيشتيمان — معرض سامي
+const footer = lang === 'ku' ? `📍 هەولێر — بازاڕی نیشتیمان — پێشانگای سامی
+✅ فرۆشتن و چاکردنەوە
+⏰ ٩ بەیانی — ٦ ئێوارە` :
+    lang === 'ar' ? `📍 أربيل — بازار نيشتيمان — معرض سامي
 ✅ بيع وإصلاح
-⏰ ٩ ص — ٦ م':
-    '📍 Erbil — Nishtiman Bazaar — Sami Gallery
+⏰ ٩ ص — ٦ م` :
+    `📍 Erbil — Nishtiman Bazaar — Sami Gallery
 ✅ Sales & Repair
-⏰ 9AM — 6PM';
-  const fullMsg=`${greet}
-
+⏰ 9AM — 6PM`;
 ${'─'.repeat(30)}
 ${itemLines}
 ${'─'.repeat(30)}
