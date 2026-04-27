@@ -1375,7 +1375,7 @@ function buildItemMsg(item){
 function doCheckout(){
   if(!cart.length)return;
   const greet=lang==='ku'?'🛒 RETRO ERBIL — داواکاری کڕین':lang==='ar'?'🛒 RETRO ERBIL — طلب شراء':'🛒 RETRO ERBIL — Purchase Request';
- ${cart.map((item,i)=>`${i+1}. ${getN(item)}`).join('\n')}
+  const itemLines=cart.map((item,i)=>`${i+1}. ${buildItemMsg(item)}`).join('
 
 ');
   const footer=lang==='ku'?'📍 هەولێر — بازاڕی نیشتیمان — پێشانگای سامی
