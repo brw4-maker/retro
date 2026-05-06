@@ -123,7 +123,22 @@ body{font-family:'Courier Prime',monospace;background:var(--dark);color:var(--te
 .lang-btn.active{border-color:var(--gold);color:var(--gold);background:#1a1a06}
 
 /* ─── HERO ─── */
-.hero{padding:2.8rem 2rem 2rem;text-align:center;border-bottom:2px solid var(--border2);position:relative;overflow:hidden}
+.hero{
+  padding:3.5rem 2rem 3rem;text-align:center;border-bottom:2px solid var(--border2);
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,rgba(6,6,8,.95) 0%,rgba(10,10,18,.98) 50%,rgba(8,8,14,.95) 100%);
+  transform-style:preserve-3d;
+  transition:transform .08s ease-out;
+}
+/* 3D floating orbs behind hero */
+.hero-orb{
+  position:absolute;border-radius:50%;pointer-events:none;
+  filter:blur(60px);animation:orbFloat ease-in-out infinite;
+}
+.hero-orb.o1{width:300px;height:300px;background:rgba(245,200,66,.07);top:-80px;left:-60px;animation-duration:8s}
+.hero-orb.o2{width:250px;height:250px;background:rgba(37,211,102,.05);top:20px;right:-40px;animation-duration:11s;animation-delay:-3s}
+.hero-orb.o3{width:200px;height:200px;background:rgba(74,158,255,.06);bottom:-60px;left:40%;animation-duration:9s;animation-delay:-5s}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(20px,-30px) scale(1.1)}66%{transform:translate(-15px,20px) scale(.95)}}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% -20%,rgba(245,200,66,.09) 0%,transparent 55%),repeating-linear-gradient(90deg,transparent,transparent 80px,rgba(245,200,66,.015) 80px,rgba(245,200,66,.015) 81px)}
 .hero::before,.hero::after{content:'';position:absolute;left:0;right:0;height:1px;background:repeating-linear-gradient(90deg,transparent,transparent 10px,var(--gold3) 10px,var(--gold3) 16px)}
 .hero::before{top:0}.hero::after{bottom:0}
@@ -507,6 +522,150 @@ body::before{
 }
 
 
+
+/* ══ GLASSMORPHISM ══ */
+.glass{
+  background:rgba(255,255,255,.03);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.06);
+  box-shadow:0 8px 32px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.05);
+}
+.glass-gold{
+  background:rgba(245,200,66,.04);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(245,200,66,.12);
+  box-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 1px 0 rgba(245,200,66,.08),0 0 60px rgba(245,200,66,.04);
+}
+/* Cards get glassmorphism */
+.card{
+  background:rgba(14,14,18,.85);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.05);
+}
+.card:hover{
+  background:rgba(20,20,28,.9);
+  border-color:rgba(245,200,66,.4);
+  box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 80px rgba(245,200,66,.08),inset 0 1px 0 rgba(245,200,66,.1);
+}
+/* Modal glassmorphism */
+.modal{
+  background:rgba(8,8,14,.92);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(245,200,66,.2);
+  box-shadow:0 32px 80px rgba(0,0,0,.7),inset 0 1px 0 rgba(245,200,66,.08);
+}
+/* About box glass */
+.about-box{
+  background:rgba(10,10,16,.8);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(245,200,66,.1);
+  box-shadow:0 16px 48px rgba(0,0,0,.4),inset 0 1px 0 rgba(245,200,66,.06);
+}
+/* Nav glass */
+nav{
+  background:rgba(5,5,8,.85);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(245,200,66,.08);
+  box-shadow:0 4px 24px rgba(0,0,0,.4);
+}
+/* Contact card glass */
+.contact-card{
+  background:rgba(8,8,14,.7);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.05);
+}
+/* Lang bar glass */
+.lang-bar{
+  background:rgba(4,4,6,.8);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+
+/* ══ FLOATING ELEMENTS ══ */
+.float-el{
+  position:fixed;pointer-events:none;z-index:1;
+  font-size:clamp(16px,2vw,24px);
+  animation:floatEl var(--fdur,12s) ease-in-out var(--fdel,0s) infinite;
+  opacity:0;
+}
+@keyframes floatEl{
+  0%{transform:translate(0,8px) rotate(0deg);opacity:0}
+  10%{opacity:.35}
+  50%{transform:translate(var(--fx,20px),calc(-30px + var(--fy,0px))) rotate(var(--fr,15deg));opacity:.25}
+  90%{opacity:.3}
+  100%{transform:translate(0,8px) rotate(0deg);opacity:0}
+}
+
+/* 3D Hero inner content */
+.hero-inner{
+  position:relative;z-index:2;
+  transform-style:preserve-3d;
+}
+.logo{
+  transform-style:preserve-3d;
+  transition:transform .3s ease;
+}
+.tagline{
+  display:inline-block;
+  background:rgba(245,200,66,.06);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(245,200,66,.1);
+  border-radius:3px;
+  padding:6px 20px;
+  margin-top:.8rem;
+  box-shadow:inset 0 1px 0 rgba(245,200,66,.08);
+}
+.hero-badge{
+  background:rgba(255,255,255,.04);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+  transition:all .2s;
+}
+.hero-badge:hover{
+  background:rgba(245,200,66,.08);
+  border-color:rgba(245,200,66,.2);
+  transform:translateY(-2px) translateZ(6px);
+}
+
+/* ══ 3D GRID BACKGROUND ══ */
+.grid-3d{
+  position:fixed;bottom:0;left:0;width:100%;height:45vh;
+  pointer-events:none;z-index:0;
+  background:
+    linear-gradient(transparent 0%,rgba(245,200,66,.02) 100%),
+    repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(245,200,66,.04) 59px,rgba(245,200,66,.04) 60px),
+    repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(245,200,66,.04) 59px,rgba(245,200,66,.04) 60px);
+  transform:perspective(400px) rotateX(55deg);
+  transform-origin:bottom center;
+  animation:gridPulse 4s ease-in-out infinite;
+}
+@keyframes gridPulse{0%,100%{opacity:.6}50%{opacity:1}}
+
+/* Glow line on hero */
+.hero-glow-line{
+  position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(245,200,66,.4),rgba(37,211,102,.2),rgba(245,200,66,.4),transparent);
+  animation:glowLine 3s ease-in-out infinite;
+}
+@keyframes glowLine{0%,100%{opacity:.5;filter:blur(0px)}50%{opacity:1;filter:blur(1px)}}
+
+/* ══ SECTION DIVIDERS ══ */
+.section-header::after{
+  content:'';display:block;width:100%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(245,200,66,.3),transparent);
+  margin-top:.6rem;
+}
+
 @media(max-width:600px){
   .nav-btn{padding:10px 14px;font-size:16px}
   .hero{padding:2rem 1rem 1.5rem}
@@ -563,15 +722,23 @@ body::before{
 </div>
 
 <!-- ══ HERO ══ -->
-<div class="hero">
+<div class="hero" id="heroSection">
+  <!-- Orbs -->
+  <div class="hero-orb o1"></div>
+  <div class="hero-orb o2"></div>
+  <div class="hero-orb o3"></div>
   <div class="hero-bg"></div>
-  <div class="logo">RETRO ERBIL<span class="logo-sub">CLASSIC GAMING COLLECTION</span></div>
-  <div class="tagline">INSERT COIN TO CONTINUE <span class="blink">█</span></div>
-  <div class="hero-badges">
-    <span class="hero-badge">★ SINCE 2002</span>
-    <span class="hero-badge">🎮 CONSOLES &amp; GAMES</span>
-    <span class="hero-badge">★ HEWLÊR, KURDISTAN</span>
+  <div class="hero-inner" id="heroInner">
+    <div class="logo" id="heroLogo">RETRO ERBIL<span class="logo-sub">CLASSIC GAMING COLLECTION</span></div>
+    <div class="tagline">INSERT COIN TO CONTINUE <span class="blink">█</span></div>
+    <div class="hero-badges" style="margin-top:1.5rem">
+      <span class="hero-badge">★ SINCE 2002</span>
+      <span class="hero-badge">🎮 CONSOLES &amp; GAMES</span>
+      <span class="hero-badge">★ HEWLÊR, KURDISTAN</span>
+      <span class="hero-badge">🔧 SALES &amp; REPAIR</span>
+    </div>
   </div>
+  <div class="hero-glow-line"></div>
 </div>
 
 <!-- ══ NAV ══ -->
@@ -1570,6 +1737,139 @@ const origBuildTab=window.buildTab;
   document.addEventListener('touchend',()=>{
     document.querySelectorAll('.card,.parts-card').forEach(reset3DTilt);
   });
+
+})();
+
+
+// ══════════════════════════════════════════════════════════════
+//  3D HERO + GLASSMORPHISM + MOUSE INTERACTION
+// ══════════════════════════════════════════════════════════════
+(function(){
+
+  // ── HERO 3D MOUSE PARALLAX ────────────────────────────────
+  const hero=document.getElementById('heroSection');
+  const heroInner=document.getElementById('heroInner');
+  const heroLogo=document.getElementById('heroLogo');
+  if(hero&&heroInner){
+    let tX=0,tY=0,cX=0,cY=0;
+    function lerpHero(){
+      cX+=(tX-cX)*.08;cY+=(tY-cY)*.08;
+      if(hero){
+        hero.style.transform=`perspective(1000px) rotateX(${cY}deg) rotateY(${cX}deg)`;
+      }
+      if(heroInner){
+        heroInner.style.transform=`translateZ(30px) rotateX(${-cY*.3}deg) rotateY(${-cX*.3}deg)`;
+      }
+      if(heroLogo){
+        heroLogo.style.transform=`translateZ(50px) rotateX(${-cY*.5}deg) rotateY(${-cX*.5}deg)`;
+        heroLogo.style.textShadow=`${cX*2}px ${cY*2}px 0 rgba(138,111,0,.6),${cX*4}px ${cY*4}px 20px rgba(0,0,0,.5)`;
+      }
+      requestAnimationFrame(lerpHero);
+    }
+    lerpHero();
+    window.addEventListener('mousemove',e=>{
+      const cx=window.innerWidth/2,cy=window.innerHeight/2;
+      tX=(e.clientX-cx)/cx*6;
+      tY=(e.clientY-cy)/cy*-4;
+    });
+    window.addEventListener('mouseleave',()=>{tX=0;tY=0;});
+    // Touch
+    window.addEventListener('touchmove',e=>{
+      const t=e.touches[0];
+      const cx=window.innerWidth/2,cy=window.innerHeight/2;
+      tX=(t.clientX-cx)/cx*4;tY=(t.clientY-cy)/cy*-3;
+    },{passive:true});
+    window.addEventListener('touchend',()=>{tX=0;tY=0;});
+  }
+
+  // ── CARD 3D TILT ──────────────────────────────────────────
+  let lastCard=null;
+  function tiltCard(el,e){
+    const r=el.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    const rx=y*-20,ry=x*20;
+    el.style.transform=`perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(20px) scale(1.03)`;
+    // Dynamic light
+    el.style.background=`radial-gradient(circle at ${(x+.5)*100}% ${(y+.5)*100}%,rgba(245,200,66,.06) 0%,rgba(14,14,18,.9) 60%)`;
+    el.style.boxShadow=`${-ry*.8}px ${rx*.8}px 30px rgba(0,0,0,.5),0 0 40px rgba(245,200,66,.07),inset 0 1px 0 rgba(245,200,66,.1)`;
+  }
+  function resetCard(el){
+    el.style.transform='';el.style.background='';el.style.boxShadow='';
+  }
+  document.addEventListener('mousemove',e=>{
+    const card=e.target.closest('.card,.parts-card');
+    if(card){if(card!==lastCard&&lastCard)resetCard(lastCard);lastCard=card;tiltCard(card,e);}
+    else if(lastCard){resetCard(lastCard);lastCard=null;}
+  });
+
+  // ── CURSOR GLOW ───────────────────────────────────────────
+  const glow=document.createElement('div');
+  glow.style.cssText=`position:fixed;width:300px;height:300px;pointer-events:none;z-index:9998;border-radius:50%;
+    background:radial-gradient(circle,rgba(245,200,66,.04) 0%,transparent 70%);
+    transform:translate(-50%,-50%);transition:opacity .3s;`;
+  document.body.appendChild(glow);
+  let glowX=0,glowY=0,glowTX=0,glowTY=0;
+  window.addEventListener('mousemove',e=>{glowTX=e.clientX;glowTY=e.clientY;});
+  (function animGlow(){
+    glowX+=(glowTX-glowX)*.12;glowY+=(glowTY-glowY)*.12;
+    glow.style.left=glowX+'px';glow.style.top=glowY+'px';
+    requestAnimationFrame(animGlow);
+  })();
+
+  // ── GLASS EFFECT ON SCROLL ────────────────────────────────
+  const nav=document.querySelector('nav');
+  window.addEventListener('scroll',()=>{
+    if(!nav)return;
+    const scrolled=window.scrollY>60;
+    nav.style.background=scrolled?'rgba(5,5,8,.95)':'rgba(5,5,8,.85)';
+    nav.style.boxShadow=scrolled?'0 4px 30px rgba(0,0,0,.6)':'0 4px 24px rgba(0,0,0,.4)';
+  },{passive:true});
+
+  // ── FLOATING ELEMENTS MOUSE REACT ─────────────────────────
+  const floaters=document.querySelectorAll('.float-el');
+  window.addEventListener('mousemove',e=>{
+    const cx=window.innerWidth/2,cy=window.innerHeight/2;
+    floaters.forEach((el,i)=>{
+      const depth=(i%3+1)*.5;
+      const dx=(e.clientX-cx)/cx*12*depth;
+      const dy=(e.clientY-cy)/cy*8*depth;
+      el.style.marginLeft=dx+'px';
+      el.style.marginTop=dy+'px';
+    });
+  });
+
+  // ── PARTICLE BURST ON CLICK ──────────────────────────────
+  document.addEventListener('click',e=>{
+    if(e.target.closest('button,a,input,textarea,select'))return;
+    for(let i=0;i<6;i++){
+      const p=document.createElement('div');
+      const angle=Math.random()*Math.PI*2;
+      const dist=30+Math.random()*50;
+      p.style.cssText=`position:fixed;left:${e.clientX}px;top:${e.clientY}px;width:4px;height:4px;
+        background:rgba(245,200,66,.8);border-radius:50%;pointer-events:none;z-index:9999;
+        transition:all .6s ease-out;`;
+      document.body.appendChild(p);
+      requestAnimationFrame(()=>{
+        p.style.transform=`translate(${Math.cos(angle)*dist}px,${Math.sin(angle)*dist}px)`;
+        p.style.opacity='0';
+        p.style.width='2px';p.style.height='2px';
+      });
+      setTimeout(()=>p.remove(),700);
+    }
+  });
+
+  // ── LOGO SPIN ON CLICK ────────────────────────────────────
+  const logo=document.getElementById('heroLogo');
+  if(logo){
+    logo.style.cursor='pointer';
+    logo.addEventListener('click',()=>{
+      logo.style.transition='transform .7s cubic-bezier(.34,1.56,.64,1)';
+      logo.style.transform='rotateY(720deg) scale(1.08) translateZ(60px)';
+      setTimeout(()=>{logo.style.transition='';logo.style.transform='';},800);
+      try{sfxPowerup&&sfxPowerup();}catch(e){}
+    });
+  }
 
 })();
 
