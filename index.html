@@ -1479,7 +1479,13 @@ document.addEventListener('click',e=>{
 });
 
 (function(){const cube=document.getElementById('introCube');if(!cube)return;document.getElementById('intro')?.addEventListener('mousemove',()=>{cube.style.animationDuration='2s';clearTimeout(cube._t);cube._t=setTimeout(()=>{cube.style.animationDuration='8s';},800);});})();
+const intro = document.getElementById('intro');
 
+if (intro) {
+    intro.addEventListener('click', () => {
+        intro.classList.add('hide');
+    });
+}
 </script>
 </body>
 </html>
